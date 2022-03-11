@@ -1,10 +1,8 @@
-﻿using AgileIM.Shared.Models.Im;
-
+﻿using AgileIM.IM.Models;
 using Newtonsoft.Json;
-
 using StackExchange.Redis;
 
-namespace AgileIM.Service.Helper
+namespace AgileIM.IM.Helper
 {
     public class ImHelper
     {

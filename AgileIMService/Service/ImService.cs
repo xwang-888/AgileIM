@@ -1,7 +1,8 @@
-﻿using AgileIM.Service.Helper;
-using AgileIM.Shared.Models.Im;
+﻿
 
 using System.Text.RegularExpressions;
+using AgileIM.IM.Helper;
+using AgileIM.IM.Models;
 
 namespace AgileIM.Service.Service
 {

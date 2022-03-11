@@ -1,4 +1,4 @@
-﻿using AgileIM.Shared.Models.Im;
+﻿using AgileIM.IM.Models;
 
 namespace AgileIM.Service.Service
 {

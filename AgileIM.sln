@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileIM.Service", "AgileIMService\AgileIM.Service.csproj", "{EEEED306-6B2A-4003-97A0-96A51A77FD21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Service", "AgileIMService\AgileIM.Service.csproj", "{EEEED306-6B2A-4003-97A0-96A51A77FD21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileIM.Shared", "AgileIM.Shared\AgileIM.Shared.csproj", "{E79C6FA0-CBA5-42E9-9E1D-480B106DD6B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Shared", "AgileIM.Shared\AgileIM.Shared.csproj", "{E79C6FA0-CBA5-42E9-9E1D-480B106DD6B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AhileIM.Web", "AhileIM.Web\AhileIM.Web.csproj", "{E67D86C1-B78D-447C-9384-5934D97D6EBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AhileIM.Web", "AhileIM.Web\AhileIM.Web.csproj", "{E67D86C1-B78D-447C-9384-5934D97D6EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileIM.IM", "AgileIM.IM\AgileIM.IM.csproj", "{222B54D2-5DE0-4153-9EF4-9B5F309D8F01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E67D86C1-B78D-447C-9384-5934D97D6EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E67D86C1-B78D-447C-9384-5934D97D6EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E67D86C1-B78D-447C-9384-5934D97D6EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222B54D2-5DE0-4153-9EF4-9B5F309D8F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222B54D2-5DE0-4153-9EF4-9B5F309D8F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222B54D2-5DE0-4153-9EF4-9B5F309D8F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222B54D2-5DE0-4153-9EF4-9B5F309D8F01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

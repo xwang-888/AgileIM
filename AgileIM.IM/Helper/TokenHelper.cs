@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 
-using static AgileIM.Service.Helper.TokenHelper;
+using Microsoft.AspNetCore.Http;
 
-namespace AgileIM.Service.Helper
+namespace AgileIM.IM.Helper
 {
     public class TokenHelper
     {

@@ -8,12 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.5.43" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AgileIM.IM\AgileIM.IM.csproj" />
     <ProjectReference Include="..\AgileIM.Shared\AgileIM.Shared.csproj" />
   </ItemGroup>
 

@@ -1,13 +1,15 @@
-﻿using AgileIM.Shared.Models.Im;
-
-using Newtonsoft.Json;
-
-using StackExchange.Redis;
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using System.Text;
+using AgileIM.IM.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using StackExchange.Redis;
+using Microsoft.AspNetCore.WebSockets;
+using Microsoft.Extensions.Configuration;
 
-namespace AgileIM.Service.Helper
+namespace AgileIM.IM.Helper
 {
     public class ImServer
     {
@@ -64,16 +66,23 @@ namespace AgileIM.Service.Helper
                     while (socket.State == WebSocketState.Open && _clients.ContainsKey(clientId))
                     {
                         var wsReceive = await socket.ReceiveAsync(buffer, default);
-                        var str = System.Text.Encoding.UTF8.GetString(buffer);
-                        var msg = JsonConvert.DeserializeObject<Message>(str);
-                        if (msg is null) continue;
-
-                        if (msg.MsgType == MsgType.Heartbeat)
+                        try
                         {
-                            await socket.SendAsync(buffer, WebSocketMessageType.Text,
-                                true, CancellationToken.None);
+                            var str = Encoding.UTF8.GetString(buffer);
+                            if (string.IsNullOrEmpty(str)) continue;
+
+                            var msg = JsonConvert.DeserializeObject<Message>(str);
+                            if (msg?.MsgType == MsgType.Heartbeat)
+                            {
+                                var outgoing = new ArraySegment<byte>(buffer, 0, wsReceive.Count);
+                                await socket.SendAsync(outgoing, WebSocketMessageType.Text,
+                                    true, CancellationToken.None);
+                            }
                         }
-                        var outgoing = new ArraySegment<byte>(buffer, 0, wsReceive.Count);
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                     }
                     socket.Abort();
                 }
@@ -197,6 +206,9 @@ namespace AgileIM.Service.Helper
         private static bool _isUseWebSockets = false;
         public static IApplicationBuilder UseImServer(this IApplicationBuilder app)
         {
+            var config = app.ApplicationServices.GetService(typeof(IConfiguration)) as IConfiguration;
+            config?.InitRedisManager();
+
             app.Map(PathMatch, appCut =>
             {
                 var imServer = new ImServer();

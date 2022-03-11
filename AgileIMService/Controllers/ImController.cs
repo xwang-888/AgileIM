@@ -1,10 +1,9 @@
 ﻿using AgileIM.Service.Service;
 using AgileIM.Shared.Models.ApiResult;
-using AgileIM.Shared.Models.Im;
 
 using Microsoft.AspNetCore.Mvc;
 
-using System.Text.RegularExpressions;
+using AgileIM.IM.Models;
 
 namespace AgileIM.Service.Controllers
 {

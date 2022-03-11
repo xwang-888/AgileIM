@@ -1,15 +1,17 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace AgileIM.Service.Helper
+using StackExchange.Redis;
+
+namespace AgileIM.IM.Helper
 {
-    public class RedisManager
+    public static class RedisManager
     {
 
-        public static ConnectionMultiplexer redisManager;
+        public static ConnectionMultiplexer? redisManager;
 
-        IDatabase? _db;
+        static IDatabase? _db;
 
-        public void InitConnect(IConfiguration configuration)
+        public static void InitRedisManager(this IConfiguration configuration)
         {
             try
             {
