@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Window.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.TextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Button.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style BasedOn="{StaticResource BaseTextBoxStyle}" TargetType="TextBox" />
+    <Style BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button" />
+    <Style BasedOn="{StaticResource BaseWindowsStyle}" TargetType="controls:CustomWindow" />
+</ResourceDictionary>
