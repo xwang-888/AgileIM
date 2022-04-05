@@ -8,7 +8,8 @@
         <Setter Property="FontSize" Value="13" />
         <Setter Property="Padding" Value="5,1,5,1" />
         <Setter Property="BorderThickness" Value="1.1" />
-        <Setter Property="BorderBrush" Value="#C3D2DE" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryCardBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">

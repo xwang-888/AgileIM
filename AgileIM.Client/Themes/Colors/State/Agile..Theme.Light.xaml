@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="PrimaryCardTranslucentBrush" Color="#E1E1E6E8" />
+    <SolidColorBrush x:Key="PrimaryCardBrush" Color="#E1E6E8" />
+    <SolidColorBrush x:Key="PrimaryBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="PrimaryCardLightBrush" Color="#FAFAFA" />
+    <SolidColorBrush x:Key="PrimaryTitleBrush" Color="#464C5B" />
+    <!--  7E8083  -->
+    <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="#43494B" />
+    <SolidColorBrush x:Key="PrimaryDisabledBrush" Color="#C3CBD6" />
+    <SolidColorBrush x:Key="PrimaryBorderBrush" Color="#D7DDE4" />
+    <SolidColorBrush x:Key="ToolTipBackground"  Color="#757575" />
+    <SolidColorBrush x:Key="ToolTipForeground"  Color="#FFfafafa" />
+</ResourceDictionary>

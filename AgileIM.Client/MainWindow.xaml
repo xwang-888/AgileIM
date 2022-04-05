@@ -138,8 +138,11 @@
                                             Height="35"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Center"
+                                            Background="#1E90FF"
+                                            BorderThickness="0"
                                             Content="新建"
-                                            FontSize="16" />
+                                            FontSize="16"
+                                            Foreground="White" />
                                     </Grid>
                                     <Border
                                         Height="1"
@@ -204,15 +207,18 @@
                                     TextWrapping="Wrap" />
                                 <Grid
                                     Grid.Row="2"
-                                    Height="35"
+                                    Height="30"
                                     Margin="10">
                                     <Button
                                         Width="80"
                                         Height="35"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
+                                        Background="#1E90FF"
+                                        BorderThickness="0"
                                         Content="发送"
-                                        FontSize="16" />
+                                        FontSize="16"
+                                        Foreground="White" />
                                 </Grid>
                             </Grid>
                         </Border>

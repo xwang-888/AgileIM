@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+
+    <Color x:Key="Primary1">#fffbe6</Color>
+    <Color x:Key="Primary1Foreground">#DD000000</Color>
+    <Color x:Key="Primary2">#fff1b8</Color>
+    <Color x:Key="Primary2Foreground">#DD000000</Color>
+    <Color x:Key="Primary3">#ffe58f</Color>
+    <Color x:Key="Primary3Foreground">#DD000000</Color>
+    <Color x:Key="Primary4">#ffd666</Color>
+    <Color x:Key="Primary4Foreground">#DD000000</Color>
+    <Color x:Key="Primary5">#ffc53d</Color>
+    <Color x:Key="Primary5Foreground">#DD000000</Color>
+    <Color x:Key="Primary6">#faad14</Color>
+    <Color x:Key="Primary6Foreground">#FFFFFF</Color>
+    <Color x:Key="Primary7">#d48806</Color>
+    <Color x:Key="Primary7Foreground">#FFFFFF</Color>
+    <Color x:Key="Primary8">#ad6800</Color>
+    <Color x:Key="Primary8Foreground">#FFFFFF</Color>
+    <Color x:Key="Primary9">#874d00</Color>
+    <Color x:Key="Primary9Foreground">#FFFFFF</Color>
+    <Color x:Key="Primary10">#613400</Color>
+    <Color x:Key="Primary10Foreground">#FFFFFF</Color>
+
+    <SolidColorBrush
+        x:Key="PrimaryHueLightBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary3}" />
+    <SolidColorBrush
+        x:Key="PrimaryHueLightForegroundBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary3Foreground}" />
+    <SolidColorBrush
+        x:Key="PrimaryHueMidBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary6}" />
+    <SolidColorBrush
+        x:Key="PrimaryHueMidForegroundBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary6Foreground}" />
+    <SolidColorBrush
+        x:Key="PrimaryHueDarkBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary7}" />
+    <SolidColorBrush
+        x:Key="PrimaryHueDarkForegroundBrush"
+        po:Freeze="True"
+        Color="{StaticResource Primary7Foreground}" />
+
+</ResourceDictionary>

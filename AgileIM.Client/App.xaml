@@ -5,6 +5,12 @@
     xmlns:local="clr-namespace:AgileIM.Client"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/AgileIM.Client.Themes.Defaults.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/AgileIM.Client.Themes.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/State/Agile..Theme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/Agile..Colors.DaybreakBlue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
