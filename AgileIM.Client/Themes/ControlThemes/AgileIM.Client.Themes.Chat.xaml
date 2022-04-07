@@ -2,6 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:AgileIM.Client.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Icons/AgileIM.Client.Themes.Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <ControlTemplate x:Key="ChatMessageTemplate" TargetType="controls:ChatMessage">
         <Grid Margin="5">
             <Grid ShowGridLines="False">
@@ -23,8 +26,16 @@
                     HorizontalAlignment="Left">
                     <Border
                         Name="Border"
-                        Background="{DynamicResource PrimaryCardBrush}"
-                        CornerRadius="10" />
+                        Background="{DynamicResource PrimaryBackground}"
+                        CornerRadius="10">
+                        <!--<Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="5"
+                                Opacity=".2"
+                                ShadowDepth="1"
+                                Color="Black" />
+                        </Border.Effect>-->
+                    </Border>
                     <TextBox
                         Margin="5"
                         VerticalAlignment="Center"
@@ -39,7 +50,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger SourceName="Grid" Property="IsMouseOver" Value="True">
-                <Setter TargetName="Border" Property="Opacity" Value=".8" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryCardTranslucentBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -67,7 +78,7 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryHueLightBrush}"
-                        CornerRadius="10" />
+                        CornerRadius="10 10 10 10" />
                     <TextBox
                         Margin="5"
                         VerticalAlignment="Center"
@@ -98,6 +109,7 @@
         </Style.Triggers>
     </Style>
     <Style TargetType="controls:ChatPanel">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ChatPanel">
@@ -107,7 +119,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Grid Height="30" Margin="25">
+                            <Grid Height="30" Margin="15,25">
                                 <TextBlock FontSize="18" Text="{TemplateBinding OtherNick}" />
                                 <Border
                                     Height="1"
@@ -125,13 +137,16 @@
                                         Width="15"
                                         Height="20"
                                         Data="{StaticResource More}"
-                                        Fill="{DynamicResource PrimaryForegroundBrush}"
+                                        Fill="{DynamicResource PrimaryBody}"
                                         Stretch="Uniform" />
                                 </Button>
                             </Grid>
-                            <Grid Grid.Row="1" Margin="0,-22,0,0">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{TemplateBinding ItemsSource}">
+                            <Grid Grid.Row="1" Margin="15,-20,15,0">
+                                <ScrollViewer
+                                    FocusVisualStyle="{x:Null}"
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl FocusVisualStyle="{x:Null}" ItemsSource="{TemplateBinding ItemsSource}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChatMessage

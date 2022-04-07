@@ -37,6 +37,16 @@ namespace AgileIM.Client.Models
 
         private MessageDto? _lastMessage;
         private ObservableCollection<MessageDto> _messages = new();
+        private bool _isUnreadMessage=true;
+
+        /// <summary>
+        /// 是否有未读消息
+        /// </summary>
+        public bool IsUnreadMessage
+        {
+            get => _isUnreadMessage;
+            set => SetProperty(ref _isUnreadMessage, value);
+        }
         /// <summary>
         /// 最后一条消息
         /// </summary>

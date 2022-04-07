@@ -10,7 +10,7 @@ namespace AgileIM.Client.Themes.Assist
     public static class ControlAssist
     {
 
-        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(ControlAssist), new PropertyMetadata(new CornerRadius(3)));
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(ControlAssist), new PropertyMetadata(new CornerRadius(4)));
         public static CornerRadius GetCornerRadius(DependencyObject element) => (CornerRadius)element.GetValue(CornerRadiusProperty);
         public static void SetCornerRadius(DependencyObject element, CornerRadius value) =>
             element.SetValue(CornerRadiusProperty, value);
