@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AgileIM.Client.ViewModels;
 
 namespace AgileIM.Client
 {
@@ -30,6 +31,7 @@ namespace AgileIM.Client
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
 
 

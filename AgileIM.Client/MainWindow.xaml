@@ -33,60 +33,27 @@
                 ZIndex="0">
                 <ListBox
                     Margin="0,10,0,0"
-                    Background="Transparent"
-                    BorderThickness="0">
+                    SelectedIndex="0"
+                    Style="{StaticResource MenuListBoxStyle}">
                     <ListBoxItem>
-                        <Border
-                            MinWidth="60"
-                            MinHeight="55"
-                            Background="White"
-                            CornerRadius="10">
-                            <Grid>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Border
-                                        Width="3"
-                                        Margin="2,12"
-                                        Background="DodgerBlue"
-                                        CornerRadius="2" />
-
-                                </Grid>
-                                <Path
-                                    Width="25"
-                                    Height="25"
-                                    Fill="Gray"
-                                    Stretch="Uniform">
-                                    <Path.Data>
-                                        M238.323409 764.78426c-106.980523-71.483054-175.933965-183.867658-175.933965-310.253136 0-215.956493 201.304795-391.012462 449.610044-391.012462 248.304226 0 449.610044 175.055968 449.610044 391.012462 0 215.94626-201.305819 391.004275-449.610044 391.004275-44.1178 0-86.74669-5.51869-127.026068-15.817244l-115.380844 87.308485c-17.276479 13.057387-31.270191 6.196119-31.270191-15.385409L238.322385 764.78426zM785.674545 513.176802c32.395828 0 58.644655-26.258037 58.644655-58.645678 0-32.395828-26.247804-58.653865-58.644655-58.653865s-58.645678 26.258037-58.645678 58.653865C727.02989 486.918765 753.278717 513.176802 785.674545 513.176802zM511.999488 513.176802c32.394804 0 58.644655-26.258037 58.644655-58.645678 0-32.395828-26.248827-58.653865-58.644655-58.653865-32.395828 0-58.645678 26.258037-58.645678 58.653865C453.35381 486.918765 479.603661 513.176802 511.999488 513.176802zM238.323409 513.176802c32.395828 0 58.645678-26.258037 58.645678-58.645678 0-32.395828-26.248827-58.653865-58.645678-58.653865s-58.644655 26.258037-58.644655 58.653865C179.678754 486.918765 205.926558 513.176802 238.323409 513.176802z
-                                    </Path.Data>
-                                </Path>
-                            </Grid>
-                        </Border>
+                        <Grid>
+                            <Path
+                                Width="25"
+                                Height="25"
+                                Data="{StaticResource Forum}"
+                                Fill="Gray"
+                                Stretch="Uniform" />
+                        </Grid>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Border
-                            MinWidth="60"
-                            MinHeight="45"
-                            CornerRadius="10">
+                        <Border>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
                                 <Path
-                                    Grid.Column="1"
                                     Width="25"
                                     Height="25"
+                                    Data="{StaticResource Account-Multiple}"
                                     Fill="Gray"
-                                    Stretch="Uniform">
-                                    <Path.Data>
-                                        M672 528c132.548 0 240 107.452 240 240v80c0 70.692-57.308 128-128 128H192c-70.692 0-128-57.308-128-128v-80c0-132.548 107.452-240 240-240h368z m256-112c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32h-64c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32h64zM672 32c17.673 0 32 14.327 32 32v184c0 119.294-96.706 216-216 216h-16c-119.294 0-216-96.706-216-216S352.706 32 472 32h200z m256 224c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32H800c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32h128z
-                                    </Path.Data>
-                                </Path>
+                                    Stretch="Uniform" />
                             </Grid>
                         </Border>
                     </ListBoxItem>
@@ -151,6 +118,13 @@
                                         Background="Gray"
                                         Opacity=".2" />
                                 </Grid>
+                                <Grid Grid.Row="1">
+                                    <ListBox
+                                        ItemsSource="{Binding ChatUserList}"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        Style="{StaticResource ContactsListBoxStyle}" />
+                                </Grid>
                             </Grid>
                         </Border>
                     </Grid>
@@ -161,19 +135,46 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid Height="30" Margin="25">
-                                <TextBlock FontSize="18" Text="Admin" />
+                                <TextBlock FontSize="18" Text="自然醒123" />
                                 <Border
                                     Height="1"
                                     Margin="0,10,0,0"
                                     VerticalAlignment="Bottom"
                                     Background="Gray"
                                     Opacity=".2" />
+                                <Button
+                                    Width="30"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Background="Transparent">
+                                    <Path
+                                        Width="15"
+                                        Height="20"
+                                        Data="{StaticResource More}"
+                                        Fill="{DynamicResource PrimaryForegroundBrush}"
+                                        Stretch="Uniform" />
+                                </Button>
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="0,-22,0,0">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl>
+                                        <controls:ChatMessage Text="你好！！！" />
+                                        <controls:ChatMessage Text="你好！！！" />
+                                        <controls:ChatMessage Text="你好！！！" />
+                                        <controls:ChatMessage Text="很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的" />
+                                        <controls:ChatMessage IsSelf="True" Text="很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的" />
+                                        <controls:ChatMessage Text="你好！！！" />
+                                        <controls:ChatMessage IsSelf="True" Text="很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的" />
+                                        <controls:ChatMessage IsSelf="True" Text="很不错的是大飒飒的和萨达萨达是阿达萨达萨达大苏打实打实的" />
+                                    </ItemsControl>
+                                </ScrollViewer>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid Grid.Column="1" Row="1">
                         <Border
-                            Height="200"
+                            Height="150"
                             Margin="10,10,15,15"
                             Background="#ffff"
                             CornerRadius="6">
@@ -196,18 +197,44 @@
                                         VerticalAlignment="Bottom"
                                         Background="Gray"
                                         Opacity=".2" />
+                                    <WrapPanel>
+                                        <WrapPanel.Resources>
+                                            <Style BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                                                <Setter Property="Width" Value="30" />
+                                                <Setter Property="Height" Value="30" />
+                                                <Setter Property="Background" Value="Transparent" />
+                                            </Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Width" Value="15" />
+                                                <Setter Property="Height" Value="15" />
+                                                <Setter Property="Opacity" Value=".7" />
+                                                <Setter Property="Stretch" Value="UniformToFill" />
+                                                <Setter Property="Fill" Value="{DynamicResource PrimaryForegroundBrush}" />
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                        <Button>
+                                            <Path Data="{StaticResource Emoticon-Outline}" />
+                                        </Button>
+                                        <Button>
+                                            <Path Data="{StaticResource Content-Cut}" />
+                                        </Button>
+                                        <Button>
+                                            <Path Width="17" Data="{StaticResource Chat-Processing}" />
+                                        </Button>
+                                    </WrapPanel>
                                 </Grid>
                                 <TextBox
                                     Grid.Row="1"
-                                    Margin="10"
+                                    Margin="10,0"
                                     VerticalContentAlignment="Stretch"
                                     BorderThickness="0"
                                     FontSize="14"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                                     Style="{x:Null}"
                                     TextWrapping="Wrap" />
                                 <Grid
                                     Grid.Row="2"
-                                    Height="30"
+                                    Height="35"
                                     Margin="10">
                                     <Button
                                         Width="80"
