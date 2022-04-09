@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
+using AgileIM.Client.Views;
 using AgileIM.IM.Models;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -18,62 +19,28 @@ namespace AgileIM.Client.ViewModels
     {
         public MainViewModel()
         {
-            var messages = new List<MessageDto>();
-            var messages1 = new List<MessageDto>();
-            for (int i = 0; i < 12; i++)
+            MenuItems = new ObservableCollection<MenuItemModel>()
             {
-                messages.Add(new MessageDto() { IsSelf = i % 2 == 0, Text = $"消息发送{i}！！！" });
-                messages1.Add(new MessageDto() { IsSelf = i % 2 == 0, Text = $"飞翔的企鹅测试消息发送是否成功{i}！！！" });
-            }
-            ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "xwang1234", Nick = "自然醒12", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages) });
-
-            ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "flay1234", Nick = "飞翔的企鹅", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages1) });
+                new("聊天", PackIconKind.Forum,  new ChatView()),
+                new("联系人", PackIconKind.AccountMultiple, new MailListView())
+            };
+            SelectedMenuItem = MenuItems.First();
         }
-        private ObservableCollection<UserInfoDto> _chatUserList = new();
+        #region Property
+        private MenuItemModel _selectedMenuItem;
+        private ObservableCollection<MenuItemModel> _menuItems;
 
-        public ObservableCollection<UserInfoDto> ChatUserList
+        public MenuItemModel SelectedMenuItem
         {
-            get => _chatUserList;
-            set => SetProperty(ref _chatUserList, value);
+            get => _selectedMenuItem;
+            set => SetProperty(ref _selectedMenuItem, value);
         }
-
-        private UserInfoDto _selectedUserInfo;
-        private bool _sendTextIsFocus;
-
-        /// <summary>
-        /// 当前选中的user
-        /// </summary>
-        public UserInfoDto SelectedUserInfo
+        public ObservableCollection<MenuItemModel> MenuItems
         {
-            get => _selectedUserInfo;
-            set
-            {
-                SetProperty(ref _selectedUserInfo, value);
-                SendTextIsFocus = false;
-                SendTextIsFocus = true;
-                _selectedUserInfo.IsUnreadMessage = false;
+            get => _menuItems;
+            set => SetProperty(ref _menuItems, value);
+        } 
+        #endregion
 
-            }
-        }
-        /// <summary>
-        /// 发送消息文本框焦点
-        /// </summary>
-        public bool SendTextIsFocus
-        {
-            get => _sendTextIsFocus;
-            set => SetProperty(ref _sendTextIsFocus, value);
-        }
-
-
-        public ICommand SendMessageCommand => new AsyncRelayCommand(SendMessage);
-
-
-
-        private async Task SendMessage()
-        {
-            foreach (var messageDto in _selectedUserInfo.Messages)
-                messageDto.IsRead = true;
-
-        }
     }
 }

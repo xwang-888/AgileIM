@@ -1,21 +1,46 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using AgileIM.Client.Models;
 
 namespace AgileIM.Client.Controls
 {
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     public class ChatPanel : ItemsControl
     {
+        public ChatPanel()
+        {
+            ((INotifyCollectionChanged)Items).CollectionChanged += (sen, e) =>
+            {
+                _scrollViewer?.ScrollToEnd();
+            };
+        }
+
+
+        private const string PartScrollViewer = "PART_ScrollViewer";
+        private ScrollViewer _scrollViewer;
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            if (GetTemplateChild(PartScrollViewer) is ScrollViewer scrollViewer)
+                _scrollViewer = scrollViewer;
+        }
+
         public static readonly DependencyProperty SelfImageProperty = DependencyProperty.Register(
             "SelfImage", typeof(Image), typeof(ChatPanel), new PropertyMetadata(default(Image)));
         public static readonly DependencyProperty OtherProperty = DependencyProperty.Register(
             "OtherImage", typeof(Image), typeof(ChatPanel), new PropertyMetadata(default(Image)));
-        public static readonly DependencyProperty OtherNickProperty = DependencyProperty.Register(
-            "OtherNick", typeof(string), typeof(ChatPanel), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty OtherUserInfoProperty = DependencyProperty.Register(
+            "OtherUserInfo", typeof(UserInfoDto), typeof(ChatPanel), new PropertyMetadata(default(UserInfoDto)));
+
+
 
         /// <summary>
         /// 自己的头像
@@ -26,21 +51,12 @@ namespace AgileIM.Client.Controls
             set => SetValue(SelfImageProperty, value);
         }
         /// <summary>
-        /// 对方头像
+        /// 对方
         /// </summary>
-        public Image OtherImage
+        public UserInfoDto OtherUserInfo
         {
-            get => (Image)GetValue(OtherProperty);
-            set => SetValue(OtherProperty, value);
+            get => (UserInfoDto)GetValue(OtherUserInfoProperty);
+            set => SetValue(OtherUserInfoProperty, value);
         }
-        /// <summary>
-        /// 对方昵称
-        /// </summary>
-        public string OtherNick
-        {
-            get => (string)GetValue(OtherNickProperty);
-            set => SetValue(OtherNickProperty, value);
-        }
-
     }
 }

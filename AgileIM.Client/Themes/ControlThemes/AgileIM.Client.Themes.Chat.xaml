@@ -11,7 +11,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <Border
                     Name="Image"
@@ -37,10 +37,11 @@
                         </Border.Effect>-->
                     </Border>
                     <TextBox
-                        Margin="5"
+                        Margin="10"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
+                        FontSize="14"
                         IsReadOnly="True"
                         Style="{x:Null}"
                         Text="{TemplateBinding Text}"
@@ -80,10 +81,11 @@
                         Background="{DynamicResource PrimaryHueLightBrush}"
                         CornerRadius="10 10 10 10" />
                     <TextBox
-                        Margin="5"
+                        Margin="10"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
+                        FontSize="14"
                         Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                         IsReadOnly="True"
                         Style="{x:Null}"
@@ -120,7 +122,116 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid Height="30" Margin="15,25">
-                                <TextBlock FontSize="18" Text="{TemplateBinding OtherNick}" />
+                                <ToggleButton
+                                    Name="NameToggleBtn"
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    Content="{Binding UserNote}"
+                                    Cursor="Hand"
+                                    DataContext="{TemplateBinding OtherUserInfo}"
+                                    FontSize="18">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <TextBlock Text="{TemplateBinding Content}" />
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Opacity" Value=".8" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Popup
+                                    Width="300"
+                                    Height="300"
+                                    AllowsTransparency="True"
+                                    DataContext="{TemplateBinding OtherUserInfo}"
+                                    IsOpen="{Binding ElementName=NameToggleBtn, Path=IsChecked}"
+                                    PlacementTarget="{Binding ElementName=NameToggleBtn}"
+                                    PopupAnimation="Fade"
+                                    StaysOpen="False">
+                                    <Border
+                                        Margin="10"
+                                        Background="{DynamicResource PrimaryBackground}"
+                                        CornerRadius="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="10"
+                                                Direction="0"
+                                                ShadowDepth="3"
+                                                Color="{DynamicResource PrimaryCardLightColor}" />
+                                        </Border.Effect>
+                                        <StackPanel Margin="30">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid
+                                                    Grid.RowSpan="2"
+                                                    Grid.Column="1"
+                                                    Width="60"
+                                                    Height="60"
+                                                    Margin="10,0,0,0">
+                                                    <Border Background="DodgerBlue" CornerRadius="5" />
+                                                </Grid>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Orientation="Horizontal">
+                                                    <TextBlock FontSize="18" Text="{Binding Nick}" />
+                                                </StackPanel>
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Margin="0,5"
+                                                    FontSize="14"
+                                                    Opacity=".6"
+                                                    Text="{Binding Account, StringFormat={}账号：{0}}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </Grid>
+                                            <Border
+                                                Height="1"
+                                                Margin="0,20,0,0"
+                                                Background="{DynamicResource PrimaryBody}"
+                                                Opacity=".2" />
+                                            <Grid Margin="0,30,0,0">
+                                                <Grid.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Opacity" Value=".6" />
+                                                        <Setter Property="FontSize" Value="14" />
+                                                        <Setter Property="Margin" Value="0,5,20,5" />
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="备注" />
+                                                <TextBlock Grid.Row="1" Text="地区" />
+                                                <TextBox
+                                                    Grid.Column="1"
+                                                    Opacity="1"
+                                                    Style="{DynamicResource UserNoteUpdateTextBox}"
+                                                    Text="{Binding UserNote}" />
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Opacity="1"
+                                                    Text="{Binding Address}" />
+
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
                                 <Border
                                     Height="1"
                                     Margin="0,10,0,0"
@@ -143,6 +254,7 @@
                             </Grid>
                             <Grid Grid.Row="1" Margin="15,-20,15,0">
                                 <ScrollViewer
+                                    Name="PART_ScrollViewer"
                                     FocusVisualStyle="{x:Null}"
                                     HorizontalScrollBarVisibility="Disabled"
                                     VerticalScrollBarVisibility="Auto">

@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="PrimaryCardLightColor">#FAFAFA</Color>
     <SolidColorBrush x:Key="PrimaryCardTranslucentBrush" Color="#E1E1E6E8" />
     <SolidColorBrush x:Key="PrimaryCardBrush" Color="#E1E6E8" />
-    <SolidColorBrush x:Key="PrimaryCardLightBrush" Color="#FAFAFA" />
+    <SolidColorBrush x:Key="PrimaryCardLightBrush" Color="{StaticResource PrimaryCardLightColor}" />
     <SolidColorBrush x:Key="PrimaryLeftMenuBrush" Color="#F3F3F3" />
     <SolidColorBrush x:Key="PrimaryTitleBrush" Color="#464C5B" />
     <SolidColorBrush x:Key="PrimaryBackground" Color="#FFFFFFFF" />

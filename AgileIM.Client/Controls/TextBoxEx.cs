@@ -14,9 +14,11 @@ namespace AgileIM.Client.Controls
             "IsFocus", typeof(bool), typeof(TextBoxEx), new PropertyMetadata(default(bool), (sender, args) =>
             {
                 if (sender is not TextBoxEx tbx) return;
-                if ((bool)args.NewValue)
-                    tbx.Focus();
-              
+                if (!(bool)args.NewValue) return;
+
+                tbx.Focus();
+                tbx.IsFocus = false;
+
             }));
 
         /// <summary>
