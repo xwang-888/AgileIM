@@ -10,6 +10,8 @@
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ListBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Chat.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Icons/AgileIM.Client.Themes.Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -41,6 +43,8 @@
         </Setter>
     </Style>
     <Style BasedOn="{StaticResource BaseTextBoxStyle}" TargetType="TextBox" />
+    <Style BasedOn="{StaticResource BaseCheckBoxStyle}" TargetType="CheckBox" />
+    <Style BasedOn="{StaticResource BaseComboBoxStyle}" TargetType="ComboBox" />
     <Style BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button" />
     <Style BasedOn="{StaticResource BaseWindowsStyle}" TargetType="controls:CustomWindow" />
 </ResourceDictionary>

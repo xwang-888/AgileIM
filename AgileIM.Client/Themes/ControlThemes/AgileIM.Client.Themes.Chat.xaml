@@ -159,7 +159,7 @@
                                                 BlurRadius="10"
                                                 Direction="0"
                                                 ShadowDepth="3"
-                                                Color="{DynamicResource PrimaryCardLightColor}" />
+                                                Color="#E1E6E8" />
                                         </Border.Effect>
                                         <StackPanel Margin="30">
                                             <Grid>
