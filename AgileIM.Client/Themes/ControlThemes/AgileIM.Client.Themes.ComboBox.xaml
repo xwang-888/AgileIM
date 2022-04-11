@@ -176,7 +176,8 @@
                     Content="{TemplateBinding ComboBox.SelectionBoxItem}"
                     ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
                     ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                    IsHitTestVisible="False" />
+                    IsHitTestVisible="False"
+                    RecognizesAccessKey="True" />
                 <TextBlock
                     Margin="{TemplateBinding Padding}"
                     HorizontalAlignment="Stretch"
@@ -253,7 +254,7 @@
                             </TransformGroup>
                         </Grid.RenderTransform>
                         <Border
-                            Background="{DynamicResource AgileDesignCardBackground}"
+                            Background="{DynamicResource PrimaryCardBrush}"
                             CornerRadius="3"
                             SnapsToDevicePixels="True"
                             UseLayoutRounding="True">
@@ -269,7 +270,7 @@
                         </Border>
                         <Border
                             Name="DropDownBorder"
-                            Background="{DynamicResource AgileDesignCardBackground}"
+                            Background="{DynamicResource PrimaryCardBrush}"
                             CornerRadius="3"
                             SnapsToDevicePixels="True"
                             UseLayoutRounding="True" />

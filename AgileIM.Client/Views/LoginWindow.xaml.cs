@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AgileIM.Client.ViewModels;
 
 namespace AgileIM.Client.Views
 {
@@ -22,6 +23,7 @@ namespace AgileIM.Client.Views
         public LoginWindow()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
         }
     }
 }

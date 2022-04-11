@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:AgileIM.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="LoginWindow"
-    Width="420"
+    Width="400"
     Height="500"
     FontSize="18"
     ResizeMode="CanMinimize"
@@ -82,12 +82,46 @@
                     </Grid.RowDefinitions>
                     <ComboBox
                         Height="45"
-                        FontSize="1"
-                        IsEditable="True" />
+                        assist:ComboBoxAssist.DisplayContent="1231"
+                        assist:ControlAssist.Hint="账号"
+                        FocusVisualStyle="{x:Null}"
+                        ItemsSource="{Binding LoginUserInfos}"
+                        SelectedValuePath="Account">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="40" Height="40">
+                                        <Image Source="../123.jpg">
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                                    Center="20,20"
+                                                    RadiusX="20"
+                                                    RadiusY="20" />
+                                            </Image.Clip>
+                                        </Image>
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="10,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Account}" />
+                                        <TextBlock Grid.Row="1" Text="{Binding Nick}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
                     <PasswordBox
                         Grid.Row="1"
                         Height="45"
-                        Margin="0,20,0,0" />
+                        Margin="0,20,0,0"
+                        VerticalContentAlignment="Center" />
                     <StackPanel
                         Grid.Row="2"
                         Margin="0,5"
