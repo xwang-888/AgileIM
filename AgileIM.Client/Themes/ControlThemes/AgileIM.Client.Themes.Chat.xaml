@@ -160,9 +160,8 @@
                                             <DropShadowEffect
                                                 BlurRadius="10"
                                                 Direction="0"
-                                                Opacity=".2"
-                                                ShadowDepth="1"
-                                                Color="Gray" />
+                                                ShadowDepth="3"
+                                                Color="#E1E6E8" />
                                         </Border.Effect>
                                         <StackPanel Margin="30">
                                             <Grid>
