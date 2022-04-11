@@ -6,7 +6,7 @@
 
     <converters:UnreadMessageCountConverter x:Key="UnreadMessageCountConverter" />
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
+    <converters:UserInfoNickConverter x:Key="UserInfoNickConverter" />
 
     <Style x:Key="MenuListBoxItemStyle" TargetType="ListBoxItem">
         <Setter Property="Width" Value="60" />
@@ -154,7 +154,7 @@
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 FontSize="15"
-                Text="{Binding UserNote}"
+                Text="{Binding Converter={StaticResource UserInfoNickConverter}}"
                 TextTrimming="CharacterEllipsis" />
             <TextBlock
                 Grid.Row="1"
@@ -227,5 +227,16 @@
         </Setter>
         <Setter Property="ItemTemplate" Value="{StaticResource ChatListBoxDataTemplate}" />
     </Style>
-
+    <ControlTemplate x:Key="NoScrollViewerListBoxControlTemplate" TargetType="ListBox">
+        <Border
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <ItemsPresenter
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Focusable="False" />
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>

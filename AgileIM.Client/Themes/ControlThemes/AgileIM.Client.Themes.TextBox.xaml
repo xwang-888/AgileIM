@@ -19,7 +19,13 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding assist:ControlAssist.CornerRadius}">
                         <Grid>
-                            <Border Name="BackBorder" CornerRadius="{TemplateBinding assist:ControlAssist.CornerRadius}" />
+                            <Border
+                                Name="BackBorder"
+                                Margin="-2"
+                                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                BorderThickness="2"
+                                CornerRadius="{TemplateBinding assist:ControlAssist.CornerRadius}"
+                                Visibility="Collapsed" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -56,7 +62,10 @@
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="{x:Null}">
                             <Setter TargetName="Message" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="BackBorder" Property="Visibility" Value="Visible" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value=".4" />
                         </Trigger>
@@ -82,7 +91,7 @@
                             Background="{DynamicResource PrimaryHueLightBrush}"
                             BorderBrush="{DynamicResource PrimaryHueDarkBrush}"
                             BorderThickness="1"
-                            CornerRadius="6"
+                            CornerRadius="3"
                             Opacity=".2"
                             Visibility="Collapsed" />
                         <ScrollViewer
@@ -92,11 +101,35 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Focusable="True"
                             SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        <TextBlock
+                            Name="NullTextBlock"
+                            VerticalAlignment="Center"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="点击添加备注"
+                            Visibility="Collapsed" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Visibility" Value="Visible" />
                         </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value="Null" />
+                                <Condition Property="IsFocused" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="NullTextBlock" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value="" />
+                                <Condition Property="IsFocused" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="NullTextBlock" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

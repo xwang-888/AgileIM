@@ -1,0 +1,95 @@
+﻿<UserControl
+    x:Class="AgileIM.Client.Views.NewFriendControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AgileIM.Client.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    FontSize="13"
+    mc:Ignorable="d">
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                Margin="10"
+                d:ItemsSource="{d:SampleData ItemCount=20}"
+                ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:NewFriendControl}, Path=DataContext}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Margin="0,0,10,0">
+                                <Border
+                                    Width="50"
+                                    Height="50"
+                                    Background="DeepSkyBlue"
+                                    CornerRadius="50" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox
+                                    VerticalContentAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsReadOnly="True"
+                                    Style="{x:Null}"
+                                    Text="{Binding Nick}" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Opacity=".6"
+                                        Text="验证消息：" />
+                                    <TextBox
+                                        Grid.Column="1"
+                                        VerticalContentAlignment="Center"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        IsReadOnly="True"
+                                        Style="{x:Null}"
+                                        Text="{Binding Message}"
+                                        ToolTip="{Binding Message}" />
+                                </Grid>
+                            </Grid>
+                            <StackPanel
+                                Grid.Column="2"
+                                Width="90"
+                                Height="55"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="40"
+                                    Height="25"
+                                    Margin="5,0,2,0"
+                                    Content="同意" />
+                                <Button
+                                    Width="40"
+                                    Height="25"
+                                    Margin="2,0,0,0"
+                                    Background="#E81123"
+                                    Content="拒绝" />
+                            </StackPanel>
+                            <Border
+                                Grid.ColumnSpan="3"
+                                Height="1"
+                                Margin="60,0,90,0"
+                                VerticalAlignment="Bottom"
+                                Background="Black"
+                                Opacity=".2" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
