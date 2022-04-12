@@ -23,7 +23,6 @@ namespace AgileIM.Client.Views
         public LoginWindow()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
         }
     }
 }

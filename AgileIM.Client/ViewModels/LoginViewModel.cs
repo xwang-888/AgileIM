@@ -21,6 +21,8 @@ namespace AgileIM.Client.ViewModels
             {
                 LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}" });
             }
+
+            SelectedUserInfo = LoginUserInfos.FirstOrDefault();
         }
 
         private ObservableCollection<UserInfoDto> _loginUserInfos;
@@ -30,6 +32,15 @@ namespace AgileIM.Client.ViewModels
             get => _loginUserInfos;
             set => _loginUserInfos = value;
         }
+
+        private UserInfoDto _selectedUserInfo;
+
+        public UserInfoDto SelectedUserInfo
+        {
+            get => _selectedUserInfo;
+            set => SetProperty(ref _selectedUserInfo, value);
+        }
+
 
     }
 }

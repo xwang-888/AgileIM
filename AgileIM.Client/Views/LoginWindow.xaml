@@ -3,9 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:AgileIM.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:AgileIM.Client.ViewModels"
     Title="LoginWindow"
     Width="400"
     Height="500"
@@ -14,6 +16,9 @@
     TextElement.Foreground="{DynamicResource PrimaryBody}"
     UseLayoutRounding="True"
     mc:Ignorable="d">
+    <Window.DataContext>
+        <viewModels:LoginViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -80,16 +85,17 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <ComboBox
+                    <controls:AccountBox
                         Height="45"
-                        assist:ComboBoxAssist.DisplayContent="1231"
-                        assist:ControlAssist.Hint="账号"
+                        assist:ControlAssist.Hint="Account / Phone / Email"
+                        Account="{Binding SelectedUserInfo.Account}"
                         FocusVisualStyle="{x:Null}"
                         ItemsSource="{Binding LoginUserInfos}"
+                        SelectedItem="{Binding SelectedUserInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedValuePath="Account">
-                        <ComboBox.ItemTemplate>
+                        <controls:AccountBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <Grid Margin="10,2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
@@ -114,9 +120,9 @@
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
-                        </ComboBox.ItemTemplate>
+                        </controls:AccountBox.ItemTemplate>
 
-                    </ComboBox>
+                    </controls:AccountBox>
                     <PasswordBox
                         Grid.Row="1"
                         Height="45"
