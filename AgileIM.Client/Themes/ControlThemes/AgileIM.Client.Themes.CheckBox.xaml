@@ -4,6 +4,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Height" Value="15" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Padding" Value="3,-2" />
         <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />

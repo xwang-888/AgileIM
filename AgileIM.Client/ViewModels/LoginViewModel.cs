@@ -4,10 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
+using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace AgileIM.Client.ViewModels
 {
@@ -19,7 +23,7 @@ namespace AgileIM.Client.ViewModels
             LoginUserInfos = new();
             for (int i = 0; i < 5; i++)
             {
-                LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}" });
+                LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}", Password = "2112313aa" });
             }
 
             SelectedUserInfo = LoginUserInfos.FirstOrDefault();
@@ -30,7 +34,7 @@ namespace AgileIM.Client.ViewModels
         public ObservableCollection<UserInfoDto> LoginUserInfos
         {
             get => _loginUserInfos;
-            set => _loginUserInfos = value;
+            set => SetProperty(ref _loginUserInfos, value);
         }
 
         private UserInfoDto _selectedUserInfo;
@@ -40,6 +44,21 @@ namespace AgileIM.Client.ViewModels
             get => _selectedUserInfo;
             set => SetProperty(ref _selectedUserInfo, value);
         }
+
+
+        public ICommand LoginCommand => new AsyncRelayCommand(Login);
+
+
+        private Task Login()
+        {
+
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            WeakReferenceMessenger.Default.Send(new LoginMessage(true));
+            return Task.CompletedTask;
+        }
+
 
 
     }

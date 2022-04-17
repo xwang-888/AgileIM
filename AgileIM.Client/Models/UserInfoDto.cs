@@ -51,6 +51,16 @@ namespace AgileIM.Client.Models
         /// 头像
         /// </summary>
         public Image Image { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        private string _password;
+
+        public string Password
+        {
+            get => _password;
+            set => SetProperty(ref _password, value);
+        }
 
         private MessageDto? _lastMessage;
         private ObservableCollection<MessageDto> _messages = new();

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="123.jpg" />
+    <None Remove="123.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="123.jpg" />
+    <Folder Include="Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="123.png" />
   </ItemGroup>
 
 </Project>

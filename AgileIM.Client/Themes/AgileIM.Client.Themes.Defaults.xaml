@@ -11,6 +11,7 @@
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Chat.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ScrollViewer.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.PasswordBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.AccountBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Icons/AgileIM.Client.Themes.Icons.xaml" />
@@ -46,6 +47,7 @@
     <Style BasedOn="{StaticResource BaseTextBoxStyle}" TargetType="TextBox" />
     <Style BasedOn="{StaticResource BaseCheckBoxStyle}" TargetType="CheckBox" />
     <Style BasedOn="{StaticResource BaseComboBoxStyle}" TargetType="ComboBox" />
+    <Style BasedOn="{StaticResource BasePasswordBox}" TargetType="PasswordBox" />
     <Style BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button" />
     <Style BasedOn="{StaticResource BaseWindowsStyle}" TargetType="controls:CustomWindow" />
 </ResourceDictionary>

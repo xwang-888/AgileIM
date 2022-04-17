@@ -6,6 +6,7 @@
     <PathGeometry x:Key="Arrow.Down" Figures="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
 
     <Style TargetType="controls:AccountBox">
+        <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:AccountBox">
@@ -34,11 +35,24 @@
                     <Grid>
                         <Border
                             Name="BackBorder"
-                            Height="45"
+                            Height="{TemplateBinding Height}"
                             BorderBrush="{DynamicResource PrimaryBorderBrush}"
-                            BorderThickness="2"
+                            BorderThickness="1.5"
                             CornerRadius="3">
-                            <DockPanel>
+
+                            <DockPanel Margin="{TemplateBinding Padding}">
+                                <Label
+                                    Padding="10,0,0,0"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    DockPanel.Dock="Left"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Opacity=".8">
+                                    <controls:PackIcon
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Kind="Account"
+                                        Size="25" />
+                                </Label>
                                 <ToggleButton
                                     Name="ToggleButton"
                                     Width="20"
@@ -94,13 +108,13 @@
                                     </ToggleButton.Template>
                                 </ToggleButton>
                                 <TextBox
-                                    Margin="2"
-                                    Padding="3,0"
+                                    Margin="0,2"
+                                    Padding="2,0"
                                     HorizontalContentAlignment="Stretch"
                                     VerticalContentAlignment="Center"
                                     assist:ControlAssist.Hint="{TemplateBinding assist:ControlAssist.Hint}"
                                     BorderThickness="0"
-                                    FontSize="15"
+                                    FontSize="14"
                                     Style="{x:Null}"
                                     Text="{TemplateBinding Account}">
                                     <TextBox.Template>
