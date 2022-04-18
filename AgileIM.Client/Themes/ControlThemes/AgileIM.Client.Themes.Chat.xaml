@@ -18,8 +18,17 @@
                     Name="Image"
                     Width="40"
                     Height="40"
-                    Background="DeepSkyBlue"
-                    CornerRadius="30" />
+                    Background="Transparent"
+                    CornerRadius="30">
+                    <Image Source="../../122.png">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="20,20"
+                                RadiusX="20"
+                                RadiusY="20" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
                 <Grid
                     Name="Grid"
                     Grid.Column="1"
@@ -28,14 +37,14 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryBackground}"
-                        CornerRadius="10">
-                        <!--<Border.Effect>
+                        CornerRadius="5">
+                        <Border.Effect>
                             <DropShadowEffect
                                 BlurRadius="5"
                                 Opacity=".2"
                                 ShadowDepth="1"
-                                Color="Black" />
-                        </Border.Effect>-->
+                                Color="Gray" />
+                        </Border.Effect>
                     </Border>
                     <TextBox
                         Margin="10"
@@ -68,11 +77,21 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Border
+                    Name="Image"
                     Grid.Column="2"
                     Width="40"
                     Height="40"
-                    Background="DodgerBlue"
-                    CornerRadius="30" />
+                    Background="Transparent"
+                    CornerRadius="30">
+                    <Image Source="../../123.png">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="20,20"
+                                RadiusX="20"
+                                RadiusY="20" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
                 <Grid
                     Name="Grid"
                     Grid.Column="1"
@@ -80,7 +99,15 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryHueLightBrush}"
-                        CornerRadius="10 10 10 10" />
+                        CornerRadius="5">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="5"
+                                Opacity=".2"
+                                ShadowDepth="1"
+                                Color="Gray" />
+                        </Border.Effect>
+                    </Border>
                     <TextBox
                         Margin="10"
                         VerticalAlignment="Center"
@@ -179,7 +206,9 @@
                                                     Width="60"
                                                     Height="60"
                                                     Margin="10,0,0,0">
-                                                    <Border Background="DodgerBlue" CornerRadius="5" />
+                                                    <Border Background="DodgerBlue" CornerRadius="5">
+                                                        <Image Source="../../122.png" />
+                                                    </Border>
                                                 </Grid>
                                                 <StackPanel
                                                     Grid.Row="0"

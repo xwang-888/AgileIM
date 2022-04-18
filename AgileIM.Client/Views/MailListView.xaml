@@ -158,8 +158,18 @@
                                                 Width="45"
                                                 Height="45"
                                                 Margin="5,0,10,0"
-                                                Background="DeepSkyBlue"
-                                                CornerRadius="50" />
+                                                Background="Transparent"
+                                                CornerRadius="50">
+
+                                                <Image Source="../123.png">
+                                                    <Image.Clip>
+                                                        <EllipseGeometry
+                                                            Center="22.5,22.5"
+                                                            RadiusX="22.5"
+                                                            RadiusY="22.5" />
+                                                    </Image.Clip>
+                                                </Image>
+                                            </Border>
                                             <TextBlock
                                                 Grid.Row="0"
                                                 Grid.Column="1"
@@ -177,101 +187,129 @@
             </Border>
         </Grid>
         <Grid Grid.Column="1" Background="{DynamicResource PrimaryPaper}">
-            <StackPanel MaxWidth="500" Margin="80,80,80,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid
-                        Grid.RowSpan="2"
-                        Grid.Column="1"
-                        Width="60"
-                        Height="60"
-                        Margin="10,0,0,0">
-                        <Border Background="DodgerBlue" CornerRadius="5" />
+
+            <StackPanel VerticalAlignment="Center">
+                <Border
+                    MaxWidth="500"
+                    MaxHeight="330"
+                    Margin="60,0,60,0"
+                    Background="{DynamicResource PrimaryCardBrush}"
+                    CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="30"
+                            Opacity=".2"
+                            ShadowDepth="1"
+                            Color="Gray" />
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="20,20,20,10">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    Width="60"
+                                    Height="60"
+                                    Margin="10,0,0,0">
+                                    <Border Background="DodgerBlue" CornerRadius="5" />
+                                </Grid>
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Orientation="Horizontal">
+                                    <TextBlock FontSize="20" Text="{Binding SelectedUserInfo.Nick}" />
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="0,5"
+                                    FontSize="13"
+                                    Opacity=".5"
+                                    Text="{Binding SelectedUserInfo.Signature}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                            <Border
+                                Height="1"
+                                Margin="0,30,0,0"
+                                Background="{DynamicResource PrimaryBody}"
+                                Opacity=".2" />
+
+                            <Grid Margin="0,30,0,0">
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Opacity" Value=".5" />
+                                        <Setter Property="FontSize" Value="13" />
+                                        <Setter Property="Margin" Value="0,5,30,5" />
+                                    </Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="FontSize" Value="13" />
+                                        <Setter Property="IsReadOnly" Value="True" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="备注" />
+                                <TextBlock Grid.Row="1" Text="地区" />
+                                <TextBlock Grid.Row="2" Text="账号" />
+                                <TextBox
+                                    Grid.Column="1"
+                                    MinWidth="150"
+                                    Padding="0,2"
+                                    FontSize="13"
+                                    Opacity="1"
+                                    Style="{DynamicResource UserNoteUpdateTextBox}"
+                                    Text="{Binding SelectedUserInfo.UserNote}" />
+                                <TextBox
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding SelectedUserInfo.Address}" />
+                                <TextBox
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="{Binding SelectedUserInfo.Account}" />
+                            </Grid>
+                            <Border
+                                Height="1"
+                                Margin="0,20,0,0"
+                                Background="{DynamicResource PrimaryBody}"
+                                Opacity=".2" />
+
+                        </StackPanel>
+                        <Button
+                            Grid.Row="1"
+                            Height="35"
+                            Margin="20,10,20,20"
+                            Content="发消息" />
                     </Grid>
-                    <StackPanel
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Orientation="Horizontal">
-                        <TextBlock FontSize="20" Text="{Binding SelectedUserInfo.Nick}" />
-                    </StackPanel>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,5"
-                        FontSize="13"
-                        Opacity=".5"
-                        Text="{Binding SelectedUserInfo.Signature}"
-                        TextWrapping="Wrap" />
-                </Grid>
-                <Border
-                    Height="1"
-                    Margin="0,30,0,0"
-                    Background="{DynamicResource PrimaryBody}"
-                    Opacity=".2" />
-
-                <Grid Margin="0,30,0,0">
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Opacity" Value=".5" />
-                            <Setter Property="FontSize" Value="13" />
-                            <Setter Property="Margin" Value="0,5,30,5" />
-                        </Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Opacity" Value="1" />
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="FontSize" Value="13" />
-                            <Setter Property="IsReadOnly" Value="True" />
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="备注" />
-                    <TextBlock Grid.Row="1" Text="地区" />
-                    <TextBlock Grid.Row="2" Text="账号" />
-                    <TextBox
-                        Grid.Column="1"
-                        MinWidth="150"
-                        Padding="0,2"
-                        FontSize="13"
-                        Opacity="1"
-                        Style="{DynamicResource UserNoteUpdateTextBox}"
-                        Text="{Binding SelectedUserInfo.UserNote}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Text="{Binding SelectedUserInfo.Address}" />
-                    <TextBox
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Text="{Binding SelectedUserInfo.Account}" />
-                </Grid>
-                <Border
-                    Height="1"
-                    Margin="0,30,0,0"
-                    Background="{DynamicResource PrimaryBody}"
-                    Opacity=".2" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Margin="0,30"
-                    Content="发消息" />
-
+                </Border>
             </StackPanel>
+
+
+
+
             <Grid Background="{DynamicResource PrimaryPaper}">
                 <Grid.Style>
                     <Style TargetType="Grid">

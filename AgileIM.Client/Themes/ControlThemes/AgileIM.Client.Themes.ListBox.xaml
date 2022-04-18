@@ -140,8 +140,17 @@
                 Width="45"
                 Height="45"
                 Margin="5,0,10,0"
-                Background="DeepSkyBlue"
-                CornerRadius="50" />
+                Background="Transparent"
+                CornerRadius="50">
+                <Image Source="../../122.png">
+                    <Image.Clip>
+                        <EllipseGeometry
+                            Center="22.5,22.5"
+                            RadiusX="22.5"
+                            RadiusY="22.5" />
+                    </Image.Clip>
+                </Image>
+            </Border>
             <Border
                 Name="Border"
                 Grid.RowSpan="2"

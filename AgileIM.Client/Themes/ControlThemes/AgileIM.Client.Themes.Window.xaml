@@ -126,16 +126,25 @@
                                         ShadowDepth="1"
                                         Color="Gray" />
                                 </Grid.Effect>
-
                                 <Border
-                                    Width="40"
-                                    Height="40"
+                                    Width="35"
+                                    Height="35"
                                     Margin="15,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Background="DodgerBlue"
-                                    CornerRadius="8"
-                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    Background="Transparent"
+                                    CornerRadius="40"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Image Source="../../123.png">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                                Center="17.5,17.5"
+                                                RadiusX="17.5"
+                                                RadiusY="17.5" />
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+
                                 <TextBox
                                     Width="300"
                                     Margin="0,6"
@@ -158,17 +167,20 @@
                                             <Setter Property="Height" Value="45" />
                                         </Style>
                                     </StackPanel.Resources>
+
+                                    <Button
+                                        Foreground="{TemplateBinding Foreground}"
+                                        IsTabStop="False"
+                                        ToolTip="更多">
+                                        <controls:PackIcon Kind="More" />
+                                    </Button>
                                     <Button
                                         x:Name="BtnMin"
                                         Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
                                         Foreground="{TemplateBinding Foreground}"
                                         IsTabStop="False"
                                         ToolTip="最小化">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource MinIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
+                                        <controls:PackIcon Kind="WindowMin" />
                                     </Button>
                                     <Button
                                         x:Name="BtnMaximize"
@@ -176,11 +188,7 @@
                                         Foreground="{TemplateBinding Foreground}"
                                         IsTabStop="False"
                                         ToolTip="最大化">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource MaxIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
+                                        <controls:PackIcon Kind="WindowMax" />
                                     </Button>
                                     <Button
                                         x:Name="BtnRestore"
@@ -189,11 +197,7 @@
                                         IsTabStop="False"
                                         ToolTip="还原"
                                         Visibility="Collapsed">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource RestoreIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
+                                        <controls:PackIcon Kind="WindowRestore" />
                                     </Button>
                                     <Button
                                         x:Name="BtnClose"
@@ -203,7 +207,9 @@
                                         Foreground="{TemplateBinding Foreground}"
                                         IsTabStop="False"
                                         Style="{StaticResource CustomWindowBtnCloseStyle}"
-                                        ToolTip="关闭" />
+                                        ToolTip="关闭">
+                                        <controls:PackIcon Kind="WindowClose" />
+                                    </Button>
 
                                 </StackPanel>
                             </Grid>

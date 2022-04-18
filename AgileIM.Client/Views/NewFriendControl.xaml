@@ -12,81 +12,95 @@
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsControl
-                Margin="10"
+                Margin="10 0"
                 d:ItemsSource="{d:SampleData ItemCount=20}"
                 ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:NewFriendControl}, Path=DataContext}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Margin="0,0,10,0">
-                                <Border
-                                    Width="50"
-                                    Height="50"
-                                    Background="DeepSkyBlue"
-                                    CornerRadius="50" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBox
-                                    VerticalContentAlignment="Center"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    IsReadOnly="True"
-                                    Style="{x:Null}"
-                                    Text="{Binding Nick}" />
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Opacity=".6"
-                                        Text="验证消息：" />
+                        <Border
+                            Margin="0,6"
+                            Background="{DynamicResource PrimaryCardBrush}"
+                            CornerRadius="10">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="10"
+                                    Opacity=".2"
+                                    ShadowDepth="1"
+                                    Color="Gray" />
+                            </Border.Effect>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="0,0,10,0">
+                                    <Border
+                                        Width="50"
+                                        Height="50"
+                                        Background="Transparent"
+                                        CornerRadius="50">
+                                        <Image Source="../123.png">
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                                    Center="25,25"
+                                                    RadiusX="25"
+                                                    RadiusY="25" />
+                                            </Image.Clip>
+                                        </Image>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
                                     <TextBox
-                                        Grid.Column="1"
                                         VerticalContentAlignment="Center"
                                         Background="Transparent"
                                         BorderThickness="0"
                                         IsReadOnly="True"
                                         Style="{x:Null}"
-                                        Text="{Binding Message}"
-                                        ToolTip="{Binding Message}" />
+                                        Text="{Binding Nick}" />
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Opacity=".6"
+                                            Text="验证消息：" />
+                                        <TextBox
+                                            Grid.Column="1"
+                                            VerticalContentAlignment="Center"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            IsReadOnly="True"
+                                            Style="{x:Null}"
+                                            Text="{Binding Message}"
+                                            ToolTip="{Binding Message}" />
+                                    </Grid>
                                 </Grid>
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Width="90"
+                                    Height="55"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Width="40"
+                                        Height="25"
+                                        Margin="5,0,2,0"
+                                        Content="同意" />
+                                    <Button
+                                        Width="40"
+                                        Height="25"
+                                        Margin="2,0,0,0"
+                                        Background="#E81123"
+                                        Content="拒绝" />
+                                </StackPanel>
                             </Grid>
-                            <StackPanel
-                                Grid.Column="2"
-                                Width="90"
-                                Height="55"
-                                Orientation="Horizontal">
-                                <Button
-                                    Width="40"
-                                    Height="25"
-                                    Margin="5,0,2,0"
-                                    Content="同意" />
-                                <Button
-                                    Width="40"
-                                    Height="25"
-                                    Margin="2,0,0,0"
-                                    Background="#E81123"
-                                    Content="拒绝" />
-                            </StackPanel>
-                            <Border
-                                Grid.ColumnSpan="3"
-                                Height="1"
-                                Margin="60,0,90,0"
-                                VerticalAlignment="Bottom"
-                                Background="Black"
-                                Opacity=".2" />
-                        </Grid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
