@@ -104,8 +104,8 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Grid Width="40" Height="40">
-                                        <Image Source="../123.jpg">
+                                    <Grid Width="40" Height="44">
+                                        <Image Source="../122.png">
                                             <Image.Clip>
                                                 <EllipseGeometry
                                                     Center="20,20"

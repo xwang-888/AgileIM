@@ -56,7 +56,8 @@
                                 <ToggleButton
                                     Name="ToggleButton"
                                     Width="20"
-                                    DockPanel.Dock="Right">
+                                    DockPanel.Dock="Right"
+                                    FocusVisualStyle="{x:Null}">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <ControlTemplate.Resources />
@@ -179,11 +180,11 @@
                                 AllowsTransparency="True"
                                 Focusable="False"
                                 HorizontalOffset="-1"
-                                IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked}"
+                                IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked, Mode=TwoWay}"
                                 Placement="Bottom"
                                 PlacementTarget="{Binding ElementName=BackBorder}"
                                 StaysOpen="False"
-                                VerticalOffset="1">
+                                VerticalOffset="5">
                                 <Grid
                                     Name="DropDown"
                                     Width="{TemplateBinding ActualWidth}"
@@ -216,17 +217,86 @@
                                     </Border>
                                     <Border
                                         Name="DropDownBorder"
+                                        Margin="0,0,0,0"
                                         Background="{DynamicResource PrimaryCardBrush}"
-                                        CornerRadius="3"
+                                        CornerRadius="5"
                                         SnapsToDevicePixels="True"
                                         UseLayoutRounding="True" />
                                     <ScrollViewer Margin="0,3">
                                         <!--<ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />-->
                                         <ListView
+                                            Name="ListView"
+                                            MaxHeight="220"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Stretch"
+                                            BorderThickness="0"
+                                            FontSize="14"
                                             ItemTemplate="{TemplateBinding ItemTemplate}"
                                             ItemsSource="{TemplateBinding ItemsSource}"
                                             SelectedIndex="{TemplateBinding SelectedIndex}"
-                                            SelectedItem="{TemplateBinding SelectedItem}" />
+                                            SelectedItem="{TemplateBinding SelectedItem}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="BorderThickness" Value="0" />
+                                                    <Setter Property="ClipToBounds" Value="True" />
+                                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListViewItem">
+                                                                <Grid>
+                                                                    <Border
+                                                                        Name="Border"
+                                                                        Background="{DynamicResource PrimaryHueLightBrush}"
+                                                                        Opacity=".1"
+                                                                        Visibility="Collapsed" />
+                                                                    <Border
+                                                                        Width="{TemplateBinding Width}"
+                                                                        Height="{TemplateBinding Height}"
+                                                                        Margin="0,0,0,0"
+                                                                        HorizontalAlignment="Stretch"
+                                                                        VerticalAlignment="Stretch"
+                                                                        Background="Transparent"
+                                                                        Cursor="Hand">
+                                                                        <ContentPresenter
+                                                                            Name="Presenter"
+                                                                            Margin="{TemplateBinding Padding}"
+                                                                            HorizontalAlignment="Stretch"
+                                                                            VerticalAlignment="Stretch"
+                                                                            ContentSource="Content" />
+                                                                    </Border>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="Border" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter TargetName="Border" Property="Opacity" Value=".5" />
+                                                                        <Setter TargetName="Border" Property="Visibility" Value="Visible" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.Template>
+                                                <ControlTemplate TargetType="ListView">
+                                                    <Border
+                                                        Margin="0,0,0,0"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        CornerRadius="0">
+                                                        <ScrollViewer>
+                                                            <ItemsPresenter
+                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                Focusable="False" />
+                                                        </ScrollViewer>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </ListView.Template>
+                                        </ListView>
                                     </ScrollViewer>
                                 </Grid>
 
