@@ -41,15 +41,12 @@ AgileIM.Web，IM Web项目
 ------
 
 AgileIM.Client (WPF) 运行界面示例
+![image-20220420091836346](https://user-images.githubusercontent.com/56998197/164133004-dc707b16-7721-45b9-8f50-8bf00f45d3a0.png)
+![image-20220420091922888](https://user-images.githubusercontent.com/56998197/164133013-f8d0433a-f06a-4528-a629-747b1d8c6cee.png)
+![image-20220420091954557](https://user-images.githubusercontent.com/56998197/164133019-51778def-dcab-4ec3-8016-f1ae5cd853bd.png)
+![image-20220420092021553](https://user-images.githubusercontent.com/56998197/164133033-11d0222b-4f7d-4e03-9db7-065fb67e5124.png)
+![image-20220420092047740](https://user-images.githubusercontent.com/56998197/164133041-7ef2bb56-09f7-4361-9ba2-3cfd6d9d7529.png)
+![image-20220420092107408](https://user-images.githubusercontent.com/56998197/164133052-f9618e52-f7f2-4fac-b324-91a6b97669f7.png)
+![image-20220420092141415](https://user-images.githubusercontent.com/56998197/164133064-53f8a9e5-f046-4d90-96e2-8f5d32921eba.png)
 
-![image-20220420091836346](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420091836346.png)
 
-![image-20220420091922888](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420091922888.png)
-
-![image-20220420092021553](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420092021553.png)
-
-![image-20220420092047740](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420092047740.png)
-
-![image-20220420092107408](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420092107408.png)
-
-![image-20220420092141415](C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20220420092141415.png)
