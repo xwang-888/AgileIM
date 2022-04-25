@@ -48,6 +48,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 BorderThickness="0"
+                                Command="{Binding AddNewFriendCommand}"
                                 Content="添加"
                                 FontSize="16" />
                         </Grid>

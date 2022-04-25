@@ -1,0 +1,58 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls">
+    <Style TargetType="controls:Dialog">
+        <Setter Property="Background" Value="{DynamicResource PrimaryCardBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:Dialog">
+                    <Border
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="20"
+                                Opacity=".4"
+                                ShadowDepth="1"
+                                Color="Black" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <DockPanel Height="30">
+                                <Button
+                                    Width="35"
+                                    HorizontalAlignment="Right"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    ClipToBounds="True"
+                                    Command="{TemplateBinding CloseCommand}"
+                                    DockPanel.Dock="Right"
+                                    Foreground="{DynamicResource PrimaryBody}">
+                                    <controls:PackIcon Kind="WindowClose"  Width="20"  Height="20"/>
+                                </Button>
+                            </DockPanel>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                Focusable="False"
+                                RecognizesAccessKey="True" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

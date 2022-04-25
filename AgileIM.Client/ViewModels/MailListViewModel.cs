@@ -6,9 +6,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
-
+using AgileIM.Client.Views;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
@@ -76,6 +76,7 @@ namespace AgileIM.Client.ViewModels
 
 
         public ICommand NewFriendCommand => new AsyncRelayCommand(NewFriend);
+        public ICommand AddNewFriendCommand => new AsyncRelayCommand(AddNewFriend);
 
 
         private Task NewFriend()
@@ -84,6 +85,11 @@ namespace AgileIM.Client.ViewModels
             SelectedUserInfo = null;
             IsNewFriend = true;
             return Task.CompletedTask;
+        }
+
+        private async Task AddNewFriend()
+        {
+            DialogHostHelper.ShowDialog(new AddNewFriendView());
         }
 
 

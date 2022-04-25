@@ -14,6 +14,7 @@
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.PasswordBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.AccountBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.DialogHost.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Icons/AgileIM.Client.Themes.Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -50,4 +51,5 @@
     <Style BasedOn="{StaticResource BasePasswordBox}" TargetType="PasswordBox" />
     <Style BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button" />
     <Style BasedOn="{StaticResource BaseWindowsStyle}" TargetType="controls:CustomWindow" />
+    <Style BasedOn="{StaticResource BaseItemsControlEx}" TargetType="controls:ItemsControlEx" />
 </ResourceDictionary>

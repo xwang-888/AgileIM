@@ -11,7 +11,6 @@ using AgileIM.Client.Models;
 
 namespace AgileIM.Client.Controls
 {
-    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(ComboBoxItem))]
     [TemplatePart(Name = PARK_ArrowToggleButton, Type = typeof(ToggleButton))]
     [TemplatePart(Name = PARK_ListView, Type = typeof(ListView))]
     public class AccountBox : Selector
@@ -43,6 +42,9 @@ namespace AgileIM.Client.Controls
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count is 1)
+                SelectedItem = e.AddedItems[0];
+
             ArrowToggleButton.IsChecked = false;
             isOpen = false;
         }

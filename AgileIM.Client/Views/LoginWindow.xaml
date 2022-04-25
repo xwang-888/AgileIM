@@ -89,14 +89,14 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                 
                     <controls:AccountBox
                         Height="40"
                         assist:ControlAssist.Hint="Account / Phone / Email"
                         Account="{Binding SelectedUserInfo.Account}"
                         FocusVisualStyle="{x:Null}"
                         ItemsSource="{Binding LoginUserInfos}"
-                        SelectedItem="{Binding SelectedUserInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedValuePath="Account">
+                        SelectedItem="{Binding SelectedUserInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                         <controls:AccountBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="10,2">
