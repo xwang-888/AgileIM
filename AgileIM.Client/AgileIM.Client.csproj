@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="122.png" />
     <None Remove="123.png" />
+    <None Remove="Images\defaultpage1.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,12 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="122.png" />
     <Resource Include="123.png" />
+    <Resource Include="Images\defaultpage1.png" />
   </ItemGroup>
 
 </Project>

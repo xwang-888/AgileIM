@@ -7,7 +7,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="Padding" Value="5,1,5,1" />
-        <Setter Property="BorderThickness" Value="1.1" />
+        <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryBody}" />
         <Setter Property="Template">
@@ -21,9 +21,9 @@
                         <Grid>
                             <Border
                                 Name="BackBorder"
-                                Margin="-2"
+                                Margin="-1.5"
                                 BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                BorderThickness="2"
+                                BorderThickness="1.5"
                                 CornerRadius="{TemplateBinding assist:ControlAssist.CornerRadius}"
                                 Visibility="Collapsed" />
                             <Grid>

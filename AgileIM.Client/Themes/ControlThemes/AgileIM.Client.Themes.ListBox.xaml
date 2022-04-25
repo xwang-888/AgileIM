@@ -258,10 +258,10 @@
             Background="{TemplateBinding Background}"
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}">
-            <Border>
+            <Border >
                 <Image
-                    MaxWidth="220"
-                    MaxHeight="220"
+                    MaxWidth="200"
+                    MaxHeight="200"
                     Source="{TemplateBinding DefaultPageSource}"
                     Stretch="UniformToFill" />
             </Border>
