@@ -27,6 +27,9 @@
                 Margin="5,0,0,0"
                 Content="搜索" />
         </Grid>
-        <controls:ItemsControlEx Grid.Row="1" DefaultPageSource="../Images/defaultpage1.png" />
+        <controls:ItemsControlEx
+            Grid.Row="1"
+            DefaultPageSource="../Images/defaultpage1.png"
+            HintContent="暂无数据" />
     </Grid>
 </UserControl>

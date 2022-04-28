@@ -43,7 +43,7 @@
                                 Margin="0"
                                 Background="Transparent"
                                 BorderBrush="{TemplateBinding Background}"
-                                BorderThickness="1.5"
+                                BorderThickness="3"
                                 CornerRadius="2"
                                 Opacity="0.0" />
                             <Border
@@ -86,8 +86,6 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="CheckedMark" Property="Visibility" Value="Visible" />
                             <Setter TargetName="Graphic" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Graphic" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
                         </Trigger>
 
@@ -100,6 +98,7 @@
                             <Setter TargetName="Path" Property="Margin" Value="1" />
                             <Setter TargetName="Path" Property="Data" Value="M6,13L6,11L18,11L18,13M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />
                             <Setter TargetName="Path" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+
                         </Trigger>
                         <Trigger Property="Validation.HasError" Value="true">
                             <Setter TargetName="Graphic" Property="Background" Value="{DynamicResource ValidationErrorBrush}" />

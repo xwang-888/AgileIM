@@ -22,15 +22,9 @@
             <Border
                 Width="250"
                 Margin="15,15,10,15"
-                Background="{DynamicResource PrimaryBackground}"
-                CornerRadius="6">
-                <Border.Effect>
-                    <DropShadowEffect
-                        BlurRadius="15"
-                        Opacity=".2"
-                        ShadowDepth="1"
-                        Color="Gray" />
-                </Border.Effect>
+                Background="{DynamicResource PrimaryCardBrush}"
+                CornerRadius="6"
+                Effect="{DynamicResource EffectShadow3}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -75,6 +69,7 @@
                                     BorderThickness="0"
                                     Command="{Binding NewFriendCommand}"
                                     FocusVisualStyle="{x:Null}"
+                                    Foreground="{DynamicResource PrimaryBody}"
                                     IsChecked="{Binding IsNewFriend}">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
@@ -195,14 +190,8 @@
                     MaxHeight="330"
                     Margin="60,0,60,0"
                     Background="{DynamicResource PrimaryCardBrush}"
-                    CornerRadius="5">
-                    <Border.Effect>
-                        <DropShadowEffect
-                            BlurRadius="30"
-                            Opacity=".2"
-                            ShadowDepth="1"
-                            Color="Gray" />
-                    </Border.Effect>
+                    CornerRadius="5"
+                    Effect="{DynamicResource EffectShadow3}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -255,13 +244,7 @@
                                         <Setter Property="FontSize" Value="13" />
                                         <Setter Property="Margin" Value="0,5,30,5" />
                                     </Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Opacity" Value="1" />
-                                        <Setter Property="Background" Value="Transparent" />
-                                        <Setter Property="BorderThickness" Value="0" />
-                                        <Setter Property="FontSize" Value="13" />
-                                        <Setter Property="IsReadOnly" Value="True" />
-                                    </Style>
+                                    <Style BasedOn="{StaticResource TextBoxReadOnlyStyle}" TargetType="TextBox" />
                                 </Grid.Resources>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />

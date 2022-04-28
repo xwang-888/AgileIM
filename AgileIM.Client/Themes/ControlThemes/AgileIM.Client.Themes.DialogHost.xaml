@@ -14,14 +14,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
-                        <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="20"
-                                Opacity=".4"
-                                ShadowDepth="1"
-                                Color="Black" />
-                        </Border.Effect>
+                        CornerRadius="6"
+                        Effect="{DynamicResource EffectShadow3}">
+
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -38,7 +33,10 @@
                                     Command="{TemplateBinding CloseCommand}"
                                     DockPanel.Dock="Right"
                                     Foreground="{DynamicResource PrimaryBody}">
-                                    <controls:PackIcon Kind="WindowClose"  Width="20"  Height="20"/>
+                                    <controls:PackIcon
+                                        Width="20"
+                                        Height="20"
+                                        Kind="WindowClose" />
                                 </Button>
                             </DockPanel>
                             <ContentPresenter

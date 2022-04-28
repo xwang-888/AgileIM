@@ -9,7 +9,9 @@
         <Setter Property="Padding" Value="5,1,5,1" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryBody}" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryCardBrush}" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
+        <Setter Property="CaretBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -82,6 +84,9 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="2" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
+        <Setter Property="CaretBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -135,5 +140,14 @@
             </Setter.Value>
         </Setter>
 
+    </Style>
+    <Style x:Key="TextBoxReadOnlyStyle" TargetType="TextBox">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
     </Style>
 </ResourceDictionary>

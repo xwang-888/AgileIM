@@ -37,21 +37,15 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryBackground}"
-                        CornerRadius="5">
-                        <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="5"
-                                Opacity=".2"
-                                ShadowDepth="1"
-                                Color="Gray" />
-                        </Border.Effect>
-                    </Border>
+                        CornerRadius="5"
+                        Effect="{DynamicResource EffectShadow1}" />
                     <TextBox
                         Margin="10"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
                         FontSize="14"
+                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                         IsReadOnly="True"
                         Style="{x:Null}"
                         Text="{TemplateBinding Text}"
@@ -99,15 +93,8 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryHueLightBrush}"
-                        CornerRadius="5">
-                        <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="5"
-                                Opacity=".2"
-                                ShadowDepth="1"
-                                Color="Gray" />
-                        </Border.Effect>
-                    </Border>
+                        CornerRadius="5"
+                        Effect="{DynamicResource EffectShadow1}" />
                     <TextBox
                         Margin="10"
                         VerticalAlignment="Center"
@@ -140,6 +127,7 @@
     </Style>
     <Style TargetType="controls:ChatPanel">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ChatPanel">
@@ -158,7 +146,8 @@
                                     Cursor="Hand"
                                     DataContext="{TemplateBinding OtherUserInfo}"
                                     FocusVisualStyle="{x:Null}"
-                                    FontSize="18">
+                                    FontSize="18"
+                                    Foreground="{TemplateBinding Foreground}">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <TextBlock VerticalAlignment="Center" Text="{TemplateBinding Content}" />
@@ -181,15 +170,9 @@
                                     StaysOpen="False">
                                     <Border
                                         Margin="10"
-                                        Background="{DynamicResource PrimaryBackground}"
-                                        CornerRadius="5">
-                                        <Border.Effect>
-                                            <DropShadowEffect
-                                                BlurRadius="10"
-                                                Direction="0"
-                                                ShadowDepth="3"
-                                                Color="#E1E6E8" />
-                                        </Border.Effect>
+                                        Background="{DynamicResource PrimaryCardLightBrush}"
+                                        CornerRadius="5"
+                                        Effect="{DynamicResource EffectShadow3}">
                                         <StackPanel Margin="30">
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -232,8 +215,10 @@
                                                         Text="账号：" />
                                                     <TextBox
                                                         Grid.Column="1"
+                                                        Background="Transparent"
                                                         BorderThickness="0"
                                                         FontSize="14"
+                                                        Foreground="{TemplateBinding Foreground}"
                                                         IsReadOnly="True"
                                                         Opacity=".6"
                                                         Style="{x:Null}"

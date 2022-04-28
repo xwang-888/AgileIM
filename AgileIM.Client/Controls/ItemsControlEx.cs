@@ -13,11 +13,24 @@ namespace AgileIM.Client.Controls
     {
         public static readonly DependencyProperty DefaultPageSourceProperty = DependencyProperty.Register(
             "DefaultPageSource", typeof(ImageSource), typeof(ItemsControlEx), new PropertyMetadata(default(ImageSource)));
-
+        /// <summary>
+        /// 缺省页图片
+        /// </summary>
         public ImageSource DefaultPageSource
         {
             get => (ImageSource)GetValue(DefaultPageSourceProperty);
             set => SetValue(DefaultPageSourceProperty, value);
+        }
+
+        public static readonly DependencyProperty HintContentProperty = DependencyProperty.Register(
+            "HintContent", typeof(object), typeof(ItemsControlEx), new PropertyMetadata(default(object)));
+        /// <summary>
+        /// 缺省页文字
+        /// </summary>
+        public object HintContent
+        {
+            get => (object)GetValue(HintContentProperty);
+            set => SetValue(HintContentProperty, value);
         }
     }
 }

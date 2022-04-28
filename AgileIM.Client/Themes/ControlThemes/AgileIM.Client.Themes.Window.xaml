@@ -118,33 +118,120 @@
                                 Grid.ColumnSpan="2"
                                 Height="45"
                                 Background="{TemplateBinding Background}"
+                                Effect="{DynamicResource EffectShadow3}"
                                 ZIndex="1">
-                                <Grid.Effect>
-                                    <DropShadowEffect
-                                        BlurRadius="25"
-                                        Opacity=".3"
-                                        ShadowDepth="1"
-                                        Color="Gray" />
-                                </Grid.Effect>
-                                <Border
+                                <ToggleButton
+                                    Name="PhotoToggleBtn"
                                     Width="35"
                                     Height="35"
                                     Margin="15,0,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    CornerRadius="40"
+                                    Cursor="Hand"
                                     WindowChrome.IsHitTestVisibleInChrome="True">
-                                    <Image Source="../../123.png">
-                                        <Image.Clip>
-                                            <EllipseGeometry
-                                                Center="17.5,17.5"
-                                                RadiusX="17.5"
-                                                RadiusY="17.5" />
-                                        </Image.Clip>
-                                    </Image>
-                                </Border>
+                                    <ToggleButton.Template>
+                                        <ControlTemplate>
+                                            <Image Source="../../123.png">
+                                                <Image.Clip>
+                                                    <EllipseGeometry
+                                                        Center="17.5,17.5"
+                                                        RadiusX="17.5"
+                                                        RadiusY="17.5" />
+                                                </Image.Clip>
+                                            </Image>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <Popup
+                                    Width="300"
+                                    Height="200"
+                                    AllowsTransparency="True"
+                                    IsOpen="{Binding ElementName=PhotoToggleBtn, Path=IsChecked}"
+                                    PlacementTarget="{Binding ElementName=PhotoToggleBtn}"
+                                    PopupAnimation="Fade"
+                                    StaysOpen="False">
+                                    <Border
+                                        Margin="10"
+                                        Background="{DynamicResource PrimaryCardLightBrush}"
+                                        CornerRadius="5"
+                                        Effect="{DynamicResource EffectShadow3}">
+                                        <StackPanel Margin="30">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid
+                                                    Grid.RowSpan="2"
+                                                    Grid.Column="1"
+                                                    Width="60"
+                                                    Height="60"
+                                                    Margin="10,0,0,0">
+                                                    <Border Background="DodgerBlue" CornerRadius="5">
+                                                        <Image Source="../../123.png" />
+                                                    </Border>
+                                                </Grid>
+                                                <StackPanel
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Orientation="Horizontal">
+                                                    <TextBlock FontSize="18" Text="Private" />
+                                                </StackPanel>
+                                                <Grid
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Margin="0,5"
+                                                    VerticalAlignment="Center">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        FontSize="14"
+                                                        Opacity=".6"
+                                                        Text="账号：" />
+                                                    <TextBox
+                                                        Grid.Column="1"
+                                                        FontSize="14"
+                                                        Opacity=".6"
+                                                        Style="{DynamicResource TextBoxReadOnlyStyle}"
+                                                        Text="123123"
+                                                        TextWrapping="Wrap" />
+                                                </Grid>
+                                            </Grid>
+                                            <Border
+                                                Height="1"
+                                                Margin="0,10,0,0"
+                                                Background="{DynamicResource PrimaryBody}"
+                                                Opacity=".2" />
+                                            <Grid Margin="0,20,0,0" Opacity=".6">
+                                                <Grid.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="FontSize" Value="14" />
+                                                        <Setter Property="Margin" Value="0,5,20,5" />
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="地区" />
+                                                <TextBox
+                                                    Grid.Column="1"
+                                                    FontSize="14"
+                                                    Style="{DynamicResource TextBoxReadOnlyStyle}"
+                                                    Text="陕西 西安" />
 
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
                                 <TextBox
                                     Width="300"
                                     Margin="0,6"
@@ -168,12 +255,115 @@
                                         </Style>
                                     </StackPanel.Resources>
 
-                                    <Button
+                                    <ToggleButton
+                                        Name="MoreToggleBtn"
+                                        Width="45"
+                                        Height="45"
+                                        Cursor="Hand"
                                         Foreground="{TemplateBinding Foreground}"
                                         IsTabStop="False"
                                         ToolTip="更多">
-                                        <controls:PackIcon Kind="More" />
-                                    </Button>
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border Name="Border" Background="Transparent">
+                                                    <controls:PackIcon
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Kind="More" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="Border" Property="Opacity" Value=".7" />
+                                                        <Setter TargetName="Border" Property="Background" Value="#E5E5E5" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="Border" Property="Opacity" Value=".5" />
+                                                        <Setter TargetName="Border" Property="Background" Value="#E5E5E5" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+
+                                    <Popup
+                                        Width="185"
+                                        Height="200"
+                                        AllowsTransparency="True"
+                                        IsOpen="{Binding ElementName=MoreToggleBtn, Path=IsChecked}"
+                                        PlacementTarget="{Binding ElementName=MoreToggleBtn}"
+                                        PopupAnimation="Slide"
+                                        StaysOpen="False">
+                                        <Border
+                                            Margin="10"
+                                            Background="{DynamicResource PrimaryCardLightBrush}"
+                                            CornerRadius="5"
+                                            Effect="{DynamicResource EffectShadow3}">
+                                            <StackPanel Margin="10">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock
+                                                        Margin="2,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="主题" />
+                                                    <ToggleButton
+                                                        Width="100"
+                                                        Height="20"
+                                                        Margin="10,0,0,0"
+                                                        Command="{TemplateBinding SwitchThemeCommand}"
+                                                        Cursor="Hand"
+                                                        Foreground="{TemplateBinding Foreground}">
+                                                        <ToggleButton.Template>
+                                                            <ControlTemplate TargetType="ToggleButton">
+                                                                <Border
+                                                                    Name="Border"
+                                                                    Background="{DynamicResource PrimaryCardBrush}"
+                                                                    CornerRadius="3"
+                                                                    Effect="{DynamicResource EffectShadow1}">
+                                                                    <TextBlock
+                                                                        Name="TextBlock"
+                                                                        HorizontalAlignment="Center"
+                                                                        VerticalAlignment="Center"
+                                                                        Foreground="{TemplateBinding Foreground}"
+                                                                        Text="明亮" />
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+
+                                                                        <Setter TargetName="TextBlock" Property="Text" Value="暗黑" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </ToggleButton.Template>
+                                                    </ToggleButton>
+                                                </StackPanel>
+                                                <StackPanel Margin="0,10,0,0" Orientation="Vertical">
+                                                    <TextBlock Margin="2,0,0,5" Text="颜色" />
+                                                    <ItemsControl Name="PART_SystemColors">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <WrapPanel />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <RadioButton GroupName="SystemColors">
+                                                                    <RadioButton.Template>
+                                                                        <ControlTemplate TargetType="RadioButton">
+                                                                            <Border
+                                                                                Width="25"
+                                                                                Height="25"
+                                                                                Margin="2"
+                                                                                Background="{TemplateBinding Background}"
+                                                                                CornerRadius="3" />
+                                                                        </ControlTemplate>
+                                                                    </RadioButton.Template>
+                                                                </RadioButton>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
                                     <Button
                                         x:Name="BtnMin"
                                         Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"

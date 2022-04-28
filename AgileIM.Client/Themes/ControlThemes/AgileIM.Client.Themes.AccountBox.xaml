@@ -8,6 +8,7 @@
     <Style TargetType="controls:AccountBox">
         <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="Template">
             <Setter.Value>
@@ -142,7 +143,9 @@
                                     assist:ControlAssist.Hint="{TemplateBinding assist:ControlAssist.Hint}"
                                     Background="Transparent"
                                     BorderThickness="0"
+                                    CaretBrush="{TemplateBinding Foreground}"
                                     FontSize="14"
+                                    Foreground="{TemplateBinding Foreground}"
                                     Style="{x:Null}"
                                     Text="{TemplateBinding Account}">
                                     <TextBox.Template>
@@ -230,18 +233,9 @@
                                     <Border
                                         Background="{DynamicResource PrimaryCardBrush}"
                                         CornerRadius="3"
+                                        Effect="{DynamicResource EffectShadow3}"
                                         SnapsToDevicePixels="True"
-                                        UseLayoutRounding="True">
-                                        <Border.Effect>
-                                            <DropShadowEffect
-                                                BlurRadius="14"
-                                                Direction="270"
-                                                Opacity=".2"
-                                                RenderingBias="Performance"
-                                                ShadowDepth="4.5"
-                                                Color="#88000000" />
-                                        </Border.Effect>
-                                    </Border>
+                                        UseLayoutRounding="True" />
                                     <Border
                                         Name="DropDownBorder"
                                         Margin="0,0,0,0"
@@ -256,8 +250,10 @@
                                             MaxHeight="220"
                                             VerticalAlignment="Center"
                                             HorizontalContentAlignment="Stretch"
+                                            Background="{TemplateBinding Background}"
                                             BorderThickness="0"
                                             FontSize="14"
+                                            Foreground="{TemplateBinding Foreground}"
                                             ItemTemplate="{TemplateBinding ItemTemplate}"
                                             ItemsSource="{TemplateBinding ItemsSource}"
                                             SelectedIndex="{TemplateBinding SelectedIndex}"

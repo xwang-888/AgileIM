@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shell;
 
+using AgileIM.Client.Common;
+
+using Microsoft.Toolkit.Mvvm.Input;
+
 namespace AgileIM.Client.Controls
 {
+    [TemplatePart(Name = SystemColorsName, Type = typeof(ItemsControl))]
     public class CustomWindow : Window
     {
         public CustomWindow()
@@ -25,7 +31,15 @@ namespace AgileIM.Client.Controls
             BindingOperations.SetBinding(chrome, WindowChrome.CaptionHeightProperty,
                 new Binding(CaptionHeightProperty.Name) { Source = this });
             BindSystemBindings();
+            SwitchThemeCommand = new RelayCommand(() =>
+            {
+                AppColors.Instance.PrimaryThemes = AppColors.Instance.PrimaryThemes.Equals(PrimaryThemes.Dark) ? PrimaryThemes.Light : PrimaryThemes.Dark;
+            });
         }
+
+        private const string SystemColorsName = "PART_SystemColors";
+        private ItemsControl SystemColors;
+        private List<string> _systemColors = new() { "#13c2c2", "#1890ff", "#f5222d", "#bae637", "#fadb14", "#fa541c", "#faad14" };
         /// <summary>
         /// 绑定系统命令
         /// </summary>
@@ -46,6 +60,20 @@ namespace AgileIM.Client.Controls
         {
             get => (double)GetValue(CaptionHeightProperty);
             set => SetValue(CaptionHeightProperty, value);
+        }
+
+        public static readonly DependencyProperty SwitchThemeCommandProperty = DependencyProperty.Register(
+            "SwitchThemeCommand", typeof(ICommand), typeof(CustomWindow), new PropertyMetadata(default(ICommand)));
+
+        public ICommand SwitchThemeCommand
+        {
+            get => (ICommand)GetValue(SwitchThemeCommandProperty);
+            set => SetValue(SwitchThemeCommandProperty, value);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
         }
     }
 }

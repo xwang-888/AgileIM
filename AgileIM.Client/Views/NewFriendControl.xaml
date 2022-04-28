@@ -12,7 +12,7 @@
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsControl
-                Margin="10 0"
+                Margin="10,0"
                 d:ItemsSource="{d:SampleData ItemCount=20}"
                 ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:NewFriendControl}, Path=DataContext}">
                 <ItemsControl.ItemTemplate>
@@ -55,13 +55,7 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <TextBox
-                                        VerticalContentAlignment="Center"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        IsReadOnly="True"
-                                        Style="{x:Null}"
-                                        Text="{Binding Nick}" />
+                                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Nick}" />
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -73,11 +67,7 @@
                                             Text="验证消息：" />
                                         <TextBox
                                             Grid.Column="1"
-                                            VerticalContentAlignment="Center"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            IsReadOnly="True"
-                                            Style="{x:Null}"
+                                            Style="{StaticResource TextBoxReadOnlyStyle}"
                                             Text="{Binding Message}"
                                             ToolTip="{Binding Message}" />
                                     </Grid>

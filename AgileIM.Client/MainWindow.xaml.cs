@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AgileIM.Client.ViewModels;
+using AgileIM.Client.Common;
 
 namespace AgileIM.Client
 {

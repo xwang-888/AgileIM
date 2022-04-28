@@ -4,15 +4,18 @@
     <SolidColorBrush x:Key="ValidationErrorBrush" Color="{StaticResource AgileDesignValidationErrorColor}" />
     <SolidColorBrush x:Key="PrimaryCardTranslucentBrush" Color="#E1E1E6E8" />
     <SolidColorBrush x:Key="PrimaryCardBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="PrimaryCardLightBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="PrimaryLeftMenuBrush" Color="#F3F3F3" />
     <SolidColorBrush x:Key="PrimaryTitleBrush" Color="#464C5B" />
     <SolidColorBrush x:Key="PrimaryBackground" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="PrimaryPaper" Color="#FFfafafa" />
     <SolidColorBrush x:Key="PrimaryBody" Color="#000000" />
     <SolidColorBrush x:Key="PrimaryBodyLight" Color="#89000000" />
-    <SolidColorBrush
-        x:Key="PrimaryTextBoxBorder"
-        Color="#89000000" />
+
+    <SolidColorBrush x:Key="IsMouseOverBrush" Color="#757575" />
+    <SolidColorBrush x:Key="IsDraggingBrush" Color="#212121" />
+    <SolidColorBrush x:Key="ScrollBackground" Color="#212121" />
+
     <!--  7E8083  -->
     <SolidColorBrush x:Key="PrimaryDisabledBrush" Color="#FFBDBDBD" />
     <SolidColorBrush x:Key="PrimaryBorderBrush" Color="#D7DDE4" />

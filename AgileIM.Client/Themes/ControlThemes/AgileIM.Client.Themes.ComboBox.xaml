@@ -368,8 +368,8 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
         <Setter Property="TextElement.FontSize" Value="13" />
         <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryBody}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryTextBoxBorder}" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
         <Setter Property="Padding" Value="5,3,25,3" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="assist:ControlAssist.CornerRadius" Value="3" />

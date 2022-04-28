@@ -26,15 +26,9 @@
                 <Border
                     Width="250"
                     Margin="15,15,10,15"
-                    Background="{DynamicResource PrimaryBackground}"
-                    CornerRadius="6">
-                    <Border.Effect>
-                        <DropShadowEffect
-                            BlurRadius="15"
-                            Opacity=".2"
-                            ShadowDepth="1"
-                            Color="Gray" />
-                    </Border.Effect>
+                    Background="{DynamicResource PrimaryCardBrush}"
+                    CornerRadius="6"
+                    Effect="{DynamicResource EffectShadow3}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -82,14 +76,8 @@
                     Height="150"
                     Margin="10,10,15,15"
                     Background="{DynamicResource PrimaryBackground}"
-                    CornerRadius="6">
-                    <Border.Effect>
-                        <DropShadowEffect
-                            BlurRadius="15"
-                            Opacity=".2"
-                            ShadowDepth="1"
-                            Color="Gray" />
-                    </Border.Effect>
+                    CornerRadius="6"
+                    Effect="{DynamicResource EffectShadow3}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -132,8 +120,11 @@
                             Grid.Row="1"
                             Margin="10,5,10,0"
                             VerticalContentAlignment="Stretch"
+                            Background="Transparent"
                             BorderThickness="0"
+                            CaretBrush="{DynamicResource PrimaryBody}"
                             FontSize="14"
+                            Foreground="{DynamicResource PrimaryBody}"
                             IsFocus="{Binding SendTextIsFocus}"
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
                             Style="{x:Null}"

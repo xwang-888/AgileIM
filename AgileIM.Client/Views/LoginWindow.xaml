@@ -34,14 +34,8 @@
         <Border
             Margin="30,5,30,30"
             Background="{DynamicResource PrimaryCardBrush}"
-            CornerRadius="10">
-            <Border.Effect>
-                <DropShadowEffect
-                    BlurRadius="10"
-                    Opacity=".4"
-                    ShadowDepth="1"
-                    Color="Gray" />
-            </Border.Effect>
+            CornerRadius="10"
+            Effect="{DynamicResource EffectShadow2}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -89,7 +83,7 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                 
+
                     <controls:AccountBox
                         Height="40"
                         assist:ControlAssist.Hint="Account / Phone / Email"
