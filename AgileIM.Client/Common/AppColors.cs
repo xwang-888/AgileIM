@@ -67,8 +67,8 @@ namespace AgileIM.Client.Common
 
     public enum PrimaryColors
     {
-        Cyan,
         DaybreakBlue,
+        Cyan,
         DustRed,
         Lime,
         SunriseYellow,
