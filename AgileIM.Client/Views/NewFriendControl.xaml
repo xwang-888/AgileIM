@@ -20,14 +20,8 @@
                         <Border
                             Margin="0,6"
                             Background="{DynamicResource PrimaryCardBrush}"
-                            CornerRadius="10">
-                            <Border.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="10"
-                                    Opacity=".2"
-                                    ShadowDepth="1"
-                                    Color="Gray" />
-                            </Border.Effect>
+                            CornerRadius="10"
+                            Effect="{DynamicResource EffectShadow2}">
                             <Grid Margin="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />

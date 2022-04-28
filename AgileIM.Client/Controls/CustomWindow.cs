@@ -35,11 +35,24 @@ namespace AgileIM.Client.Controls
             {
                 AppColors.Instance.PrimaryThemes = AppColors.Instance.PrimaryThemes.Equals(PrimaryThemes.Dark) ? PrimaryThemes.Light : PrimaryThemes.Dark;
             });
+            SwitchColorCommand = new RelayCommand<KeyValuePair<PrimaryColors, string>>(color =>
+             {
+                 AppColors.Instance.PrimaryColors = color.Key;
+             });
         }
 
         private const string SystemColorsName = "PART_SystemColors";
         private ItemsControl SystemColors;
-        private List<string> _systemColors = new() { "#13c2c2", "#1890ff", "#f5222d", "#bae637", "#fadb14", "#fa541c", "#faad14" };
+        private Dictionary<PrimaryColors, string> _systemColors = new()
+        {
+            { PrimaryColors.DaybreakBlue, "#1890ff" },
+            { PrimaryColors.Cyan, "#13c2c2" },
+            { PrimaryColors.DustRed, "#f5222d" },
+            { PrimaryColors.Lime, "#bae637" },
+            { PrimaryColors.SunriseYellow, "#fadb14" },
+            { PrimaryColors.SunsetOrange, "#fa541c" },
+            { PrimaryColors.CalendulaGold, "#faad14" },
+        };
         /// <summary>
         /// 绑定系统命令
         /// </summary>
@@ -71,9 +84,23 @@ namespace AgileIM.Client.Controls
             set => SetValue(SwitchThemeCommandProperty, value);
         }
 
+        public static readonly DependencyProperty SwitchColorCommandProperty = DependencyProperty.Register(
+            "SwitchColorCommand", typeof(ICommand), typeof(CustomWindow), new PropertyMetadata(default(ICommand)));
+
+        public ICommand SwitchColorCommand
+        {
+            get => (ICommand)GetValue(SwitchColorCommandProperty);
+            set => SetValue(SwitchColorCommandProperty, value);
+        }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            if (GetTemplateChild(SystemColorsName) is ItemsControl itemsControl)
+            {
+                SystemColors = itemsControl;
+                SystemColors.ItemsSource = _systemColors;
+            }
         }
     }
 }

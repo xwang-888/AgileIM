@@ -214,7 +214,7 @@
                                     Width="60"
                                     Height="60"
                                     Margin="10,0,0,0">
-                                    <Border Background="DodgerBlue" CornerRadius="5" />
+                                    <Border Background="{DynamicResource PrimaryHueDarkBrush}" CornerRadius="5" />
                                 </Grid>
                                 <StackPanel
                                     Grid.Row="0"

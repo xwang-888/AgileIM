@@ -337,7 +337,7 @@
                                                 </StackPanel>
                                                 <StackPanel Margin="0,10,0,0" Orientation="Vertical">
                                                     <TextBlock Margin="2,0,0,5" Text="颜色" />
-                                                    <ItemsControl Name="PART_SystemColors">
+                                                    <ItemsControl x:Name="PART_SystemColors">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <WrapPanel />
@@ -345,15 +345,42 @@
                                                         </ItemsControl.ItemsPanel>
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate>
-                                                                <RadioButton GroupName="SystemColors">
+                                                                <RadioButton
+                                                                    Margin="2"
+                                                                    Background="{Binding Value}"
+                                                                    Command="{Binding RelativeSource={RelativeSource AncestorType=controls:CustomWindow}, Path=SwitchColorCommand}"
+                                                                    CommandParameter="{Binding}"
+                                                                    GroupName="SystemColors">
                                                                     <RadioButton.Template>
                                                                         <ControlTemplate TargetType="RadioButton">
                                                                             <Border
                                                                                 Width="25"
                                                                                 Height="25"
-                                                                                Margin="2"
                                                                                 Background="{TemplateBinding Background}"
-                                                                                CornerRadius="3" />
+                                                                                CornerRadius="3">
+                                                                                <Border
+                                                                                    Name="CheckedBack"
+                                                                                    Width="13"
+                                                                                    Height="13"
+                                                                                    Background="White"
+                                                                                    CornerRadius="15"
+                                                                                    Opacity=".8"
+                                                                                    Visibility="Collapsed">
+                                                                                    <controls:PackIcon
+                                                                                        Width="8"
+                                                                                        Height="8"
+                                                                                        HorizontalAlignment="Center"
+                                                                                        VerticalAlignment="Center"
+                                                                                        Foreground="Black"
+                                                                                        Kind="Check" />
+                                                                                </Border>
+                                                                            </Border>
+
+                                                                            <ControlTemplate.Triggers>
+                                                                                <Trigger Property="IsChecked" Value="True">
+                                                                                    <Setter TargetName="CheckedBack" Property="Visibility" Value="Visible" />
+                                                                                </Trigger>
+                                                                            </ControlTemplate.Triggers>
                                                                         </ControlTemplate>
                                                                     </RadioButton.Template>
                                                                 </RadioButton>

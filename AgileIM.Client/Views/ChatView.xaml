@@ -75,7 +75,7 @@
                 <Border
                     Height="150"
                     Margin="10,10,15,15"
-                    Background="{DynamicResource PrimaryBackground}"
+                    Background="{DynamicResource PrimaryCardBrush}"
                     CornerRadius="6"
                     Effect="{DynamicResource EffectShadow3}">
                     <Grid>

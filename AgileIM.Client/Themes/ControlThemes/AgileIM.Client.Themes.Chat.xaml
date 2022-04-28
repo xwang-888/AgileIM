@@ -36,7 +36,7 @@
                     HorizontalAlignment="Left">
                     <Border
                         Name="Border"
-                        Background="{DynamicResource PrimaryBackground}"
+                        Background="{DynamicResource PrimaryCardBrush}"
                         CornerRadius="5"
                         Effect="{DynamicResource EffectShadow1}" />
                     <TextBox

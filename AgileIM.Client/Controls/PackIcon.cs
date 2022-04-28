@@ -106,6 +106,7 @@ namespace AgileIM.Client.Controls
         Eye,
         EyeOff,
         Setting,
+        Check,
         SettingOutline,
 
     }
@@ -130,6 +131,7 @@ namespace AgileIM.Client.Controls
             { PackIconKind.WindowMax,"M4,4H20V20H4V4M6,8V18H18V8H6Z"},
             { PackIconKind.WindowRestore,"M4,8H8V4H20V16H16V20H4V8M16,8V14H18V6H10V8H16M6,12V18H14V12H6Z"},
             { PackIconKind.WindowClose,"M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"},
+            { PackIconKind.Check,"M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"},
         };
     }
 }
