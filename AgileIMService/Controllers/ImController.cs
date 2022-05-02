@@ -1,9 +1,9 @@
-﻿using AgileIM.Service.Service;
-using AgileIM.Shared.Models.ApiResult;
+﻿using AgileIM.Shared.Models.ApiResult;
 
 using Microsoft.AspNetCore.Mvc;
 
 using AgileIM.IM.Models;
+using AgileIM.Service.Services;
 
 namespace AgileIM.Service.Controllers
 {

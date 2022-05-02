@@ -1,6 +1,6 @@
 ﻿using AgileIM.Shared.Models.Users;
 
-namespace AgileIM.Service.Service
+namespace AgileIM.Service.Services
 {
     public interface IVerifyService
     {

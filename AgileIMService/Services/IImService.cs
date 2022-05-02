@@ -1,6 +1,6 @@
 ﻿using AgileIM.IM.Models;
 
-namespace AgileIM.Service.Service
+namespace AgileIM.Service.Services
 {
     public interface IImService
     {

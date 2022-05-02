@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 
 using AgileIM.Service.OAuth.Configs;
-using AgileIM.Service.Service;
+using AgileIM.Service.Services;
 using AgileIM.Shared.Models.Users;
 
 using IdentityModel;

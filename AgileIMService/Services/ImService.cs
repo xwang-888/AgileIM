@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using AgileIM.IM.Helper;
 using AgileIM.IM.Models;
 
-namespace AgileIM.Service.Service
+namespace AgileIM.Service.Services
 {
     public class ImService : IImService
     {
