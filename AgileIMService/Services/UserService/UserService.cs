@@ -34,7 +34,7 @@ namespace AgileIM.Service.Services.UserService
             {
                 var address = _configuration["ServerIpPort"];
 
-                var url = $"http://{address}/connect/token";
+                var url = $"{address}/connect/token";
                 var client = _clientFactory.CreateClient();
                 var listConfigs = new List<KeyValuePair<string, string>>()
                 {
@@ -118,7 +118,7 @@ namespace AgileIM.Service.Services.UserService
             {
                 var address = _configuration["ServerIpPort"];
 
-                var url = $"http://{address}/connect/token";
+                var url = $"{address}/connect/token";
                 var client = _clientFactory.CreateClient();
                 var listConfigs = new List<KeyValuePair<string, string>>()
                 {
