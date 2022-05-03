@@ -1,4 +1,5 @@
 ﻿using AgileIM.Shared.Models.Users;
+using AgileIM.Shared.Models.Users.Entity;
 
 namespace AgileIM.Service.Services
 {

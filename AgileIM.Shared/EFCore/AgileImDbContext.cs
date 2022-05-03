@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AgileIM.Shared.Models.Users;
-
+using AgileIM.Shared.Models.Users.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgileIM.Shared.EFCore
@@ -14,7 +14,6 @@ namespace AgileIM.Shared.EFCore
     {
         public AgileImDbContext(DbContextOptions<AgileImDbContext> options) : base(options)
         {
-
         }
 
 

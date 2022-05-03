@@ -1,9 +1,13 @@
 using AgileIM.IM.Helper;
+using AgileIM.Service.Data.Repository;
 using AgileIM.Service.OAuth;
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Service.Services;
 using AgileIM.Service.Services.UserService;
 using AgileIM.Shared.EFCore;
+using AgileIM.Shared.Models.Users.Entity;
+
+using IdentityServer4.Validation;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
@@ -16,6 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IVerifyService, VerifyService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.RegisterUnitOfWork<AgileImDbContext>();
+builder.Services.RegisterRepository<User, UserRepository>();
+
 builder.Services
     .AddIdentityServer()
     .AddDeveloperSigningCredential(true, "tempkey.jwk")
@@ -37,7 +44,7 @@ builder.Services.AddDbContext<AgileImDbContext>(options =>
     options.UseSqlServer(sqlServerConnStr);
 });
 
-builder.WebHost.UseUrls("http://*:9659");
+builder.WebHost.UseUrls(builder.Configuration["ServerIpPort"]);
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
@@ -46,7 +53,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseImServer();
-
+// º¯»®”Î ⁄»®
 app.UseAuthorization().UseAuthentication();
 
 app.MapControllers();
@@ -56,4 +63,3 @@ IdentityModelEventSource.ShowPII = true;
 app.UseIdentityServer();
 
 app.Run();
-

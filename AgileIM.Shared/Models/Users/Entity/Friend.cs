@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AgileIM.Shared.Models.Users
+namespace AgileIM.Shared.Models.Users.Entity
 {
     /// <summary>
     /// 好友表
     /// </summary>
+    [Table("Friend")]
     public class Friend : BaseEntity
     {
         /// <summary>

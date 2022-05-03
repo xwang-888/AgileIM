@@ -1,22 +1,26 @@
-﻿using AgileIM.Shared.Models.Users;
+﻿using AgileIM.Service.Data.UnitOfWork;
+using AgileIM.Shared.Models.Users;
+using AgileIM.Shared.Models.Users.Entity;
 
 namespace AgileIM.Service.Services
 {
     public class VerifyService : IVerifyService
     {
+        public VerifyService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        private readonly IUnitOfWork _unitOfWork;
+
         public async Task<User?> VerifyUser(string account, string password)
         {
             if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password)) return null;
 
+            var userRep = _unitOfWork.GetRepository<User>();
 
-            //TODO 此处应为从数据库查询数据，来判断是否登录成功
-            return new User
-            {
-                Id = $"{Guid.NewGuid()}",
-                Account = account,
-                Password = password,
-                Nick = $"尼古拉斯{new Random().Next(1000, 10000)}"
-            };
+            return await userRep.FirstOrDefaultAsync(u => (u.Account.Equals(account) || u.Phone.Equals(account)) && u.Password.Equals(password));
+
         }
     }
 }

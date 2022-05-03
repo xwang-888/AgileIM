@@ -3,6 +3,7 @@
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Service.Services;
 using AgileIM.Shared.Models.Users;
+using AgileIM.Shared.Models.Users.Entity;
 
 using IdentityModel;
 
@@ -30,7 +31,7 @@ namespace AgileIM.Service.OAuth
                 // identity提供者,
                 var identityProvider = _configuration["ServerIpPort"] ?? "local";
                 // 自定义响应
-                var customResponseDic = new Dictionary<string, object>();
+                var customResponseDic = new Dictionary<string, object> { { "user", user } };
                 context.Result = new GrantValidationResult
                     (context.UserName,
                     OidcConstants.AuthenticationMethods.Password,
@@ -48,8 +49,6 @@ namespace AgileIM.Service.OAuth
         {
             return new Claim[]
             {
-                new ("account",user.Account),
-                new ("nick",user.Nick),
                 new ("tokenExpireTime",DateTime.Now.AddSeconds(Convert.ToInt32(OAuthConfig.ExpireIn)).ToString("yyyy-HH-MM-dd HH:mm:ss"))
             };
         }

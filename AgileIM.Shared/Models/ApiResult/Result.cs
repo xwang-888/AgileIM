@@ -12,7 +12,9 @@ namespace AgileIM.Shared.Models.ApiResult
     public class Result
     {
 
-        public Result(string code, string msg, object? data = null)
+        public Result(){}
+
+        public Result(int code, string msg, object? data = null)
         {
             Msg = msg;
             Code = code;
@@ -25,7 +27,7 @@ namespace AgileIM.Shared.Models.ApiResult
         /// <summary>
         /// 代码
         /// </summary>
-        public string Code { get; set; }
+        public int Code { get; set; }
         /// <summary>
         /// 返回数据
         /// </summary>
@@ -34,7 +36,8 @@ namespace AgileIM.Shared.Models.ApiResult
     public class Result<T> : Result
     {
 
-        public Result(string code, string msg, T data) : base(code, msg, data)
+        public Result() { }
+        public Result(int code, string msg, T data) : base(code, msg, data)
         {
             Data = data;
         }
