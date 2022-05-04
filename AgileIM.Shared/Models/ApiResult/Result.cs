@@ -23,7 +23,7 @@ namespace AgileIM.Shared.Models.ApiResult
         /// <summary>
         /// 消息
         /// </summary>
-        public string Msg { get; set; }
+        public string? Msg { get; set; }
         /// <summary>
         /// 代码
         /// </summary>

@@ -22,11 +22,12 @@ namespace AgileIM.Shared.Models.Users.Entity
         /// <summary>
         /// 昵称
         /// </summary>
+        [Required]
         public string Nick { get; set; }
         /// <summary>
         /// 头像
         /// </summary>
-        public string Image { get; set; }
+        public string? Image { get; set; }
         /// <summary>
         /// 手机号
         /// </summary>
@@ -37,7 +38,7 @@ namespace AgileIM.Shared.Models.Users.Entity
         /// </summary>
         public string Address { get; set; }
         /// <summary>
-        /// 性别
+        /// 性别 0 null ,1 男，2 女
         /// </summary>
         [Required]
         public int Gender { get; set; }

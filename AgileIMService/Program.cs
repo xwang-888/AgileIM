@@ -41,11 +41,23 @@ builder.Services
 builder.Services.AddDbContext<AgileImDbContext>(options =>
 {
     var sqlServerConnStr = builder.Configuration["SqlServerConnStr"];
-    options.UseSqlServer(sqlServerConnStr);
+    var sqLiteConnStr = builder.Configuration["SqLiteConnStr"];
+    //options.UseSqlServer(sqlServerConnStr);
+    options.UseSqlite(sqLiteConnStr);
 });
+
+
 
 builder.WebHost.UseUrls(builder.Configuration["ServerIpPort"]);
 var app = builder.Build();
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope())
+{
+    var context = serviceScope?.ServiceProvider.GetRequiredService<AgileImDbContext>();
+    context?.Database.EnsureCreated();
+}
+
+
+
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();

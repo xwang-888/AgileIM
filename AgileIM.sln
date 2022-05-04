@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.IM", "AgileIM.IM\Ag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Web", "AgileIM.Web\AgileIM.Web.csproj", "{9DA22214-99F4-4D98-99F1-2B77B3E34E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileIM.Client", "AgileIM.Client\AgileIM.Client.csproj", "{63A4F966-6E33-4263-80B9-0C5DF8EE3416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Client", "AgileIM.Client\AgileIM.Client.csproj", "{63A4F966-6E33-4263-80B9-0C5DF8EE3416}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agile.Client.Service", "Agile.Client.Service\Agile.Client.Service.csproj", "{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{63A4F966-6E33-4263-80B9-0C5DF8EE3416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A4F966-6E33-4263-80B9-0C5DF8EE3416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A4F966-6E33-4263-80B9-0C5DF8EE3416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
