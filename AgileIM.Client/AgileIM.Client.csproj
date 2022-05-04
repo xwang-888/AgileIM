@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Agile.Client.Service\Agile.Client.Service.csproj" />
     <ProjectReference Include="..\AgileIM.IM\AgileIM.IM.csproj" />
   </ItemGroup>
 
