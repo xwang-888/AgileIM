@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Shell;
 
 using AgileIM.Client.Common;
-
+using AgileIM.Client.Models;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace AgileIM.Client.Controls
@@ -101,6 +101,15 @@ namespace AgileIM.Client.Controls
                 SystemColors = itemsControl;
                 SystemColors.ItemsSource = _systemColors;
             }
+        }
+
+        public static readonly DependencyProperty UserInfoProperty = DependencyProperty.Register(
+            "UserInfo", typeof(UserInfoDto), typeof(CustomWindow), new PropertyMetadata(default(UserInfoDto)));
+
+        public UserInfoDto UserInfo
+        {
+            get => (UserInfoDto)GetValue(UserInfoProperty);
+            set => SetValue(UserInfoProperty, value);
         }
     }
 }

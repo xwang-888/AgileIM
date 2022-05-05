@@ -14,6 +14,7 @@
     Background="{DynamicResource PrimaryPaper}"
     CaptionHeight="45"
     FontFamily="微软雅黑"
+    UserInfo="{Binding User}"
     Style="{StaticResource MainWindowWindowsStyle}"
     TextElement.Foreground="{DynamicResource PrimaryBody}"
     UseLayoutRounding="True"

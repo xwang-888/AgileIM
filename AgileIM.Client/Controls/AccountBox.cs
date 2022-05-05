@@ -43,7 +43,10 @@ namespace AgileIM.Client.Controls
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count is 1)
+            {
                 SelectedItem = e.AddedItems[0];
+                ListView.SelectedItem = e.AddedItems[0];
+            }
 
             ArrowToggleButton.IsChecked = false;
             isOpen = false;

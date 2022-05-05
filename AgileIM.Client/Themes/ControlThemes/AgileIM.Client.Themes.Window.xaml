@@ -147,6 +147,7 @@
                                     Width="300"
                                     Height="200"
                                     AllowsTransparency="True"
+                                    DataContext="{TemplateBinding UserInfo}"
                                     IsOpen="{Binding ElementName=PhotoToggleBtn, Path=IsChecked}"
                                     PlacementTarget="{Binding ElementName=PhotoToggleBtn}"
                                     PopupAnimation="Fade"
@@ -180,7 +181,7 @@
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     Orientation="Horizontal">
-                                                    <TextBlock FontSize="18" Text="Private" />
+                                                    <TextBlock FontSize="18" Text="{Binding Nick}" />
                                                 </StackPanel>
                                                 <Grid
                                                     Grid.Row="1"
@@ -201,7 +202,7 @@
                                                         FontSize="14"
                                                         Opacity=".6"
                                                         Style="{DynamicResource TextBoxReadOnlyStyle}"
-                                                        Text="123123"
+                                                        Text="{Binding Account}"
                                                         TextWrapping="Wrap" />
                                                 </Grid>
                                             </Grid>
@@ -226,7 +227,7 @@
                                                     Grid.Column="1"
                                                     FontSize="14"
                                                     Style="{DynamicResource TextBoxReadOnlyStyle}"
-                                                    Text="陕西 西安" />
+                                                    Text="{Binding Address}" />
 
                                             </Grid>
                                         </StackPanel>

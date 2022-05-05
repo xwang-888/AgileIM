@@ -330,7 +330,7 @@
                             Width="180"
                             Height="40"
                             Margin="20,10,20,20"
-                            Command="{Binding LoginCommand}"
+                            Command="{Binding LoginCommand, IsAsync=True}"
                             Content="登录"
                             FontSize="18" />
                     </Grid>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Views;
@@ -39,7 +40,15 @@ namespace AgileIM.Client.ViewModels
         {
             get => _menuItems;
             set => SetProperty(ref _menuItems, value);
-        } 
+        }
+        private UserInfoDto _user;
+
+        public UserInfoDto User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
+
         #endregion
 
     }
