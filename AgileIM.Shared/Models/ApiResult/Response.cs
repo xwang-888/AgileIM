@@ -9,21 +9,21 @@ namespace AgileIM.Shared.Models.ApiResult
     /// <summary>
     /// 返回模型
     /// </summary>
-    public class Result
+    public class Response
     {
 
-        public Result(){}
+        public Response() { }
 
-        public Result(int code, string msg, object? data = null)
+        public Response(int code, string message, object? data = null)
         {
-            Msg = msg;
+            Message = message;
             Code = code;
             Data = data;
         }
         /// <summary>
         /// 消息
         /// </summary>
-        public string? Msg { get; set; }
+        public string? Message { get; set; }
         /// <summary>
         /// 代码
         /// </summary>
@@ -33,17 +33,17 @@ namespace AgileIM.Shared.Models.ApiResult
         /// </summary>
         public object? Data { get; set; }
     }
-    public class Result<T> : Result
+    public class Response<T> : Response
     {
 
-        public Result() { }
-        public Result(int code, string msg, T data) : base(code, msg, data)
+        public Response() { }
+        public Response(int code, string message, T data) : base(code, message, data)
         {
             Data = data;
         }
         /// <summary>
         /// 返回数据
         /// </summary>
-        public new T Data { get; set; }
+        public new T? Data { get; set; }
     }
 }

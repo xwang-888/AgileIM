@@ -116,7 +116,7 @@ namespace AgileIM.Client.Controls
                     PanelAddControl(contentControl);
 
                 var showStoryboard = new Storyboard();
-                var animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 500)));
+                var animation = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 300)));
                 Storyboard.SetTarget(animation, contentControl);
                 Storyboard.SetTargetProperty(animation, new PropertyPath(UIElement.OpacityProperty));
                 showStoryboard.Children.Add(animation);

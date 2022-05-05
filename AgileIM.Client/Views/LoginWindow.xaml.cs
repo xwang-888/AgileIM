@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using AgileIM.Client.Common;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Messages;
 using AgileIM.Client.ViewModels;
@@ -28,6 +29,9 @@ namespace AgileIM.Client.Views
         public LoginWindow()
         {
             InitializeComponent();
+
+
+            DataContext = ServiceProvider.Get<LoginViewModel>();
 
             WeakReferenceMessenger.Default.Register<LoginMessage>(this, (obj, msg) =>
             {

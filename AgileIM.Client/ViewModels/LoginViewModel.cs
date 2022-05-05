@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using Agile.Client.Service.Api.Common;
+using Agile.Client.Service.Services;
+
 using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
 
@@ -17,19 +20,28 @@ namespace AgileIM.Client.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
-
-        public LoginViewModel()
+        public LoginViewModel(IUserService userService)
         {
-            LoginUserInfos = new();
-            for (int i = 0; i < 5; i++)
+            _userService = userService;
+
+            for (int i = 0; i < 3; i++)
             {
                 LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}", Password = "2112313aa" });
             }
 
+            LoginUserInfos[0].Account = "Y12345678_";
+            LoginUserInfos[0].Password = "admin123";
+
             SelectedUserInfo = LoginUserInfos.FirstOrDefault();
         }
 
-        private ObservableCollection<UserInfoDto> _loginUserInfos;
+        #region Service
+        private readonly IUserService _userService;
+        #endregion
+
+        #region Property
+
+        private ObservableCollection<UserInfoDto> _loginUserInfos = new();
 
         public ObservableCollection<UserInfoDto> LoginUserInfos
         {
@@ -44,22 +56,35 @@ namespace AgileIM.Client.ViewModels
             get => _selectedUserInfo;
             set => SetProperty(ref _selectedUserInfo, value);
         }
+        #endregion
 
-
+        #region Command
         public ICommand LoginCommand => new AsyncRelayCommand(Login);
 
+        public ICommand RemoveUserAccountCommand => new AsyncRelayCommand<UserInfoDto>(RemoveUserAccount);
 
-        private Task Login()
+        #endregion
+
+        #region Methodes
+        private async Task Login()
         {
-
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-
-            WeakReferenceMessenger.Default.Send(new LoginMessage(true));
-            return Task.CompletedTask;
+            var user = await _userService.Login(SelectedUserInfo.Account, SelectedUserInfo.Password);
+            if (user is not null && user.Code.Equals((int)StatusCode.Success))
+            {
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
+                WeakReferenceMessenger.Default.Send(new LoginMessage(true));
+            }
         }
 
+        private Task RemoveUserAccount(UserInfoDto userInfoDto)
+        {
+            LoginUserInfos.Remove(userInfoDto);
 
+            SelectedUserInfo = LoginUserInfos.FirstOrDefault() ?? new UserInfoDto();
 
+            return Task.CompletedTask;
+        }
+        #endregion
     }
 }

@@ -20,9 +20,13 @@ namespace AgileIM.Service.Controllers
         }
 
         private readonly IUserService _userService;
-
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
         [HttpPost("Login")]
-        public async Task<Result<LoginUserDto?>> Login([FromBody] LoginRequest loginRequest)
+        public async Task<Response<LoginUserDto?>> Login([FromBody] LoginRequest loginRequest)
         {
             var result = await _userService.Login(loginRequest.UserAccountOrMobile, loginRequest.PassWord);
 
@@ -31,8 +35,8 @@ namespace AgileIM.Service.Controllers
 
 
             return result is null ?
-                new Result<LoginUserDto?>(201, "账户名密码错误", null) :
-                new Result<LoginUserDto?>(200, "登录成功", result);
+                new Response<LoginUserDto?>(201, "账户名密码错误", null) :
+                new Response<LoginUserDto?>(200, "登录成功", result);
         }
 
         /// <summary>
@@ -42,12 +46,12 @@ namespace AgileIM.Service.Controllers
         /// <returns></returns>
         [HttpPost("RefreshToken")]
         [AllowAnonymous]
-        public async Task<Result<RefreshTokenDto>> RefreshToken(string refreshToken)
+        public async Task<Response<RefreshTokenDto>> RefreshToken(string refreshToken)
         {
-            var result = new Result<RefreshTokenDto>();
+            var result = new Response<RefreshTokenDto>();
             if (string.IsNullOrEmpty(refreshToken?.Trim()))
             {
-                result.Msg = "参数丢失 refreshToken";
+                result.Message = "参数丢失 refreshToken";
                 result.Code = 201;
                 return result;
             }
@@ -56,17 +60,18 @@ namespace AgileIM.Service.Controllers
 
             if (refreshTokenDto is null)
             {
-                result.Msg = "获取token错误";
+                result.Message = "获取token错误";
                 result.Code = 201;
             }
             else
             {
-                result.Msg = "成功";
+                result.Message = "成功";
                 result.Code = 200;
                 result.Data = refreshTokenDto;
             }
 
             return result;
         }
+
     }
 }

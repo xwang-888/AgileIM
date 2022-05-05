@@ -1,5 +1,6 @@
 ﻿using System.Net;
 
+using AgileIM.Service.Data.Repository;
 using AgileIM.Service.Data.UnitOfWork;
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Shared.EFCore;
@@ -153,6 +154,15 @@ namespace AgileIM.Service.Services.UserService
                 Console.WriteLine(e);
                 return null;
             }
+        }
+
+        public async Task<User?> Register(User user)
+        {
+            var userRep = _unitOfWork.GetRepository<User>();
+            var userResult = await userRep.InsertAsync(user);
+            var isOk = await _unitOfWork.SaveChangesAsync() > 0;
+
+            return isOk ? userResult.Entity : null;
         }
     }
 }

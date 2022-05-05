@@ -51,6 +51,7 @@ namespace Agile.Client.Service.Api.Common
         public static async Task<TResponse> GetRequest<TResponse>(this IApiParameterBase apiParameter) where TResponse : class
         {
             var url = RequestUrl + apiParameter.ApiPath;
+
             var param = JsonConvert.SerializeObject(apiParameter);
             if (apiParameter.ContentTypeStr is ContentType.UrlEncoded)
             {

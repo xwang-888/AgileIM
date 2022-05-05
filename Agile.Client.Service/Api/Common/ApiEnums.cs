@@ -1,9 +1,9 @@
 ﻿namespace Agile.Client.Service.Api.Common
 {
     /// <summary>
-    /// 请求类型
+    /// 状态码
     /// </summary>
-    public enum RequestType
+    public enum StatusCode
     {
         /// <summary>
         /// 成功

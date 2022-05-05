@@ -16,7 +16,7 @@ namespace Agile.Client.Service.Api
         public Method Method => Method.Post;
         public string ContentTypeStr => ContentType.Json;
         public bool IsToken => false;
-        public string AccountOrPhone { get; set; }
+        public string UserAccountOrMobile { get; set; }
         public string Password { get; set; }
     }
     public class RefreshTokenApi : IApiParameterBase

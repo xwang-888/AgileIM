@@ -256,7 +256,6 @@
                                             Foreground="{TemplateBinding Foreground}"
                                             ItemTemplate="{TemplateBinding ItemTemplate}"
                                             ItemsSource="{TemplateBinding ItemsSource}"
-                                            SelectedIndex="{TemplateBinding SelectedIndex}"
                                             SelectedItem="{TemplateBinding SelectedItem}">
                                             <ListView.ItemContainerStyle>
                                                 <Style TargetType="ListViewItem">

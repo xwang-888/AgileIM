@@ -19,9 +19,144 @@
     UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <viewModels:LoginViewModel />
-    </Window.DataContext>
+    <Window.Resources>
+        <Storyboard x:Key="LoginCardClose">
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="480"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="1"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="0"
+                Duration="0:0:1" />
+            <DoubleAnimation
+                By="480"
+                Storyboard.TargetName="RegisterCardGrid"
+                Storyboard.TargetProperty="(Canvas.Bottom)"
+                To="0"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="RegisterCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="1"
+                Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="ForgetPasswordCardGridOpen">
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="480"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="1"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="0"
+                Duration="0:0:1" />
+            <DoubleAnimation
+                By="480"
+                Storyboard.TargetName="ForgetPasswordCardGrid"
+                Storyboard.TargetProperty="(Canvas.Bottom)"
+                To="0"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="ForgetPasswordCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="1"
+                Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="LoginCardOpen">
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="RegisterCardGrid"
+                Storyboard.TargetProperty="(Canvas.Bottom)"
+                To="480"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="1"
+                Storyboard.TargetName="RegisterCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="0"
+                Duration="0:0:0.6" />
+            <DoubleAnimation
+                By="480"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="0"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="1"
+                Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="LoginCardOpenForPassword">
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="ForgetPasswordCardGrid"
+                Storyboard.TargetProperty="(Canvas.Bottom)"
+                To="480"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="1"
+                Storyboard.TargetName="ForgetPasswordCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="0"
+                Duration="0:0:0.3" />
+            <DoubleAnimation
+                By="480"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="0"
+                Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation
+                By="0"
+                Storyboard.TargetName="LoginCardGrid"
+                Storyboard.TargetProperty="Opacity"
+                To="1"
+                Duration="0:0:.3" />
+        </Storyboard>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Offset="0" Color="{DynamicResource Primary5}" />
@@ -29,134 +164,228 @@
             <GradientStop Offset="1" Color="{DynamicResource Primary7}" />
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
-
-        <Border
-            Margin="30,5,30,30"
-            Background="{DynamicResource PrimaryCardBrush}"
-            CornerRadius="10"
-            Effect="{DynamicResource EffectShadow2}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Grid Height="120">
-                    <Grid>
-                        <Border Background="{DynamicResource PrimaryCardTranslucentBrush}" CornerRadius="10 10 0 0" />
-                        <Border
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            BorderBrush="White"
-                            BorderThickness="0"
-                            CornerRadius="50">
-                            <Border.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="10"
-                                    Opacity=".4"
-                                    ShadowDepth="1"
-                                    Color="Gray" />
-                            </Border.Effect>
-                            <Image
-                                Width="91"
-                                Height="91"
-                                Source="../123.png">
-                                <Image.Clip>
-                                    <EllipseGeometry
-                                        Center="45,45"
-                                        RadiusX="45"
-                                        RadiusY="45" />
-                                </Image.Clip>
-                            </Image>
-                        </Border>
-                    </Grid>
-                </Grid>
-                <Grid
-                    Grid.Row="1"
-                    Margin="50,0,50,0"
-                    VerticalAlignment="Center">
+    <Canvas>
+        <Grid
+            Name="LoginCardGrid"
+            Canvas.Top="0"
+            Height="465">
+            <Border
+                Margin="30,5,30,30"
+                Background="{DynamicResource PrimaryCardBrush}"
+                CornerRadius="10"
+                Effect="{DynamicResource EffectShadow2}">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <controls:AccountBox
-                        Height="40"
-                        assist:ControlAssist.Hint="Account / Phone / Email"
-                        Account="{Binding SelectedUserInfo.Account}"
-                        FocusVisualStyle="{x:Null}"
-                        ItemsSource="{Binding LoginUserInfos}"
-                        SelectedItem="{Binding SelectedUserInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
-                        <controls:AccountBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="10,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Width="40" Height="44">
-                                        <Image Source="../122.png">
-                                            <Image.Clip>
-                                                <EllipseGeometry
-                                                    Center="20,20"
-                                                    RadiusX="20"
-                                                    RadiusY="20" />
-                                            </Image.Clip>
-                                        </Image>
-                                    </Grid>
-                                    <Grid Grid.Column="1" Margin="10,0,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Account}" />
-                                        <TextBlock Grid.Row="1" Text="{Binding Nick}" />
-                                    </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </controls:AccountBox.ItemTemplate>
-
-                    </controls:AccountBox>
-                    <PasswordBox
+                    <Grid Height="120">
+                        <Grid>
+                            <Border Background="{DynamicResource PrimaryCardTranslucentBrush}" CornerRadius="10 10 0 0" />
+                            <Border
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                BorderBrush="White"
+                                BorderThickness="0"
+                                CornerRadius="50">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="10"
+                                        Opacity=".4"
+                                        ShadowDepth="1"
+                                        Color="Gray" />
+                                </Border.Effect>
+                                <Image
+                                    Width="91"
+                                    Height="91"
+                                    Source="../123.png">
+                                    <Image.Clip>
+                                        <EllipseGeometry
+                                            Center="45,45"
+                                            RadiusX="45"
+                                            RadiusY="45" />
+                                    </Image.Clip>
+                                </Image>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <Grid
                         Grid.Row="1"
-                        Height="40"
-                        Margin="0,20,0,0"
-                        VerticalContentAlignment="Center"
-                        assist:ControlAssist.Hint="Password"
-                        assist:PasswordAssist.Password="{Binding SelectedUserInfo.Password}"
-                        BorderThickness="1.5"
-                        FontSize="15" />
-                    <StackPanel
-                        Grid.Row="2"
-                        Margin="0,5"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal">
-                        <CheckBox
+                        Margin="50,0,50,0"
+                        VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <controls:AccountBox
+                            Height="40"
+                            assist:ControlAssist.Hint="Account / Phone / Email"
+                            Account="{Binding SelectedUserInfo.Account}"
+                            FocusVisualStyle="{x:Null}"
+                            ItemsSource="{Binding LoginUserInfos}"
+                            SelectedItem="{Binding SelectedUserInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
+                            <controls:AccountBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="10,2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Width="40" Height="44">
+                                            <Image Source="../122.png">
+                                                <Image.Clip>
+                                                    <EllipseGeometry
+                                                        Center="20,20"
+                                                        RadiusX="20"
+                                                        RadiusY="20" />
+                                                </Image.Clip>
+                                            </Image>
+                                        </Grid>
+                                        <Grid Grid.Column="1" Margin="10,0,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Account}" />
+                                            <TextBlock Grid.Row="1" Text="{Binding Nick}" />
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <Button
+                                                Width="15"
+                                                Height="15"
+                                                assist:ControlAssist.CornerRadius="5"
+                                                Background="{DynamicResource ValidationErrorBrush}"
+                                                Command="{Binding DataContext.RemoveUserAccountCommand, RelativeSource={RelativeSource AncestorType=local:LoginWindow}}"
+                                                CommandParameter="{Binding}"
+                                                Foreground="White"
+                                                ToolTip="删除账号信息">
+                                                <Button.Content>
+                                                    <controls:PackIcon
+                                                        Width="12"
+                                                        Height="12"
+                                                        Kind="WindowClose" />
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:AccountBox.ItemTemplate>
+
+                        </controls:AccountBox>
+                        <PasswordBox
+                            Grid.Row="1"
+                            Height="40"
+                            Margin="0,20,0,0"
                             VerticalContentAlignment="Center"
-                            Content="记住密码 |"
-                            FontSize="13" />
+                            assist:ControlAssist.Hint="Password"
+                            assist:PasswordAssist.Password="{Binding SelectedUserInfo.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            BorderThickness="1.5"
+                            FontSize="15" />
+                        <UniformGrid
+                            Grid.Row="2"
+                            Margin="1,5"
+                            Columns="3">
+                            <CheckBox
+                                VerticalContentAlignment="Center"
+                                Content="记住密码"
+                                FontSize="13" />
+                            <Button
+                                Margin="5,0,0,0"
+                                Background="Transparent"
+                                Content="忘记密码"
+                                FontSize="13"
+                                Foreground="{DynamicResource PrimaryHueMidBrush}">
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard Storyboard="{StaticResource ForgetPasswordCardGridOpen}" />
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button
+                                Margin="5,0,0,0"
+                                Background="Transparent"
+                                Content="注册账号"
+                                FontSize="13"
+                                Foreground="{DynamicResource PrimaryHueDarkBrush}">
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <EventTrigger.Actions>
+                                            <BeginStoryboard Storyboard="{StaticResource LoginCardClose}" />
+                                        </EventTrigger.Actions>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </UniformGrid>
+                    </Grid>
+                    <Grid Grid.Row="2">
                         <Button
-                            Margin="5,0,0,0"
-                            Background="Transparent"
-                            Content="忘记密码?"
-                            FontSize="13"
-                            Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    </StackPanel>
+                            Width="180"
+                            Height="40"
+                            Margin="20,10,20,20"
+                            Command="{Binding LoginCommand}"
+                            Content="登录"
+                            FontSize="18" />
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="2">
-                    <Button
-                        Width="180"
-                        Height="40"
-                        Margin="20,10,20,20"
-                        Command="{Binding LoginCommand}"
-                        Content="登录"
-                        FontSize="18" />
-                </Grid>
-            </Grid>
-        </Border>
-    </Grid>
+            </Border>
+        </Grid>
+        <Grid
+            Name="RegisterCardGrid"
+            Canvas.Bottom="480"
+            Height="465"
+            Opacity="0">
+            <Border
+                Width="320"
+                Margin="30,5,30,30"
+                Background="{DynamicResource PrimaryCardBrush}"
+                CornerRadius="10"
+                Effect="{DynamicResource EffectShadow2}">
+                <Button
+                    Width="100"
+                    Height="40"
+                    Content="返回">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard Storyboard="{StaticResource LoginCardOpen}" />
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Border>
+        </Grid>
+        <Grid
+            Name="ForgetPasswordCardGrid"
+            Canvas.Bottom="480"
+            Height="465"
+            Opacity="0">
+            <Border
+                Width="320"
+                Margin="30,5,30,30"
+                Background="{DynamicResource PrimaryCardBrush}"
+                CornerRadius="10"
+                Effect="{DynamicResource EffectShadow2}">
+                <Button
+                    Width="100"
+                    Height="40"
+                    Content="返回">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard Storyboard="{StaticResource LoginCardOpenForPassword}" />
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Border>
+        </Grid>
+    </Canvas>
 </controls:CustomWindow>

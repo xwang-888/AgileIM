@@ -25,6 +25,7 @@ namespace AgileIM.Client.Themes.Assist
         {
             if (o is not PasswordBox passwordBox) return;
 
+            if (args.NewValue is null) passwordBox.Password = null;
             if (args.NewValue is not string value) return;
             if (!value.Equals(passwordBox.Password))
                 passwordBox.Password = value;

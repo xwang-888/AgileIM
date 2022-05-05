@@ -54,13 +54,8 @@ namespace AgileIM.Client.Models
         /// <summary>
         /// 密码
         /// </summary>
-        private string _password;
 
-        public string Password
-        {
-            get => _password;
-            set => SetProperty(ref _password, value);
-        }
+        public string Password { get; set; }
 
         private MessageDto? _lastMessage;
         private ObservableCollection<MessageDto> _messages = new();

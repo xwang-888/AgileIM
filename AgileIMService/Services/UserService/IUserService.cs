@@ -26,5 +26,11 @@ namespace AgileIM.Service.Services.UserService
         /// <param name="refreshToken"></param>
         /// <returns></returns>
         Task<RefreshTokenDto?> RefreshToken(string refreshToken);
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="loginUserDto"></param>
+        /// <returns></returns>
+        Task<User?> Register(User loginUserDto);
     }
 }
