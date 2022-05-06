@@ -1,9 +1,8 @@
-﻿using AgileIM.Service.Data.Repository;
-using AgileIM.Service.Data.UnitOfWork;
-
+﻿using AgileIM.Shared.EFCore.Data.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace AgileIM.Service.Services.UserService
+namespace AgileIM.Shared.EFCore.Data.UnitOfWork
 {
     public static class UnitOfWorkContainerBuilderExtensions
     {

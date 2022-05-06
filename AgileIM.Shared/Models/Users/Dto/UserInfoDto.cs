@@ -34,11 +34,11 @@ namespace AgileIM.Client.Models
         /// <summary>
         /// 用户备注
         /// </summary>
-        public string UserNote { get; set; }
+        public string? UserNote { get; set; }
         /// <summary>
         /// 个性签名
         /// </summary>
-        public string Signature { get; set; }
+        public string? Signature { get; set; }
         /// <summary>
         /// 地区
         /// </summary>

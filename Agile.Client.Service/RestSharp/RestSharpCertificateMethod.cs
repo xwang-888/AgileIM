@@ -31,9 +31,7 @@ namespace Agile.Client.Service.RestSharp
             var request = new RestRequest { Method = method };
 
             if (isToken)
-            {
                 client.AddDefaultHeader(ApiConfiguration.TokenKey, ApiConfiguration.TokenValue);
-            }
 
             switch (method)
             {

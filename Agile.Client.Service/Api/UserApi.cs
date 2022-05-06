@@ -28,13 +28,5 @@ namespace Agile.Client.Service.Api
         public string RefreshToken { get; set; }
 
     }
-    public class GetFriendListByUserIdApi : IApiParameterBase
-    {
-        public string ApiPath => "Api/Friend/GetFriendListByUserId";
-        public Method Method => Method.Post;
-        public bool IsToken => true;
-        public string ContentTypeStr => ContentType.Json;
-        public string UserId { get; set; }
-
-    }
+    
 }

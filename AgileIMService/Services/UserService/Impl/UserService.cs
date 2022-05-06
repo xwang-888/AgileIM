@@ -1,22 +1,13 @@
 ﻿using System.Net;
-
-using AgileIM.Service.Data.Repository;
-using AgileIM.Service.Data.UnitOfWork;
 using AgileIM.Service.OAuth.Configs;
-using AgileIM.Shared.EFCore;
-using AgileIM.Shared.Models.ApiResult;
-using AgileIM.Shared.Models.Users;
+using AgileIM.Service.Services.BaseService.Impl;
+using AgileIM.Shared.EFCore.Data.UnitOfWork;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;
-
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using Newtonsoft.Json;
 
-using StackExchange.Redis;
-
-namespace AgileIM.Service.Services.UserService
+namespace AgileIM.Service.Services.UserService.Impl
 {
     public class UserService : BaseCrudService<User>, IUserService
     {

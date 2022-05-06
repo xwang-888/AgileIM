@@ -1,8 +1,7 @@
-﻿using AgileIM.Service.Data.Repository;
-
+﻿using AgileIM.Shared.EFCore.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgileIM.Service.Data.UnitOfWork
+namespace AgileIM.Shared.EFCore.Data.UnitOfWork
 {
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {

@@ -1,8 +1,7 @@
 ﻿using System.Linq.Expressions;
-
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace AgileIM.Service.Data.Repository
+namespace AgileIM.Shared.EFCore.Data.Repository
 {
     public interface IRepositoryBase<T> where T : class
     {

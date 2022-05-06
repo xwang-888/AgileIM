@@ -1,6 +1,8 @@
-﻿using AgileIM.Shared.Models.Users.Entity;
+﻿using AgileIM.Service.Services.BaseService;
+using AgileIM.Shared.Models.Friend.Entity;
+using AgileIM.Shared.Models.Users.Entity;
 
-namespace AgileIM.Service.Services.UserService
+namespace AgileIM.Service.Services.FriendService
 {
     public interface IFriendService : IBaseCrudService<Friend>
     {
@@ -9,7 +11,7 @@ namespace AgileIM.Service.Services.UserService
         /// </summary>
         /// <param name="uId"></param>
         /// <returns></returns>
-        Task<IEnumerable<User>?> GetFriendListByUserIdAsync(string uId);
+        Task<IEnumerable<Friend>?> GetFriendListByUserIdAsync(string uId);
         Task<bool> DeleteFriendAsync(string uId, string friendId);
     }
 }

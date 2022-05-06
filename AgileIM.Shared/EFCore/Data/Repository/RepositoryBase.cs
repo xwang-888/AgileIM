@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
+﻿using System.Linq.Expressions;
 using AgileIM.Shared.Common.Collections;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace AgileIM.Service.Data.Repository
+namespace AgileIM.Shared.EFCore.Data.Repository
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

@@ -1,9 +1,7 @@
-﻿using AgileIM.Shared.EFCore;
+﻿using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
 
-using Microsoft.EntityFrameworkCore;
-
-namespace AgileIM.Service.Data.Repository
+namespace AgileIM.Shared.EFCore.Data.Repository
 {
     public class FriendRepository : RepositoryBase<Friend>, IRepositoryBase<Friend>
     {

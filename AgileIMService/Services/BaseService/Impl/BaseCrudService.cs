@@ -1,10 +1,7 @@
-﻿using AgileIM.Service.Data.UnitOfWork;
+﻿using AgileIM.Shared.EFCore.Data.UnitOfWork;
 using AgileIM.Shared.Models;
-using AgileIM.Shared.Models.Users.Entity;
 
-using System.Linq.Expressions;
-
-namespace AgileIM.Service.Services
+namespace AgileIM.Service.Services.BaseService.Impl
 {
     public class BaseCrudService<T> : IBaseCrudService<T> where T : BaseEntity
     {

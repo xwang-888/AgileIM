@@ -1,9 +1,6 @@
 ﻿using AgileIM.Shared.Models;
 
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-
-namespace AgileIM.Service.Services
+namespace AgileIM.Service.Services.BaseService
 {
     public interface IBaseCrudService<T> where T : BaseEntity
     {

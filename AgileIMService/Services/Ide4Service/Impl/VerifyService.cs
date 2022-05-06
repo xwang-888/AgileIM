@@ -1,8 +1,7 @@
-﻿using AgileIM.Service.Data.UnitOfWork;
-using AgileIM.Shared.Models.Users;
+﻿using AgileIM.Shared.EFCore.Data.UnitOfWork;
 using AgileIM.Shared.Models.Users.Entity;
 
-namespace AgileIM.Service.Services
+namespace AgileIM.Service.Services.Ide4Service.Impl
 {
     public class VerifyService : IVerifyService
     {

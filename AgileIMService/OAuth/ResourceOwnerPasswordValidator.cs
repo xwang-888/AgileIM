@@ -2,6 +2,7 @@
 
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Service.Services;
+using AgileIM.Service.Services.Ide4Service;
 using AgileIM.Shared.Models.Users;
 using AgileIM.Shared.Models.Users.Entity;
 

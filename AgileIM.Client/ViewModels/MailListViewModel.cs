@@ -12,6 +12,7 @@ using Agile.Client.Service.Services;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Views;
+using AgileIM.Shared.Models.Friend.Dto;
 using AgileIM.Shared.Models.Users.Dto;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;

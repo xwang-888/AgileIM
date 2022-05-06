@@ -1,8 +1,7 @@
-﻿using AgileIM.Service.Data.Repository;
-
+﻿using AgileIM.Shared.EFCore.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgileIM.Service.Data.UnitOfWork
+namespace AgileIM.Shared.EFCore.Data.UnitOfWork
 {
     /// <summary>
     /// 为工作单元提供接口
@@ -18,7 +17,7 @@ namespace AgileIM.Service.Data.UnitOfWork
         /// <summary>
         /// 获取上下文对象
         /// </summary>
-        /// <typeparam name="TDbContext"></typeparam>
+        /// <typeparam name="TContext"></typeparam>
         /// <returns></returns>
         TContext GetDbContext<TContext>() where TContext : DbContext;
         /// <summary>

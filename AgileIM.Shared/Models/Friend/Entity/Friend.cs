@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using AgileIM.Shared.Models.Users.Entity;
 using Newtonsoft.Json;
 
-namespace AgileIM.Shared.Models.Users.Entity
+namespace AgileIM.Shared.Models.Friend.Entity
 {
     /// <summary>
     /// 好友表

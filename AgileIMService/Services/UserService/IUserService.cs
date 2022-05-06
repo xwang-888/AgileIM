@@ -1,4 +1,5 @@
-﻿using AgileIM.Shared.Models.ApiResult;
+﻿using AgileIM.Service.Services.BaseService;
+using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;

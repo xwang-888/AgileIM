@@ -24,11 +24,6 @@ namespace Agile.Client.Service.Services
         /// <param name="refreshToken"></param>
         /// <returns></returns>
         Task<Response<RefreshTokenDto>?> RefreshToken(string refreshToken);
-        /// <summary>
-        /// 获取好友列表
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        Task<Response<IEnumerable<UserInfoDto>?>> GetFriendListByUserId(string userId);
+
     }
 }

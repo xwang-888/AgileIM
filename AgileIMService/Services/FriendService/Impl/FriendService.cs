@@ -1,9 +1,11 @@
-﻿using AgileIM.Service.Data.UnitOfWork;
+﻿using AgileIM.Service.Services.BaseService.Impl;
+using AgileIM.Service.Services.UserService;
+using AgileIM.Shared.EFCore.Data.UnitOfWork;
+using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
-
 using Microsoft.EntityFrameworkCore;
 
-namespace AgileIM.Service.Services.UserService
+namespace AgileIM.Service.Services.FriendService.Impl
 {
     public class FriendService : BaseCrudService<Friend>, IFriendService
     {
@@ -15,13 +17,12 @@ namespace AgileIM.Service.Services.UserService
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public async Task<IEnumerable<User>?> GetFriendListByUserIdAsync(string uId)
+        public async Task<IEnumerable<Friend>?> GetFriendListByUserIdAsync(string uId)
         {
             var rep = _unitOfWork.GetRepository<Friend>();
             return await rep.GetAll()
                             .Include(a => a.FriendUser)
                             .Where(a => a.UserId.Equals(uId))
-                            .Select(a => a.FriendUser)
                             .ToListAsync();
         }
 

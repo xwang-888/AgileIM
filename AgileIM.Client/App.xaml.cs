@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using Agile.Client.Service.Services;
-
+using Agile.Client.Service.Services.Impl;
 using AgileIM.Client.Common;
 using AgileIM.Client.ViewModels;
 using AgileIM.Shared.Common.AutoMapper;
@@ -39,6 +39,7 @@ namespace AgileIM.Client
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<FriendService>().As<IFriendService>();
 
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<LoginViewModel>();

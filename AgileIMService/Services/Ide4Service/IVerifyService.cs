@@ -1,7 +1,6 @@
-﻿using AgileIM.Shared.Models.Users;
-using AgileIM.Shared.Models.Users.Entity;
+﻿using AgileIM.Shared.Models.Users.Entity;
 
-namespace AgileIM.Service.Services
+namespace AgileIM.Service.Services.Ide4Service
 {
     public interface IVerifyService
     {

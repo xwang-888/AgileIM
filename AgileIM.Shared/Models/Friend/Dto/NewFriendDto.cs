@@ -1,4 +1,4 @@
-﻿namespace AgileIM.Shared.Models.Users.Dto
+﻿namespace AgileIM.Shared.Models.Friend.Dto
 {
     /// <summary>
     /// 新朋友验证模型

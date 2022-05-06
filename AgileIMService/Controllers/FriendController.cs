@@ -1,5 +1,8 @@
-﻿using AgileIM.Service.Services.UserService;
+﻿using AgileIM.Service.Services.FriendService;
+using AgileIM.Service.Services.UserService;
 using AgileIM.Shared.Models.ApiResult;
+using AgileIM.Shared.Models.Friend.Entity;
+using AgileIM.Shared.Models.Friend.Request;
 using AgileIM.Shared.Models.Users.Entity;
 using AgileIM.Shared.Models.Users.Request;
 
@@ -39,13 +42,13 @@ namespace AgileIM.Service.Controllers
         }
         [HttpPost("GetFriendListByUserId")]
         [Authorize]
-        public async Task<Response<IEnumerable<User>?>> GetFriendListByUserId([FromBody] FriendRequest friendRequest)
+        public async Task<Response<IEnumerable<Friend>?>> GetFriendListByUserId([FromBody] FriendRequest friendRequest)
         {
             var model = await _friendService.GetFriendListByUserIdAsync(friendRequest.UserId);
 
             return model is not null ?
-                new Response<IEnumerable<User>?>(200, "成功", model) :
-                new Response<IEnumerable<User>?>(201, "失败", null);
+                new Response<IEnumerable<Friend>?>(200, "成功", model) :
+                new Response<IEnumerable<Friend>?>(201, "失败", null);
         }
 
     }

@@ -293,10 +293,7 @@
                                     <ItemsControl FocusVisualStyle="{x:Null}" ItemsSource="{TemplateBinding ItemsSource}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <controls:ChatMessage
-                                                    IsSelf="{Binding IsSelf}"
-                                                    Photo="{Binding Photo}"
-                                                    Text="{Binding Text}" />
+                                                <controls:ChatMessage IsSelf="{Binding IsSelf}" Text="{Binding Text}" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using AgileIM.IM.Models;
 using AgileIM.Service.Services;
+using AgileIM.Service.Services.ImService;
 
 namespace AgileIM.Service.Controllers
 {

@@ -1,10 +1,7 @@
-﻿
-
-using System.Text.RegularExpressions;
-using AgileIM.IM.Helper;
+﻿using AgileIM.IM.Helper;
 using AgileIM.IM.Models;
 
-namespace AgileIM.Service.Services
+namespace AgileIM.Service.Services.ImService.Impl
 {
     public class ImService : IImService
     {

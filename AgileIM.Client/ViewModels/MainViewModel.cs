@@ -23,9 +23,9 @@ namespace AgileIM.Client.ViewModels
 {
     public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>
     {
-        public MainViewModel(IUserService userService)
+        public MainViewModel(IFriendService friendService)
         {
-            _userService = userService;
+            _friendService = friendService;
             MenuItems = new ObservableCollection<MenuItemModel>()
             {
                 new("聊天", PackIconKind.Forum,  new ChatView()),
@@ -35,7 +35,7 @@ namespace AgileIM.Client.ViewModels
             WeakReferenceMessenger.Default.Register(this, "MainViewModel");
         }
 
-        private readonly IUserService _userService;
+        private readonly IFriendService _friendService;
         #region Property
         private MenuItemModel _selectedMenuItem;
         private ObservableCollection<MenuItemModel> _menuItems;
@@ -64,7 +64,7 @@ namespace AgileIM.Client.ViewModels
         {
             User = message;
 
-            var list = await _userService.GetFriendListByUserId(message.Id);
+            var list = await _friendService.GetFriendListByUserId(message.Id);
             if (list?.Data is not null)
                 WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
         }

@@ -1,10 +1,17 @@
 using AgileIM.IM.Helper;
-using AgileIM.Service.Data.Repository;
 using AgileIM.Service.OAuth;
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Service.Services;
+using AgileIM.Service.Services.FriendService;
+using AgileIM.Service.Services.FriendService.Impl;
+using AgileIM.Service.Services.Ide4Service;
+using AgileIM.Service.Services.Ide4Service.Impl;
 using AgileIM.Service.Services.UserService;
+using AgileIM.Service.Services.UserService.Impl;
 using AgileIM.Shared.EFCore;
+using AgileIM.Shared.EFCore.Data.Repository;
+using AgileIM.Shared.EFCore.Data.UnitOfWork;
+using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
 
 using IdentityServer4.Validation;

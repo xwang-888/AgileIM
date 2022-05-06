@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Web", "AgileIM.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileIM.Client", "AgileIM.Client\AgileIM.Client.csproj", "{63A4F966-6E33-4263-80B9-0C5DF8EE3416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agile.Client.Service", "Agile.Client.Service\Agile.Client.Service.csproj", "{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agile.Client.Service", "Agile.Client.Service\Agile.Client.Service.csproj", "{03BEFFA0-9D65-4226-B1F7-DA69E1E6C8A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
