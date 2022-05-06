@@ -19,9 +19,9 @@ namespace AgileIM.Service.OAuth.Configs
         /// <returns></returns>
         public static IEnumerable<ApiResource> GetApiResource => new List<ApiResource>()
         {
-            new ("AgileIM.Service","ImService")
+            new ("ImService","Im")
             {
-                Scopes = { "AgileIM.Service" }
+                Scopes = { "ImService" }
             }
         };
         /// <summary>
@@ -37,16 +37,16 @@ namespace AgileIM.Service.OAuth.Configs
         /// Authorization Server保护了哪些 API Scope（作用域）
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<ApiScope> GetApiScopes => new[] { new ApiScope("AgileIM.Service") };
+        public static IEnumerable<ApiScope> GetApiScopes => new[] { new ApiScope("ImService") };
         /// <summary>
         /// 哪些客户端 Client（应用） 可以使用这个 Authorization Server
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Client> GetApiClients =>
+        public static IEnumerable<IdentityServer4.Models.Client> GetApiClients =>
             new[]
             {
                 // 客户端模式
-                new Client
+                new IdentityServer4.Models.Client
                 {
                     // 客户端唯一标识
                     ClientId = OAuthConfig.ClientUserApi.ClientId,
@@ -62,7 +62,7 @@ namespace AgileIM.Service.OAuth.Configs
                     // 允许访问的范围,定义这个客户端可以访问的APi资源数组
                     AllowedScopes = new []
                     {
-                        "UserService",
+                        "ImService",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
                     },
@@ -78,7 +78,7 @@ namespace AgileIM.Service.OAuth.Configs
                     AllowOfflineAccess = true
                 },
                 // 密码模式
-                new Client
+                new IdentityServer4.Models.Client
                 {
                     // 客户端唯一标识
                     ClientId = OAuthConfig.SecretUserApi.ClientId,
@@ -93,7 +93,7 @@ namespace AgileIM.Service.OAuth.Configs
                     // 设置token过期时间为12小时
                     AccessTokenLifetime = OAuthConfig.AccessTokenLifetime,
                     //允许访问api的范围
-                    AllowedScopes = new [] {"AgileIM.Service",
+                    AllowedScopes = new [] {"ImService",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile },
                     AllowOfflineAccess = true

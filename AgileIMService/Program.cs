@@ -18,13 +18,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IVerifyService, VerifyService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFriendService, FriendService>();
 builder.Services.RegisterUnitOfWork<AgileImDbContext>();
+builder.Services.RegisterRepository<Friend, FriendRepository>();
 builder.Services.RegisterRepository<User, UserRepository>();
 
+var ide4Add = builder.Configuration["ServerIpPort"];
 builder.Services
-    .AddIdentityServer()
+    .AddIdentityServer(option => option.IssuerUri = ide4Add)
     .AddDeveloperSigningCredential(true, "tempkey.jwk")
     // 客户端配置添加到内存中
     .AddInMemoryClients(Ide4Config.GetApiClients)
@@ -37,6 +41,15 @@ builder.Services
     .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
     .AddProfileService<ProfileService>();
 
+
+builder.Services
+       .AddAuthentication("Bearer")
+       .AddIdentityServerAuthentication(options =>
+       {
+           options.Authority = ide4Add;
+           options.ApiName = "ImService";
+           options.RequireHttpsMetadata = false;
+       });
 
 builder.Services.AddDbContext<AgileImDbContext>(options =>
 {
@@ -57,16 +70,16 @@ using (var serviceScope = app.Services.GetService<IServiceScopeFactory>()?.Creat
 }
 
 
-
+// 鉴权与授权
+app.UseAuthentication();
+app.UseHttpsRedirection();
+app.UseAuthorization();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 
 app.UseImServer();
-// 鉴权与授权
-app.UseAuthorization().UseAuthentication();
 
 app.MapControllers();
 

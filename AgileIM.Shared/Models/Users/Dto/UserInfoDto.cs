@@ -6,10 +6,8 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
-using AgileIM.IM.Models;
-
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace AgileIM.Client.Models
@@ -17,8 +15,6 @@ namespace AgileIM.Client.Models
 
     public class UserInfoDto : ObservableObject
     {
-
-
         /// <summary>
         /// 唯一ID
         /// </summary>
@@ -50,13 +46,19 @@ namespace AgileIM.Client.Models
         /// <summary>
         /// 头像
         /// </summary>
-        public Image Image { get; set; }
+        public string Image { get; set; }
         /// <summary>
         /// 密码
         /// </summary>
-
         public string Password { get; set; }
-
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+        /// <summary>
+        /// 最后登录时间
+        /// </summary>
+        public DateTime LastLoginTime { get; set; }
         private MessageDto? _lastMessage;
         private ObservableCollection<MessageDto> _messages = new();
         private bool _isUnreadMessage = true;

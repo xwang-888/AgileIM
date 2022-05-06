@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Agile.Client.Service.Api.Common;
-
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace Agile.Client.Service.Api
@@ -26,6 +26,15 @@ namespace Agile.Client.Service.Api
         public bool IsToken => false;
         public string ContentTypeStr => ContentType.UrlEncoded;
         public string RefreshToken { get; set; }
+
+    }
+    public class GetFriendListByUserIdApi : IApiParameterBase
+    {
+        public string ApiPath => "Api/Friend/GetFriendListByUserId";
+        public Method Method => Method.Post;
+        public bool IsToken => true;
+        public string ContentTypeStr => ContentType.Json;
+        public string UserId { get; set; }
 
     }
 }

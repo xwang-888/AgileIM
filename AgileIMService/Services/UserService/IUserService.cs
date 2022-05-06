@@ -5,7 +5,7 @@ using AgileIM.Shared.Models.Users.Entity;
 
 namespace AgileIM.Service.Services.UserService
 {
-    public interface IUserService
+    public interface IUserService : IBaseCrudService<User>
     {
         /// <summary>
         /// 登录
@@ -27,10 +27,10 @@ namespace AgileIM.Service.Services.UserService
         /// <returns></returns>
         Task<RefreshTokenDto?> RefreshToken(string refreshToken);
         /// <summary>
-        /// 注册
+        /// 查询用户
         /// </summary>
-        /// <param name="loginUserDto"></param>
+        /// <param name="userAccountOrMobile"></param>
         /// <returns></returns>
-        Task<User?> Register(User loginUserDto);
+        Task<IEnumerable<User>?> QueryFriends(string userAccountOrMobile);
     }
 }

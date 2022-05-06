@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using AgileIM.Client.Models;
 
 using System.Windows.Input;
-
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 

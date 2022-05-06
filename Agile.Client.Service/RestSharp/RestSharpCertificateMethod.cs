@@ -35,15 +35,24 @@ namespace Agile.Client.Service.RestSharp
                 client.AddDefaultHeader(ApiConfiguration.TokenKey, ApiConfiguration.TokenValue);
             }
 
-            switch (contentType)
+            switch (method)
             {
-                case ContentType.Json:
-                    request.AddStringBody(pms, contentType);
+                case Method.Get:
                     break;
-                case ContentType.UrlEncoded:
-                    request.AddParameter("application/x-www-form-urlencoded",
-                        pms, ParameterType.RequestBody);
+                case Method.Post:
+                    switch (contentType)
+                    {
+                        case ContentType.Json:
+                            request.AddStringBody(pms, contentType);
+                            break;
+                        case ContentType.UrlEncoded:
+                            request.AddParameter("application/x-www-form-urlencoded",
+                                pms, ParameterType.RequestBody);
+                            break;
+                    }
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(method), method, null);
             }
             var response = await client.ExecuteAsync<TResponse>(request);
 

@@ -7,7 +7,6 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// <summary>
         /// token
         /// </summary>
-        [JsonProperty("accessToken")]
         public string? AccessToken { get; set; }
         /// <summary>
         /// 刷新Token
@@ -16,7 +15,7 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// <summary>
         /// 用户id
         /// </summary>
-        public string UserUid { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// 用户头像相对路径
         /// </summary>
@@ -24,19 +23,23 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// <summary>
         /// 账号
         /// </summary>
-        public string UserAccount { get; set; }
+        public string Account { get; set; }
         /// <summary>
         /// 用户昵称别名
         /// </summary>
-        public string NickName { get; set; }
+        public string Nick { get; set; }
         /// <summary>
         /// 手机号码
         /// </summary>
-        public string MobilePhone { get; set; }
+        public string Phone { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
         public int Gender { get; set; }
+        /// <summary>
+        /// 地区
+        /// </summary>
+        public string Address { get; set; }
         /// <summary>
         /// token过期时间
         /// </summary>

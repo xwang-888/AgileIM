@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace AgileIM.Client.Models
+﻿namespace AgileIM.Shared.Models.Users.Dto
 {
     /// <summary>
     /// 新朋友验证模型
@@ -19,7 +12,7 @@ namespace AgileIM.Client.Models
         /// <summary>
         /// 头像
         /// </summary>
-        public Image Photo { get; set; }
+        public string Photo { get; set; }
         /// <summary>
         /// 用户昵称
         /// </summary>

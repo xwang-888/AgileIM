@@ -4,10 +4,12 @@ using AgileIM.Service.Data.Repository;
 using AgileIM.Service.Data.UnitOfWork;
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Shared.EFCore;
+using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
@@ -16,9 +18,9 @@ using StackExchange.Redis;
 
 namespace AgileIM.Service.Services.UserService
 {
-    public class UserService : IUserService
+    public class UserService : BaseCrudService<User>, IUserService
     {
-        public UserService(IUnitOfWork unitOfWork, IHttpClientFactory clientFactory, IConfiguration configuration)
+        public UserService(IUnitOfWork unitOfWork, IHttpClientFactory clientFactory, IConfiguration configuration) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _clientFactory = clientFactory;
@@ -64,13 +66,14 @@ namespace AgileIM.Service.Services.UserService
 
                 var loginUserDto = new LoginUserDto()
                 {
-                    UserAccount = user.Account,
-                    MobilePhone = user.Phone,
+                    Account = user.Account,
+                    Phone = user.Phone,
                     UserLogo = user.Image,
                     LastLoginTime = user.LastLoginTime,
                     Gender = user.Gender,
-                    UserUid = user.Id,
-                    NickName = user.Nick,
+                    Address = user.Address,
+                    Id = user.Id,
+                    Nick = user.Nick,
                 };
 
                 if (d?.TryGetValue("access_token", out var token) is true)
@@ -156,13 +159,11 @@ namespace AgileIM.Service.Services.UserService
             }
         }
 
-        public async Task<User?> Register(User user)
+        public async Task<IEnumerable<User>?> QueryFriends(string userAccountOrMobile)
         {
             var userRep = _unitOfWork.GetRepository<User>();
-            var userResult = await userRep.InsertAsync(user);
-            var isOk = await _unitOfWork.SaveChangesAsync() > 0;
-
-            return isOk ? userResult.Entity : null;
+            return await userRep.GetAll().Where(a => a.Account.Equals(userAccountOrMobile) || a.Phone.Equals(userAccountOrMobile)).ToListAsync();
         }
+
     }
 }

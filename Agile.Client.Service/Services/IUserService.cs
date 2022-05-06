@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AgileIM.Client.Models;
 using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users.Dto;
 
@@ -24,5 +24,11 @@ namespace Agile.Client.Service.Services
         /// <param name="refreshToken"></param>
         /// <returns></returns>
         Task<Response<RefreshTokenDto>?> RefreshToken(string refreshToken);
+        /// <summary>
+        /// 获取好友列表
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<Response<IEnumerable<UserInfoDto>?>> GetFriendListByUserId(string userId);
     }
 }

@@ -11,6 +11,9 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
+using AgileIM.Shared.Models.Users.Dto;
+
+using AutoMapper;
 
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -20,10 +23,10 @@ namespace AgileIM.Client.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
-        public LoginViewModel(IUserService userService)
+        public LoginViewModel(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-
+            _mapper = mapper;
             for (int i = 0; i < 3; i++)
             {
                 LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}", Password = "2112313aa" });
@@ -37,6 +40,7 @@ namespace AgileIM.Client.ViewModels
 
         #region Service
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         #endregion
 
         #region Property
@@ -69,11 +73,14 @@ namespace AgileIM.Client.ViewModels
         private async Task Login()
         {
             var user = await _userService.Login(SelectedUserInfo.Account, SelectedUserInfo.Password);
-            if (user is not null && user.Code.Equals((int)StatusCode.Success))
+            if (user is not null && user.Code.Equals((int)StatusCode.Success) && user.Data is not null)
             {
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
+                var userInfo = _mapper.Map<LoginUserDto, UserInfoDto>(user.Data);
+
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
+                WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
             }
         }
 

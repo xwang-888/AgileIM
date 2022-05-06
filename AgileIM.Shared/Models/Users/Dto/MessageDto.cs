@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-
-namespace AgileIM.Client.Models
+namespace AgileIM.Shared.Models.Users.Dto
 {
     public class MessageDto : ObservableObject
     {
@@ -21,7 +13,7 @@ namespace AgileIM.Client.Models
         /// <summary>
         /// 头像
         /// </summary>
-        public Image Photo { get; set; }
+        public string Photo { get; set; }
         /// <summary>
         /// 内容
         /// </summary>

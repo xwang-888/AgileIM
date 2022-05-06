@@ -31,7 +31,7 @@ namespace AgileIM.Service.Controllers
             var result = await _userService.Login(loginRequest.UserAccountOrMobile, loginRequest.PassWord);
 
             if (result is not null)
-                await _userService.UpdateLastDateTime(result.UserUid);
+                await _userService.UpdateLastDateTime(result.Id);
 
 
             return result is null ?
@@ -71,6 +71,32 @@ namespace AgileIM.Service.Controllers
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost("Register")]
+        public async Task<Response<User>> Register([FromBody] User user)
+        {
+            var resultUser = await _userService.InsertAsync(user);
+
+            return resultUser is not null ?
+                new Response<User>(200, "注册成功", resultUser) :
+                new Response<User>(201, "注册失败", null);
+        }
+
+        [HttpGet("QueryFriends")]
+        [Authorize]
+        public async Task<Response<IEnumerable<User>>> QueryFriends(string userAccountOrMobile)
+        {
+            var model = await _userService.QueryFriends(userAccountOrMobile);
+
+            return model is not null ?
+                new Response<IEnumerable<User>>(200, "成功", model) :
+                new Response<IEnumerable<User>>(201, "失败", null);
         }
 
     }

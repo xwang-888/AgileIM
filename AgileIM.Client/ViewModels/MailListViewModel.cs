@@ -6,31 +6,27 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using Agile.Client.Service.Services;
+
 using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Views;
+using AgileIM.Shared.Models.Users.Dto;
+
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class MailListViewModel : ObservableObject
+    public class MailListViewModel : ObservableObject, IRecipient<IEnumerable<UserInfoDto>>
     {
 
         public MailListViewModel()
         {
             for (int i = 0; i < 20; i++)
             {
-                UserInfoList.Add(new UserInfoDto()
-                {
-                    Account = $"WxWX{i}{i + 1}{i + 2}",
-                    Gender = 1,
-                    Nick = $"自然醒{i}",
-                    Address = "陕西 西安",
-                    UserNote = i % 2 == 0 ? $"用户{i}" : null,
-                    Signature = "熠熠生辉_"
-
-                });
                 NewFriendList.Add(new NewFriendDto()
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -38,7 +34,11 @@ namespace AgileIM.Client.ViewModels
                     Message = "能通过一下验证吗？ 我有急事找你!"
                 });
             }
+
+            WeakReferenceMessenger.Default.Register(this, "MailListViewModel");
         }
+
+        private readonly IUserService _userService;
 
         private ObservableCollection<UserInfoDto> _userInfoList = new();
         private ObservableCollection<NewFriendDto> _newFriendList = new();
@@ -93,5 +93,9 @@ namespace AgileIM.Client.ViewModels
         }
 
 
+        public void Receive(IEnumerable<UserInfoDto> message)
+        {
+            UserInfoList = new ObservableCollection<UserInfoDto>(message);
+        }
     }
 }

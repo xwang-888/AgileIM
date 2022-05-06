@@ -10,8 +10,11 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.Common;
 using AgileIM.Client.ViewModels;
+using AgileIM.Shared.Common.AutoMapper;
 
 using Autofac;
+
+using AutoMapper;
 
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
@@ -42,6 +45,13 @@ namespace AgileIM.Client
             builder.RegisterType<MailListViewModel>();
             builder.RegisterType<ChatViewModel>();
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AgileProfile>();
+            });
+
+            builder.Register(c => config).AsSelf().SingleInstance();
+            builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>();
 
             return builder.Build();
         }
