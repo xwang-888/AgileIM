@@ -66,23 +66,8 @@ namespace AgileIM.IM.Helper
                     while (socket.State == WebSocketState.Open && _clients.ContainsKey(clientId))
                     {
                         var wsReceive = await socket.ReceiveAsync(buffer, default);
-                        try
-                        {
-                            var str = Encoding.UTF8.GetString(buffer);
-                            if (string.IsNullOrEmpty(str)) continue;
+                        var outgoing = new ArraySegment<byte>(buffer, 0, wsReceive.Count);
 
-                            var msg = JsonConvert.DeserializeObject<Message>(str);
-                            if (msg?.MsgType == MsgType.Heartbeat)
-                            {
-                                var outgoing = new ArraySegment<byte>(buffer, 0, wsReceive.Count);
-                                await socket.SendAsync(outgoing, WebSocketMessageType.Text,
-                                    true, CancellationToken.None);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
                     }
                     socket.Abort();
                 }
