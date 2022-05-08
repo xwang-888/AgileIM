@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Agile.Client.Service.Api.Common;
+
 using Newtonsoft.Json;
+
 using RestSharp;
 
 namespace Agile.Client.Service.Api
@@ -28,5 +30,19 @@ namespace Agile.Client.Service.Api
         public string RefreshToken { get; set; }
 
     }
-    
+    public class QueryFriendsApi : IApiParameterBase
+    {
+        public QueryFriendsApi(string userAccountOrMobile)
+        {
+            UserAccountOrMobile = userAccountOrMobile;
+        }
+
+        public string ApiPath => $"Api/User/QueryFriends?UserAccountOrMobile={UserAccountOrMobile}";
+        public Method Method => Method.Get;
+        public bool IsToken => true;
+        public string ContentTypeStr => ContentType.Json;
+        private string UserAccountOrMobile { get; }
+
+    }
+
 }

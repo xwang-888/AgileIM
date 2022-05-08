@@ -4,12 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist"
     xmlns:controls="clr-namespace:AgileIM.Client.Controls"
+    xmlns:converters="clr-namespace:AgileIM.Client.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:AgileIM.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="550"
     Height="450"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:GenderToIconConverter x:Key="GenderToIconConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,16 +24,96 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Padding="2" assist:ControlAssist.Hint="Account / Phone / Nick" />
+            <TextBox
+                Padding="2"
+                assist:ControlAssist.Hint="Account / Phone / Nick"
+                Text="{Binding SearchParamText}" />
             <Button
                 Grid.Column="1"
                 Width="60"
                 Margin="5,0,0,0"
+                Command="{Binding SearchCommand}"
                 Content="搜索" />
         </Grid>
         <controls:ItemsControlEx
             Grid.Row="1"
             DefaultPageSource="../Images/defaultpage1.png"
-            HintContent="暂无数据" />
+            HintContent="暂无数据"
+            ItemsSource="{Binding SearchUserInfoList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Margin="15,5,15,15" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Width="160"
+                        Height="80"
+                        Margin="5"
+                        Background="{DynamicResource PrimaryPaper}"
+                        CornerRadius="5"
+                        Effect="{DynamicResource EffectShadow2}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="../122.png">
+                                <Image.Clip>
+                                    <EllipseGeometry
+                                        Center="30,30"
+                                        RadiusX="30"
+                                        RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                            <Grid Grid.Column="1" Margin="5,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        FontSize="12"
+                                        Text="{Binding Nick}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTip="{Binding Nick}" />
+                                    <Grid Grid.Column="1" DataContext="{Binding Gender, Converter={StaticResource GenderToIconConverter}}">
+                                        <controls:PackIcon Foreground="{Binding Color}" Kind="{Binding Kind}" />
+                                    </Grid>
+                                </Grid>
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    FontSize="12"
+                                    Text="{Binding Account}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding Account}" />
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    FontSize="12"
+                                    Text="{Binding Address}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding Address}" />
+                                <Button
+                                    Grid.Row="3"
+                                    Width="40"
+                                    HorizontalAlignment="Left"
+                                    Content="添加"
+                                    FontSize="11" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </controls:ItemsControlEx>
     </Grid>
 </UserControl>

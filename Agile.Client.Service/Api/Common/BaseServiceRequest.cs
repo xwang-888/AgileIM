@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AgileIM.Shared.Models.ApiResult;
 
 namespace Agile.Client.Service.Api.Common
 {
@@ -48,7 +49,7 @@ namespace Agile.Client.Service.Api.Common
         /// </summary>
         /// <param name="apiParameter">请求参数</param>
         /// <returns></returns>
-        public static async Task<TResponse> GetRequest<TResponse>(this IApiParameterBase apiParameter) where TResponse : class
+        public static async Task<TResponse> GetRequest<TResponse>(this IApiParameterBase apiParameter) where TResponse : Response, new()
         {
             var url = RequestUrl + apiParameter.ApiPath;
 

@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/AgileIM.Client.Themes.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/State/Theme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/State/Theme.Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/Colors.DaybreakBlue.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

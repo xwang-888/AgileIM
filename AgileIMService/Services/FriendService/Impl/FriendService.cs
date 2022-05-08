@@ -3,6 +3,7 @@ using AgileIM.Service.Services.UserService;
 using AgileIM.Shared.EFCore.Data.UnitOfWork;
 using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AgileIM.Service.Services.FriendService.Impl
@@ -33,5 +34,19 @@ namespace AgileIM.Service.Services.FriendService.Impl
 
             return model is not null && await base.DeleteAsync(model);
         }
+
+        public async Task<Friend?> UpdateUserNote(string uId, string friendId, string userNote)
+        {
+            var rep = _unitOfWork.GetRepository<Friend>();
+
+            var model = await rep.FirstOrDefaultAsync(a => a.UserId.Equals(uId) && a.FriendUser.Equals(friendId));
+            if (model is null) return null;
+
+            model.UserNote = userNote;
+            return await base.UpdateAsync(model);
+        }
+
+        public Task<bool> ExistFriend(string uId, string friendId)
+            => _unitOfWork.GetRepository<Friend>().AnyAsync(a => a.UserId.Equals(uId) && a.FriendId.Equals(friendId));
     }
 }

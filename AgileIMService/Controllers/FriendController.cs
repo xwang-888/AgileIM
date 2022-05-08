@@ -22,13 +22,17 @@ namespace AgileIM.Service.Controllers
         private readonly IFriendService _friendService;
         [HttpPost("Add")]
         [Authorize]
-        public async Task<Response<Friend>> Add([FromBody] FriendRequest friend)
+        public async Task<Response<Friend?>> Add([FromBody] FriendRequest friend)
         {
-            var model = await _friendService.InsertAsync(new Friend() { UserId = friend.UserId, FriendId = friend.FriendId });
+            Friend? model = null;
+            if (!await _friendService.ExistFriend(friend.UserId, friend.FriendId))
+                model = await _friendService.InsertAsync(new Friend() { UserId = friend.UserId, FriendId = friend.FriendId });
+            else
+                return new Response<Friend?>(201, "好友已存在", null);
 
             return model is not null ?
-                new Response<Friend>(200, "成功", model) :
-                new Response<Friend>(201, "失败", null);
+                new Response<Friend?>(200, "成功", model) :
+                new Response<Friend?>(201, "失败", null);
         }
         [HttpDelete("Delete")]
         [Authorize]
@@ -40,11 +44,22 @@ namespace AgileIM.Service.Controllers
                 new Response<bool>(200, "成功", true) :
                 new Response<bool>(201, "失败", false);
         }
-        [HttpPost("GetFriendListByUserId")]
+
+        [HttpPost("UpdateUserNote")]
         [Authorize]
-        public async Task<Response<IEnumerable<Friend>?>> GetFriendListByUserId([FromBody] FriendRequest friendRequest)
+        public async Task<Response<string?>> UpdateUserNote([FromBody] UpdateUserNoteRequest update)
         {
-            var model = await _friendService.GetFriendListByUserIdAsync(friendRequest.UserId);
+            var model = await _friendService.UpdateUserNote(update.UserId, update.FriendId, update.UserNote);
+
+            return model is not null ?
+                new Response<string?>(200, "成功", model.UserNote) :
+                new Response<string?>(201, "失败", null);
+        }
+        [HttpGet("GetFriendListByUserId")]
+        [Authorize]
+        public async Task<Response<IEnumerable<Friend>?>> GetFriendListByUserId(string userId)
+        {
+            var model = await _friendService.GetFriendListByUserIdAsync(userId);
 
             return model is not null ?
                 new Response<IEnumerable<Friend>?>(200, "成功", model) :

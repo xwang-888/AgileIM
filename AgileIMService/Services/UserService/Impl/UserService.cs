@@ -1,4 +1,6 @@
 ﻿using System.Net;
+using System.Security.Cryptography.Xml;
+
 using AgileIM.Service.OAuth.Configs;
 using AgileIM.Service.Services.BaseService.Impl;
 using AgileIM.Shared.EFCore.Data.UnitOfWork;
@@ -64,6 +66,7 @@ namespace AgileIM.Service.Services.UserService.Impl
                     Gender = user.Gender,
                     Address = user.Address,
                     Id = user.Id,
+                    Signature= user.Signature,
                     Nick = user.Nick,
                 };
 

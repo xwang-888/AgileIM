@@ -43,6 +43,10 @@ namespace AgileIM.Shared.Models.Users.Entity
         [Required]
         public int Gender { get; set; }
         /// <summary>
+        /// 个性签名
+        /// </summary>
+        public string? Signature { get; set; }
+        /// <summary>
         /// 最后登录时间
         /// </summary>
         public DateTime LastLoginTime { get; set; }

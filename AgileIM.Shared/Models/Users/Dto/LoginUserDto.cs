@@ -41,6 +41,10 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// </summary>
         public string Address { get; set; }
         /// <summary>
+        /// 个性签名
+        /// </summary>
+        public string? Signature { get; set; }
+        /// <summary>
         /// token过期时间
         /// </summary>
         public DateTime TokenExpireTime { get; set; }

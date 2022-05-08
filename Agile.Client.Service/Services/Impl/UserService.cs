@@ -1,7 +1,11 @@
 ﻿using Agile.Client.Service.Api;
 using Agile.Client.Service.Api.Common;
+
+using AgileIM.Client.Models;
 using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users.Dto;
+using AgileIM.Shared.Models.Users.Entity;
+
 using AutoMapper;
 
 namespace Agile.Client.Service.Services.Impl
@@ -36,8 +40,20 @@ namespace Agile.Client.Service.Services.Impl
             return await api.GetRequest<Response<RefreshTokenDto>>();
         }
 
-       
-    }
+        public async Task<Response<IEnumerable<UserInfoDto>?>> QueryFriends(string userAccountOrMobile)
+        {
+            var api = new QueryFriendsApi(userAccountOrMobile);
+            var response = new Response<IEnumerable<UserInfoDto>?>();
+            var result = await api.GetRequest<Response<IEnumerable<User>?>>();
+            if (result?.Data is not null)
+            {
+                response.Message = result.Message;
+                response.Code = result.Code;
+                response.Data = _mapper.Map<IEnumerable<User>, IEnumerable<UserInfoDto>>(result.Data);
+            }
 
+            return response;
+        }
+    }
 
 }

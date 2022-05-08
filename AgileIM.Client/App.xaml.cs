@@ -8,6 +8,7 @@ using System.Windows;
 
 using Agile.Client.Service.Services;
 using Agile.Client.Service.Services.Impl;
+
 using AgileIM.Client.Common;
 using AgileIM.Client.ViewModels;
 using AgileIM.Shared.Common.AutoMapper;
@@ -40,11 +41,12 @@ namespace AgileIM.Client
             var builder = new ContainerBuilder();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<FriendService>().As<IFriendService>();
-
+            
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<LoginViewModel>();
             builder.RegisterType<MailListViewModel>();
             builder.RegisterType<ChatViewModel>();
+            builder.RegisterType<AddNewFriendViewModel>();
 
             var config = new MapperConfiguration(cfg =>
             {

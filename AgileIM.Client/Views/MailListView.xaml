@@ -12,6 +12,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:UserInfoNickConverter x:Key="UserInfoNickConverter" />
+        <converters:GenderToIconConverter x:Key="GenderToIconConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -220,6 +221,13 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Orientation="Horizontal">
+                                    <Grid DataContext="{Binding SelectedUserInfo.Gender, Converter={StaticResource GenderToIconConverter}}">
+                                        <controls:PackIcon
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="{Binding Color}"
+                                            Kind="{Binding Kind}" />
+                                    </Grid>
                                     <TextBlock FontSize="20" Text="{Binding SelectedUserInfo.Nick}" />
                                 </StackPanel>
                                 <TextBlock

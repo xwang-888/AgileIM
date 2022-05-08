@@ -27,13 +27,10 @@ namespace AgileIM.Client.ViewModels
         {
             _userService = userService;
             _mapper = mapper;
-            for (int i = 0; i < 3; i++)
-            {
-                LoginUserInfos.Add(new UserInfoDto { Account = $"YW16_{i}", Nick = $"飞翔的企鹅{i}", Password = "2112313aa" });
-            }
 
-            LoginUserInfos[0].Account = "Y12345678_";
-            LoginUserInfos[0].Password = "admin123";
+            LoginUserInfos.Add(new UserInfoDto { Account = "Y12345678_", Nick = "Private_", Password = "admin123" });
+            LoginUserInfos.Add(new UserInfoDto { Account = "X1987872", Nick = "Patton", Password = "admin123" });
+            LoginUserInfos.Add(new UserInfoDto { Account = "WX1987921", Nick = "Venus", Password = "admin123" });
 
             SelectedUserInfo = LoginUserInfos.FirstOrDefault();
         }
@@ -45,6 +42,7 @@ namespace AgileIM.Client.ViewModels
 
         #region Property
 
+        private bool _isLoginExec = true;
         private ObservableCollection<UserInfoDto> _loginUserInfos = new();
 
         public ObservableCollection<UserInfoDto> LoginUserInfos
@@ -63,7 +61,7 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Command
-        public ICommand LoginCommand => new AsyncRelayCommand(Login);
+        public ICommand LoginCommand => new AsyncRelayCommand(Login, () => _isLoginExec);
 
         public ICommand RemoveUserAccountCommand => new AsyncRelayCommand<UserInfoDto>(RemoveUserAccount);
 
@@ -72,6 +70,7 @@ namespace AgileIM.Client.ViewModels
         #region Methodes
         private async Task Login()
         {
+            _isLoginExec = false;
             var user = await _userService.Login(SelectedUserInfo.Account, SelectedUserInfo.Password);
             if (user is not null && user.Code.Equals((int)StatusCode.Success) && user.Data is not null)
             {

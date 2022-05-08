@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AgileIM.Client.Common;
+using AgileIM.Client.ViewModels;
 
 namespace AgileIM.Client.Views
 {
@@ -23,6 +25,7 @@ namespace AgileIM.Client.Views
         public AddNewFriendView()
         {
             InitializeComponent();
+            DataContext = ServiceProvider.Get<AddNewFriendViewModel>();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace AgileIM.Shared.EFCore
                     Nick = "Private_",
                     Address = "陕西 西安",
                     Gender = 1,
+                    Signature = "但愿日子清净.抬头看见的满是柔情。",
                     LastLoginTime = DateTime.Now
                 },
                 new User()
@@ -43,6 +44,7 @@ namespace AgileIM.Shared.EFCore
                     Nick = "Patton",
                     Address = "广东 东莞",
                     Gender = 2,
+                    Signature = "日无事，事复日日，忙忙亦茫茫",
                     LastLoginTime = DateTime.Now
                 },
                 new User()
@@ -54,6 +56,7 @@ namespace AgileIM.Shared.EFCore
                     Nick = "Venus",
                     Address = "广东 广州",
                     Gender = 1,
+                    Signature = "打工人，打工魂。",
                     LastLoginTime = DateTime.Now
                 });
             modelBuilder.Entity<Friend>().HasData(

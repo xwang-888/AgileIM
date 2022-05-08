@@ -25,13 +25,15 @@ namespace Agile.Client.Service.RestSharp
         /// <param name="contentType">contentType</param>
         /// <returns></returns>
         public async Task<TResponse?> RequestBehavior<TResponse>(string url, Method method, string pms,
-            bool isToken = true, string contentType = ContentType.Json) where TResponse : class
+            bool isToken = true, string contentType = ContentType.Json) where TResponse : Response, new()
         {
             var client = new RestClient(url);
             var request = new RestRequest { Method = method };
 
             if (isToken)
                 client.AddDefaultHeader(ApiConfiguration.TokenKey, ApiConfiguration.TokenValue);
+
+            request.AddHeader("Content-Type", contentType);
 
             switch (method)
             {
@@ -49,8 +51,6 @@ namespace Agile.Client.Service.RestSharp
                             break;
                     }
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(method), method, null);
             }
             var response = await client.ExecuteAsync<TResponse>(request);
 
@@ -58,11 +58,12 @@ namespace Agile.Client.Service.RestSharp
                 if (response.Data is not null)
                     return response.Data;
 
-            return new Response()
+            return new TResponse()
             {
                 Code = (int)response.StatusCode,
-                Message = response.StatusDescription
-            } as TResponse;
+                Message = response.StatusDescription,
+                Data = null
+            };
         }
     }
 }
