@@ -11,6 +11,7 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
+using AgileIM.Client.Properties;
 using AgileIM.Shared.Models.Users.Dto;
 
 using AutoMapper;
@@ -77,7 +78,7 @@ namespace AgileIM.Client.ViewModels
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 var userInfo = _mapper.Map<LoginUserDto, UserInfoDto>(user.Data);
-
+                Settings.Default.LoginUser = userInfo;
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
                 WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
             }

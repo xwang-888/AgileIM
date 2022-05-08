@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgileIM.Client.Models;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;
 using AutoMapper;

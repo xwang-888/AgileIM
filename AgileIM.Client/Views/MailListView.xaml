@@ -2,6 +2,7 @@
     x:Class="AgileIM.Client.Views.MailListView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:controls="clr-namespace:AgileIM.Client.Controls"
     xmlns:converters="clr-namespace:AgileIM.Client.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -267,13 +268,20 @@
                                 <TextBlock Grid.Row="1" Text="地区" />
                                 <TextBlock Grid.Row="2" Text="账号" />
                                 <TextBox
+                                    Name="UserNoteText"
                                     Grid.Column="1"
                                     MinWidth="150"
                                     Padding="0,2"
                                     FontSize="13"
                                     Opacity="1"
                                     Style="{DynamicResource UserNoteUpdateTextBox}"
-                                    Text="{Binding SelectedUserInfo.UserNote}" />
+                                    Text="{Binding SelectedUserInfo.UserNote}">
+                                    <behaviors:Interaction.Triggers>
+                                        <behaviors:EventTrigger EventName="LostFocus">
+                                            <behaviors:InvokeCommandAction Command="{Binding UpdateUserNoteCommand}" CommandParameter="{Binding ElementName=UserNoteText, Path=Text}" />
+                                        </behaviors:EventTrigger>
+                                    </behaviors:Interaction.Triggers>
+                                </TextBox>
                                 <TextBox
                                     Grid.Row="1"
                                     Grid.Column="1"

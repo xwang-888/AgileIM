@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 
 using AgileIM.Client.Models;
-
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AgileIM.Client.Converters

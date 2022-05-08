@@ -11,6 +11,7 @@ using System.Windows.Shell;
 
 using AgileIM.Client.Common;
 using AgileIM.Client.Models;
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace AgileIM.Client.Controls

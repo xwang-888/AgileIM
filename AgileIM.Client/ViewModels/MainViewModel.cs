@@ -60,13 +60,16 @@ namespace AgileIM.Client.ViewModels
 
         #endregion
 
-        public async void Receive(UserInfoDto message)
+        public void Receive(UserInfoDto message)
         {
             User = message;
 
-            var list = await _friendService.GetFriendListByUserId(message.Id);
-            if (list?.Data is not null)
-                WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
+            Task.Run(async () =>
+            {
+                var list = await _friendService.GetFriendListByUserId(message.Id);
+                if (list?.Data is not null)
+                    WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
+            });
         }
 
         ~MainViewModel()

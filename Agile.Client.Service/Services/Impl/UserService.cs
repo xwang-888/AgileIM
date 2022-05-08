@@ -1,7 +1,5 @@
 ﻿using Agile.Client.Service.Api;
 using Agile.Client.Service.Api.Common;
-
-using AgileIM.Client.Models;
 using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;

@@ -11,6 +11,7 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
+using AgileIM.Client.Properties;
 using AgileIM.Client.Views;
 using AgileIM.Shared.Models.Friend.Dto;
 using AgileIM.Shared.Models.Users.Dto;
@@ -24,7 +25,7 @@ namespace AgileIM.Client.ViewModels
     public class MailListViewModel : ObservableObject, IRecipient<IEnumerable<UserInfoDto>>
     {
 
-        public MailListViewModel()
+        public MailListViewModel(IUserService userService, IFriendService friendService)
         {
             for (int i = 0; i < 20; i++)
             {
@@ -36,10 +37,14 @@ namespace AgileIM.Client.ViewModels
                 });
             }
 
+            _userService = userService;
+            _friendService = friendService;
+
             WeakReferenceMessenger.Default.Register(this, "MailListViewModel");
         }
 
         private readonly IUserService _userService;
+        private readonly IFriendService _friendService;
 
         private ObservableCollection<UserInfoDto> _userInfoList = new();
         private ObservableCollection<NewFriendDto> _newFriendList = new();
@@ -78,6 +83,28 @@ namespace AgileIM.Client.ViewModels
 
         public ICommand NewFriendCommand => new AsyncRelayCommand(NewFriend);
         public ICommand AddNewFriendCommand => new AsyncRelayCommand(AddNewFriend);
+
+        public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
+
+
+        private async Task UpdateUserNote(string? userNote)
+        {
+            if (string.IsNullOrEmpty(userNote?.Trim()))
+            {
+                return;
+            }
+
+            var userId = Settings.Default.LoginUser?.Id;
+            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
+            if (resp.Code.Equals(200))
+            {
+                SelectedUserInfo.UserNote = resp.Data;
+            }
+            else
+            {
+                SelectedUserInfo.UserNote = null;
+            }
+        }
 
 
         private Task NewFriend()

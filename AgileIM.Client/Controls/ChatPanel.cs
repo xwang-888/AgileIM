@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using AgileIM.Client.Models;
+using AgileIM.Shared.Models.Users.Dto;
 
 namespace AgileIM.Client.Controls
 {

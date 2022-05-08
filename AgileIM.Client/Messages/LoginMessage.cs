@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using AgileIM.Client.Models;
 using AgileIM.IM.Models;
-
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.Messaging.Messages;
 
 namespace AgileIM.Client.Messages

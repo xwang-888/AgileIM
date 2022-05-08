@@ -10,7 +10,7 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.Models;
 using AgileIM.Shared.Models.ApiResult;
-
+using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 

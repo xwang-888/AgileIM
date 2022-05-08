@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
-using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
-namespace AgileIM.Client.Models
+namespace AgileIM.Shared.Models.Users.Dto
 {
 
     public class UserInfoDto : ObservableObject
@@ -31,10 +24,16 @@ namespace AgileIM.Client.Models
         /// 性别
         /// </summary>
         public int Gender { get; set; }
+
         /// <summary>
         /// 用户备注
         /// </summary>
-        public string? UserNote { get; set; }
+        private string? _userNote;
+        public string? UserNote
+        {
+            get => _userNote;
+            set => SetProperty(ref _userNote, value);
+        }
         /// <summary>
         /// 个性签名
         /// </summary>

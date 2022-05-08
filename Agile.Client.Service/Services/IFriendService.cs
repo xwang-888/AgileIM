@@ -1,5 +1,4 @@
-﻿using AgileIM.Client.Models;
-using AgileIM.Shared.Models.ApiResult;
+﻿using AgileIM.Shared.Models.ApiResult;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Friend.Request;
+using AgileIM.Shared.Models.Users.Dto;
 
 namespace Agile.Client.Service.Services
 {
