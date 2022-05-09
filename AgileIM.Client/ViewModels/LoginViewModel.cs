@@ -82,6 +82,8 @@ namespace AgileIM.Client.ViewModels
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
                 WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
             }
+
+            _isLoginExec = true;
         }
 
         private Task RemoveUserAccount(UserInfoDto userInfoDto)

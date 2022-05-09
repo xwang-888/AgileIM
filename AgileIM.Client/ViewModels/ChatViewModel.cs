@@ -8,13 +8,16 @@ using System.Threading.Tasks;
 using AgileIM.Client.Models;
 
 using System.Windows.Input;
+using AgileIM.Client.Controls;
+using AgileIM.Client.Views;
 using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class ChatViewModel : ObservableObject
+    public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>
     {
 
         public ChatViewModel()
@@ -29,11 +32,13 @@ namespace AgileIM.Client.ViewModels
 
             ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "xwang1234", Nick = "自然醒12", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages), UserNote = "自然醒" });
             ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "flay1234", Nick = "飞翔的企鹅", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages1), UserNote = "腼腆的企鹅" });
+
+            WeakReferenceMessenger.Default.Register(this, "ChatViewModel");
         }
 
         #region Property
         private ObservableCollection<UserInfoDto> _chatUserList = new();
-        private UserInfoDto _selectedUserInfo;
+        private UserInfoDto? _selectedUserInfo;
         private bool _sendTextIsFocus;
         private string _sendText;
 
@@ -49,7 +54,7 @@ namespace AgileIM.Client.ViewModels
         /// <summary>
         /// 当前选中的user
         /// </summary>
-        public UserInfoDto SelectedUserInfo
+        public UserInfoDto? SelectedUserInfo
         {
             get => _selectedUserInfo;
             set
@@ -78,6 +83,9 @@ namespace AgileIM.Client.ViewModels
 
         #region Command
         public ICommand SendMessageCommand => new AsyncRelayCommand(SendMessage);
+        public ICommand CreateChatCommand => new AsyncRelayCommand(CreateCha);
+
+
         #endregion
 
         #region Methods
@@ -87,7 +95,7 @@ namespace AgileIM.Client.ViewModels
         private void OnSelectedUserInfo()
         {
             SendTextIsFocus = true;
-            _selectedUserInfo.IsUnreadMessage = false;
+            SelectedUserInfo.IsUnreadMessage = false;
         }
         /// <summary>
         /// 发送消息
@@ -95,13 +103,36 @@ namespace AgileIM.Client.ViewModels
         /// <returns></returns>
         private async Task SendMessage()
         {
-            foreach (var messageDto in _selectedUserInfo.Messages)
+            if (SelectedUserInfo is null) return;
+
+            SelectedUserInfo.Messages ??= new ObservableCollection<MessageDto>();
+
+            foreach (var messageDto in SelectedUserInfo.Messages)
                 messageDto.IsRead = true;
             if (string.IsNullOrEmpty(SendText)) return;
 
             SelectedUserInfo.Messages.Add(new MessageDto { Text = SendText, IsSelf = true });
             SendText = string.Empty;
         }
+
+        private Task CreateCha()
+        {
+            DialogHostHelper.ShowDialog(new CreateChatView());
+
+            return Task.CompletedTask;
+        }
+
         #endregion
+
+        public void Receive(UserInfoDto message)
+        {
+            var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(message.Id));
+            if (user is null)
+            {
+                ChatUserList.Add(message);
+                SelectedUserInfo = message;
+            }
+            SendTextIsFocus = true;
+        }
     }
 }

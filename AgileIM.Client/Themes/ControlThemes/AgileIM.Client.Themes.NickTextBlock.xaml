@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls">
+    <Style TargetType="{x:Type controls:NickTextBlock}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NickTextBlock">
+
+                    <Grid>
+                        <TextBlock
+                            Name="Nick"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Nick}"
+                            TextTrimming="{TemplateBinding TextTrimming}"
+                            Visibility="Collapsed" />
+                        <TextBlock
+                            Name="UserNote"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding UserNote}"
+                            TextTrimming="{TemplateBinding TextTrimming}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="UserNote" Property="Text" Value="{x:Null}">
+                            <Setter TargetName="UserNote" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Nick" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger SourceName="UserNote" Property="Text" Value="">
+                            <Setter TargetName="UserNote" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Nick" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

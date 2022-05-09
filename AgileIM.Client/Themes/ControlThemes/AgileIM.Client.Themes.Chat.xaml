@@ -37,8 +37,7 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryCardBrush}"
-                        CornerRadius="5"
-                        Effect="{DynamicResource EffectShadow1}" />
+                        CornerRadius="5" />
                     <TextBox
                         Margin="10"
                         VerticalAlignment="Center"
@@ -93,8 +92,7 @@
                     <Border
                         Name="Border"
                         Background="{DynamicResource PrimaryHueLightBrush}"
-                        CornerRadius="5"
-                        Effect="{DynamicResource EffectShadow1}" />
+                        CornerRadius="5" />
                     <TextBox
                         Margin="10"
                         VerticalAlignment="Center"
@@ -140,7 +138,6 @@
                             <Grid Height="30" Margin="15,25">
                                 <ToggleButton
                                     Name="NameToggleBtn"
-                                    Width="100"
                                     HorizontalAlignment="Left"
                                     Content="{Binding UserNote}"
                                     Cursor="Hand"

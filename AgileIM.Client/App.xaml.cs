@@ -44,8 +44,9 @@ namespace AgileIM.Client
             
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<LoginViewModel>();
-            builder.RegisterType<MailListViewModel>();
+            builder.RegisterType<MailListViewModel>().SingleInstance();
             builder.RegisterType<ChatViewModel>();
+            builder.RegisterType<CreateChatViewModel>();
             builder.RegisterType<AddNewFriendViewModel>();
 
             var config = new MapperConfiguration(cfg =>

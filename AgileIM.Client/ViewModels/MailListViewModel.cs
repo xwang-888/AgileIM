@@ -85,6 +85,7 @@ namespace AgileIM.Client.ViewModels
         public ICommand AddNewFriendCommand => new AsyncRelayCommand(AddNewFriend);
 
         public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
+        public ICommand OpenChatPageCommand => new AsyncRelayCommand(OpenChatPageAsync);
 
 
         private async Task UpdateUserNote(string? userNote)
@@ -96,14 +97,7 @@ namespace AgileIM.Client.ViewModels
 
             var userId = Settings.Default.LoginUser?.Id;
             var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
-            if (resp.Code.Equals(200))
-            {
-                SelectedUserInfo.UserNote = resp.Data;
-            }
-            else
-            {
-                SelectedUserInfo.UserNote = null;
-            }
+            SelectedUserInfo.UserNote = resp.Code.Equals(200) ? resp.Data : null;
         }
 
 
@@ -124,6 +118,13 @@ namespace AgileIM.Client.ViewModels
         public void Receive(IEnumerable<UserInfoDto> message)
         {
             UserInfoList = new ObservableCollection<UserInfoDto>(message);
+        }
+        private  Task OpenChatPageAsync()
+        {
+            WeakReferenceMessenger.Default.Send(SelectedUserInfo, "ChatViewModel");
+            WeakReferenceMessenger.Default.Send("", "OpenChatPage");
+
+            return Task.CompletedTask;
         }
     }
 }

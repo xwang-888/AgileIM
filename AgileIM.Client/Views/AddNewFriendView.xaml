@@ -26,14 +26,16 @@
             </Grid.ColumnDefinitions>
             <TextBox
                 Padding="2"
-                assist:ControlAssist.Hint="Account / Phone / Nick"
-                Text="{Binding SearchParamText}" />
+                assist:ControlAssist.Hint="Account / Phone"
+                assist:ControlAssist.Icon="AccountSearch"
+                Text="{Binding SearchParamText, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 Grid.Column="1"
                 Width="60"
                 Margin="5,0,0,0"
                 Command="{Binding SearchCommand}"
-                Content="搜索" />
+                Content="搜索"
+                IsDefault="True" />
         </Grid>
         <controls:ItemsControlEx
             Grid.Row="1"

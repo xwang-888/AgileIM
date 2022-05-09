@@ -1,12 +1,13 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist">
+    xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls">
     <Style x:Key="BaseTextBoxStyle" TargetType="TextBox">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="13" />
-        <Setter Property="Padding" Value="5,1,5,1" />
+        <Setter Property="Padding" Value="3,1,3,1" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource PrimaryCardBrush}" />
@@ -33,6 +34,15 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
+                                <controls:PackIcon
+                                    x:Name="PackIcon"
+                                    Margin="3,0,1,0"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Kind="{TemplateBinding assist:ControlAssist.Icon}"
+                                    Opacity=".8"
+                                    Size="{TemplateBinding assist:ControlAssist.IconSize}" />
                                 <ScrollViewer
                                     x:Name="PART_ContentHost"
                                     Grid.Column="1"
@@ -70,6 +80,9 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value=".4" />
+                        </Trigger>
+                        <Trigger Property="assist:ControlAssist.Icon" Value="{x:Null}">
+                            <Setter TargetName="PackIcon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

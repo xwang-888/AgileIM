@@ -332,7 +332,8 @@
                             Margin="20,10,20,20"
                             Command="{Binding LoginCommand, IsAsync=True}"
                             Content="登录"
-                            FontSize="18" />
+                            FontSize="18"
+                            IsDefault="True" />
                     </Grid>
                 </Grid>
             </Border>

@@ -160,13 +160,14 @@
                 Background="{DynamicResource PrimaryHueLightBrush}"
                 Opacity=".1"
                 Visibility="Collapsed" />
-            <TextBlock
+            <controls:NickTextBlock
                 Grid.Row="0"
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 FontSize="15"
-                Text="{Binding Converter={StaticResource UserInfoNickConverter}}"
-                TextTrimming="CharacterEllipsis" />
+                Nick="{Binding Nick}"
+                TextTrimming="CharacterEllipsis"
+                UserNote="{Binding UserNote}" />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="1"

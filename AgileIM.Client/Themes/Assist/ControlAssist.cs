@@ -24,12 +24,12 @@ namespace AgileIM.Client.Themes.Assist
 
 
         #region Icon
-        public static PackIconKind GetIcon(DependencyObject obj) => (PackIconKind)obj.GetValue(IconProperty);
+        public static PackIconKind? GetIcon(DependencyObject obj) => (PackIconKind?)obj.GetValue(IconProperty);
 
-        public static void SetIcon(DependencyObject obj, PackIconKind value) => obj.SetValue(IconProperty, value);
+        public static void SetIcon(DependencyObject obj, PackIconKind? value) => obj.SetValue(IconProperty, value);
 
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.RegisterAttached("Icon", typeof(PackIconKind), typeof(ControlAssist), new PropertyMetadata(PackIconKind.Password));
+            DependencyProperty.RegisterAttached("Icon", typeof(PackIconKind?), typeof(ControlAssist), new PropertyMetadata(null));
 
 
         public static double GetIconSize(DependencyObject obj) => (double)obj.GetValue(IconProperty);
@@ -37,7 +37,7 @@ namespace AgileIM.Client.Themes.Assist
         public static void SetIconSize(DependencyObject obj, double value) => obj.SetValue(IconSizeProperty, value);
 
         public static readonly DependencyProperty IconSizeProperty =
-            DependencyProperty.RegisterAttached("IconSize", typeof(double), typeof(ControlAssist), new PropertyMetadata(25.0));
+            DependencyProperty.RegisterAttached("IconSize", typeof(double), typeof(ControlAssist), new PropertyMetadata(24.0));
         #endregion
     }
 }

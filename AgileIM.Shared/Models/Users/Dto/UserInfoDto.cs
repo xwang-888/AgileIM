@@ -59,7 +59,7 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// </summary>
         public DateTime LastLoginTime { get; set; }
         private MessageDto? _lastMessage;
-        private ObservableCollection<MessageDto> _messages = new();
+        private ObservableCollection<MessageDto> _messages;
         private bool _isUnreadMessage = true;
 
         /// <summary>

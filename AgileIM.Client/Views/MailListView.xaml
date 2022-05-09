@@ -168,13 +168,14 @@
                                                     </Image.Clip>
                                                 </Image>
                                             </Border>
-                                            <TextBlock
+                                            <controls:NickTextBlock
                                                 Grid.Row="0"
                                                 Grid.Column="1"
                                                 VerticalAlignment="Center"
                                                 FontSize="15"
-                                                Text="{Binding Converter={StaticResource UserInfoNickConverter}}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                Nick="{Binding Nick}"
+                                                TextTrimming="CharacterEllipsis"
+                                                UserNote="{Binding UserNote}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -302,6 +303,7 @@
                             Grid.Row="1"
                             Height="35"
                             Margin="20,10,20,20"
+                            Command="{Binding OpenChatPageCommand}"
                             Content="发消息" />
                     </Grid>
                 </Border>

@@ -11,6 +11,7 @@ using Agile.Client.Service.Services;
 using AgileIM.Client.Models;
 using AgileIM.Shared.Models.ApiResult;
 using AgileIM.Shared.Models.Users.Dto;
+
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
@@ -45,6 +46,7 @@ namespace AgileIM.Client.ViewModels
 
 
         public ICommand SearchCommand => new AsyncRelayCommand(SearchAsync);
+       
 
         private async Task SearchAsync()
         {
@@ -59,5 +61,8 @@ namespace AgileIM.Client.ViewModels
             else
                 SearchUserInfoList = new List<UserInfoDto>();
         }
+
+
+       
     }
 }

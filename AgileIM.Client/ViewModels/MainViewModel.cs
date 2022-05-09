@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>
+    public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<string>
     {
         public MainViewModel(IFriendService friendService)
         {
@@ -32,7 +33,8 @@ namespace AgileIM.Client.ViewModels
                 new("联系人", PackIconKind.AccountMultiple, new MailListView())
             };
             SelectedMenuItem = MenuItems.First();
-            WeakReferenceMessenger.Default.Register(this, "MainViewModel");
+            WeakReferenceMessenger.Default.Register<UserInfoDto, string>(this, "MainViewModel");
+            WeakReferenceMessenger.Default.Register<string, string>(this, "OpenChatPage");
         }
 
         private readonly IFriendService _friendService;
@@ -70,6 +72,11 @@ namespace AgileIM.Client.ViewModels
                 if (list?.Data is not null)
                     WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
             });
+        }
+
+        public void Receive(string message)
+        {
+            SelectedMenuItem = MenuItems.First();
         }
 
         ~MainViewModel()
