@@ -101,7 +101,7 @@
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="65" />
+                <RowDefinition Height="75" />
             </Grid.RowDefinitions>
             <ItemsControl
                 Name="UserItemsControl"
@@ -165,7 +165,7 @@
                 Grid.Row="1"
                 Width="70"
                 Height="30"
-                Margin="5,0"
+                Margin="10,5"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Command="{Binding CreateChatCommand}"

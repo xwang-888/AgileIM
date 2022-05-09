@@ -18,7 +18,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="60" />
                 <RowDefinition Height="3" />
-                <RowDefinition MinHeight="180" />
+                <RowDefinition
+                    Height="180"
+                    MinHeight="180"
+                    MaxHeight="490" />
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0"
@@ -78,7 +81,8 @@
                 Grid.Column="1"
                 Height="3"
                 HorizontalAlignment="Stretch"
-                Background="Transparent" />
+                Background="Transparent"
+                FocusVisualStyle="{x:Null}" />
             <Grid Grid.Column="1" Row="2">
                 <Border
                     Margin="10,10,15,15"
