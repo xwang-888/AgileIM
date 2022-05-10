@@ -4,21 +4,19 @@ namespace AgileIM.Shared.Models.Users.Dto
 {
     public class MessageDto : ObservableObject
     {
+
+
         private bool _isRead;
 
+        public string Id { get; set; }
         /// <summary>
         /// 是否为自己发送的消息
         /// </summary>
         public bool IsSelf { get; set; }
         /// <summary>
-        /// 头像
-        /// </summary>
-        public string Photo { get; set; }
-        /// <summary>
         /// 内容
         /// </summary>
         public string Text { get; set; }
-
         /// <summary>
         /// 是否阅读
         /// </summary>

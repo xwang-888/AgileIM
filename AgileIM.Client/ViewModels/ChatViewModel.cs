@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 using AgileIM.Client.Models;
 
 using System.Windows.Input;
+using Agile.Client.Service.Services;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Views;
 using AgileIM.Shared.Models.Users.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using AgileIM.Client.Properties;
 
 namespace AgileIM.Client.ViewModels
 {
     public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>
     {
 
-        public ChatViewModel()
+        public ChatViewModel(IFriendService friendService)
         {
             var messages = new List<MessageDto>();
             var messages1 = new List<MessageDto>();
@@ -34,7 +36,12 @@ namespace AgileIM.Client.ViewModels
             ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "flay1234", Nick = "飞翔的企鹅", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages1), UserNote = "腼腆的企鹅" });
 
             WeakReferenceMessenger.Default.Register(this, "ChatViewModel");
+            _friendService = friendService;
         }
+
+        #region Service
+        private readonly IFriendService _friendService; 
+        #endregion
 
         #region Property
         private ObservableCollection<UserInfoDto> _chatUserList = new();
@@ -84,11 +91,36 @@ namespace AgileIM.Client.ViewModels
         #region Command
         public ICommand SendMessageCommand => new AsyncRelayCommand(SendMessage);
         public ICommand CreateChatCommand => new AsyncRelayCommand(CreateCha);
+        public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
 
 
         #endregion
 
         #region Methods
+        /// <summary>
+        /// 修改好友备注
+        /// </summary>
+        /// <param name="userNote"></param>
+        /// <returns></returns>
+        private async Task UpdateUserNote(string? userNote)
+        {
+            if (string.IsNullOrEmpty(userNote?.Trim()))
+            {
+                return;
+            }
+
+            var note = SelectedUserInfo?.UserNote?.Trim();
+            var newNote = userNote.Trim();
+
+            if (note?.Equals(newNote) is true)
+            {
+                return;
+            }
+
+            var userId = Settings.Default.LoginUser?.Id;
+            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
+            SelectedUserInfo.UserNote = resp.Code.Equals(200) ? resp.Data : null;
+        }
         /// <summary>
         /// 选中用户
         /// </summary>
@@ -124,6 +156,7 @@ namespace AgileIM.Client.ViewModels
 
         #endregion
 
+        #region Recipient
         public void Receive(UserInfoDto message)
         {
             var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(message.Id));
@@ -133,6 +166,12 @@ namespace AgileIM.Client.ViewModels
                 SelectedUserInfo = message;
             }
             SendTextIsFocus = true;
+        }
+        #endregion
+
+        ~ChatViewModel()
+        {
+            WeakReferenceMessenger.Default.UnregisterAll(this);
         }
     }
 }

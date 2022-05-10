@@ -11,6 +11,7 @@ using AgileIM.Service.Services.UserService.Impl;
 using AgileIM.Shared.EFCore;
 using AgileIM.Shared.EFCore.Data.Repository;
 using AgileIM.Shared.EFCore.Data.UnitOfWork;
+using AgileIM.Shared.EFCore.DbContexts;
 using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
 

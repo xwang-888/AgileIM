@@ -37,7 +37,10 @@ namespace AgileIM.Client.ViewModels
             WeakReferenceMessenger.Default.Register<string, string>(this, "OpenChatPage");
         }
 
-        private readonly IFriendService _friendService;
+        #region Service
+        private readonly IFriendService _friendService; 
+        #endregion
+
         #region Property
         private MenuItemModel _selectedMenuItem;
         private ObservableCollection<MenuItemModel> _menuItems;
@@ -62,6 +65,7 @@ namespace AgileIM.Client.ViewModels
 
         #endregion
 
+        #region Recipient
         public void Receive(UserInfoDto message)
         {
             User = message;
@@ -77,7 +81,8 @@ namespace AgileIM.Client.ViewModels
         public void Receive(string message)
         {
             SelectedMenuItem = MenuItems.First();
-        }
+        } 
+        #endregion
 
         ~MainViewModel()
         {

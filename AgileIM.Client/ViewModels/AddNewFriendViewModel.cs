@@ -24,30 +24,40 @@ namespace AgileIM.Client.ViewModels
             _userService = userService;
         }
 
+        #region Service
         private readonly IUserService _userService;
+        #endregion
 
-
+        #region Property
         private string _searchParamText;
+        private List<UserInfoDto> _searchUserInfoList;
 
+        /// <summary>
+        /// 搜索关键字
+        /// </summary>
         public string SearchParamText
         {
             get => _searchParamText;
             set => SetProperty(ref _searchParamText, value);
         }
-
-
-        private List<UserInfoDto> _searchUserInfoList;
-
+        /// <summary>
+        /// 搜索用户列表
+        /// </summary>
         public List<UserInfoDto> SearchUserInfoList
         {
             get => _searchUserInfoList;
             set => SetProperty(ref _searchUserInfoList, value);
         }
+        #endregion
 
-
+        #region Command
         public ICommand SearchCommand => new AsyncRelayCommand(SearchAsync);
-       
+        #endregion
 
+        #region Methodes
+        /// <summary>
+        /// 搜索
+        /// </summary>
         private async Task SearchAsync()
         {
             if (string.IsNullOrEmpty(SearchParamText?.Trim()))
@@ -61,8 +71,9 @@ namespace AgileIM.Client.ViewModels
             else
                 SearchUserInfoList = new List<UserInfoDto>();
         }
+        #endregion
 
 
-       
+
     }
 }

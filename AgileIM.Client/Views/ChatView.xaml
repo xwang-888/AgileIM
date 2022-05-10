@@ -74,7 +74,11 @@
                 </Border>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
-                <controls:ChatPanel ItemsSource="{Binding SelectedUserInfo.Messages}" OtherUserInfo="{Binding SelectedUserInfo}" />
+                <Grid />
+                <controls:ChatPanel
+                    ItemsSource="{Binding SelectedUserInfo.Messages}"
+                    OtherUserInfo="{Binding SelectedUserInfo}"
+                    UpdateUserNoteCommand="{Binding UpdateUserNoteCommand}" />
             </Grid>
             <GridSplitter
                 Grid.Row="1"

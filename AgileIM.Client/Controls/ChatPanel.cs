@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using AgileIM.Client.Models;
 using AgileIM.Shared.Models.Users.Dto;
 
@@ -41,7 +42,14 @@ namespace AgileIM.Client.Controls
         public static readonly DependencyProperty OtherUserInfoProperty = DependencyProperty.Register(
             "OtherUserInfo", typeof(UserInfoDto), typeof(ChatPanel), new PropertyMetadata(default(UserInfoDto)));
 
+        public static readonly DependencyProperty UpdateUserNoteCommandProperty = DependencyProperty.Register(
+            "UpdateUserNoteCommand", typeof(ICommand), typeof(ChatPanel), new PropertyMetadata(default(ICommand)));
 
+        public ICommand UpdateUserNoteCommand
+        {
+            get => (ICommand)GetValue(UpdateUserNoteCommandProperty);
+            set => SetValue(UpdateUserNoteCommandProperty, value);
+        }
 
         /// <summary>
         /// 自己的头像

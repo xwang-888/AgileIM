@@ -43,20 +43,28 @@ namespace AgileIM.Client.ViewModels
             WeakReferenceMessenger.Default.Register(this, "MailListViewModel");
         }
 
+        #region Service
         private readonly IUserService _userService;
-        private readonly IFriendService _friendService;
+        private readonly IFriendService _friendService; 
+        #endregion
 
+        #region Property
         private ObservableCollection<UserInfoDto> _userInfoList = new();
         private ObservableCollection<NewFriendDto> _newFriendList = new();
         private UserInfoDto _selectedUserInfo;
         private bool _IsNewFriend;
 
+        /// <summary>
+        /// 好友列表
+        /// </summary>
         public ObservableCollection<UserInfoDto> UserInfoList
         {
             get => _userInfoList;
             set => SetProperty(ref _userInfoList, value);
         }
-
+        /// <summary>
+        /// 当前选择的朋友
+        /// </summary>
         public UserInfoDto SelectedUserInfo
         {
             get => _selectedUserInfo;
@@ -66,31 +74,47 @@ namespace AgileIM.Client.ViewModels
                 IsNewFriend = false;
             }
         }
-
+        /// <summary>
+        /// 新朋友请求列表
+        /// </summary>
         public ObservableCollection<NewFriendDto> NewFriendList
         {
             get => _newFriendList;
             set => SetProperty(ref _newFriendList, value);
         }
-
-
+        /// <summary>
+        /// 是否新朋友选项
+        /// </summary>
         public bool IsNewFriend
         {
             get => _IsNewFriend;
             set => SetProperty(ref _IsNewFriend, value);
-        }
+        } 
+        #endregion
 
-
+        #region Command
         public ICommand NewFriendCommand => new AsyncRelayCommand(NewFriend);
-        public ICommand AddNewFriendCommand => new AsyncRelayCommand(AddNewFriend);
-
+        public ICommand AddNewFriendCommand => new RelayCommand(AddNewFriend);
         public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
-        public ICommand OpenChatPageCommand => new AsyncRelayCommand(OpenChatPageAsync);
+        public ICommand OpenChatPageCommand => new AsyncRelayCommand(OpenChatPageAsync); 
+        #endregion
 
-
+        #region Methods
+        /// <summary>
+        /// 修改好友备注
+        /// </summary>
+        /// <param name="userNote"></param>
+        /// <returns></returns>
         private async Task UpdateUserNote(string? userNote)
         {
             if (string.IsNullOrEmpty(userNote?.Trim()))
+            {
+                return;
+            }
+            var note = SelectedUserInfo?.UserNote?.Trim();
+            var newNote = userNote.Trim();
+
+            if (note?.Equals(newNote) is true)
             {
                 return;
             }
@@ -99,8 +123,10 @@ namespace AgileIM.Client.ViewModels
             var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
             SelectedUserInfo.UserNote = resp.Code.Equals(200) ? resp.Data : null;
         }
-
-
+        /// <summary>
+        /// 点击新的好友按钮
+        /// </summary>
+        /// <returns></returns>
         private Task NewFriend()
         {
 
@@ -108,23 +134,36 @@ namespace AgileIM.Client.ViewModels
             IsNewFriend = true;
             return Task.CompletedTask;
         }
-
-        private async Task AddNewFriend()
+        /// <summary>
+        /// 点击添加，弹出搜索用户窗口
+        /// </summary>
+        private void AddNewFriend()
         {
             DialogHostHelper.ShowDialog(new AddNewFriendView());
         }
-
-
-        public void Receive(IEnumerable<UserInfoDto> message)
-        {
-            UserInfoList = new ObservableCollection<UserInfoDto>(message);
-        }
-        private  Task OpenChatPageAsync()
+        /// <summary>
+        /// 点击好友详情中的聊天
+        /// </summary>
+        /// <returns></returns>
+        private Task OpenChatPageAsync()
         {
             WeakReferenceMessenger.Default.Send(SelectedUserInfo, "ChatViewModel");
             WeakReferenceMessenger.Default.Send("", "OpenChatPage");
 
             return Task.CompletedTask;
+        }
+        #endregion
+
+        #region Recipient
+        public void Receive(IEnumerable<UserInfoDto> message)
+        {
+            UserInfoList = new ObservableCollection<UserInfoDto>(message);
+        }
+        #endregion
+
+        ~MailListViewModel()
+        {
+            WeakReferenceMessenger.Default.UnregisterAll(this);
         }
     }
 }

@@ -36,7 +36,6 @@ namespace AgileIM.Client.Common
         /// <returns></returns>
         public static T Get<T>() where T : class
         {
-            var name = nameof(T);
             if (Instance is null || !Instance.IsRegistered<T>()) return default(T);
 
             return Instance.Resolve<T>();

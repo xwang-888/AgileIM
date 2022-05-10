@@ -69,6 +69,10 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Methodes
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <returns></returns>
         private async Task Login()
         {
             _isLoginExec = false;
@@ -85,7 +89,11 @@ namespace AgileIM.Client.ViewModels
 
             _isLoginExec = true;
         }
-
+        /// <summary>
+        /// 登录下拉框删除账号信息
+        /// </summary>
+        /// <param name="userInfoDto"></param>
+        /// <returns></returns>
         private Task RemoveUserAccount(UserInfoDto userInfoDto)
         {
             LoginUserInfos.Remove(userInfoDto);

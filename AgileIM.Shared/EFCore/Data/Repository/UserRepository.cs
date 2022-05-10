@@ -1,4 +1,5 @@
-﻿using AgileIM.Shared.Models.Users.Entity;
+﻿using AgileIM.Shared.EFCore.DbContexts;
+using AgileIM.Shared.Models.Users.Entity;
 
 namespace AgileIM.Shared.EFCore.Data.Repository
 {

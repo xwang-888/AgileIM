@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AgileIM.Shared.Models.Friend.Entity;
-using AgileIM.Shared.Models.Users;
+﻿using AgileIM.Shared.Models.Friend.Entity;
 using AgileIM.Shared.Models.Users.Entity;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace AgileIM.Shared.EFCore
+namespace AgileIM.Shared.EFCore.DbContexts
 {
     public class AgileImDbContext : DbContext
     {

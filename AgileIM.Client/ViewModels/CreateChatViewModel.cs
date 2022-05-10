@@ -25,6 +25,7 @@ namespace AgileIM.Client.ViewModels
             SourceUserInfoList = new List<UserInfoDto>(mailListVm.UserInfoList);
             BindUserInfoList = new ObservableCollection<UserInfoDto>(SourceUserInfoList);
         }
+
         #region Property
         private ObservableCollection<UserInfoDto> _bindUserInfoList;
         private List<UserInfoDto> _sourceUserInfoList;
@@ -59,6 +60,11 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Methods
+        /// <summary>
+        /// 创建聊天
+        /// </summary>
+        /// <param name="userInfos"></param>
+        /// <returns></returns>
         public Task CreateChat(IEnumerable<UserInfoDto>? userInfos)
         {
             if (userInfos is null) return Task.CompletedTask;
@@ -69,7 +75,9 @@ namespace AgileIM.Client.ViewModels
             WeakReferenceMessenger.Default.Send("", "OpenChatPage");
             return Task.CompletedTask;
         }
-
+        /// <summary>
+        /// 搜索用户
+        /// </summary>
         public void SearchUsers()
         {
             if (SearchParamText is null || string.IsNullOrEmpty(SearchParamText?.Trim()))
