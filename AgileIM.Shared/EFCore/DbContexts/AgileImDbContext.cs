@@ -13,9 +13,9 @@ namespace AgileIM.Shared.EFCore.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var user1id = Guid.NewGuid().ToString();
-            var user2id = Guid.NewGuid().ToString();
-            var user3id = Guid.NewGuid().ToString();
+            var user1id = "7435D03A-43E0-E6E8-58FC-A5C371A32170";
+            var user2id = "1E765565-2ED2-5FA9-D132-AD94B31CC1EB";
+            var user3id = "3BCDF24E-919B-74C0-B031-D619693D2D29";
             modelBuilder.Entity<User>().HasData(
                 new User()
                 {
