@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Agile.Client.Service.Services;
+using Agile.Client.Service.Services.Impl;
 
 using AgileIM.Client.Controls;
 using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
+using AgileIM.Client.Properties;
 using AgileIM.Client.Views;
 using AgileIM.IM.Models;
 using AgileIM.Shared.Models.Users.Dto;
@@ -24,7 +26,7 @@ namespace AgileIM.Client.ViewModels
 {
     public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<string>
     {
-        public MainViewModel(IFriendService friendService)
+        public MainViewModel(IFriendService friendService, IChatUserService chatUserService, IMessagesService messagesService)
         {
             _friendService = friendService;
             MenuItems = new ObservableCollection<MenuItemModel>()
@@ -35,10 +37,16 @@ namespace AgileIM.Client.ViewModels
             SelectedMenuItem = MenuItems.First();
             WeakReferenceMessenger.Default.Register<UserInfoDto, string>(this, "MainViewModel");
             WeakReferenceMessenger.Default.Register<string, string>(this, "OpenChatPage");
+            _chatUserService = chatUserService;
+            _messagesService = messagesService;
+
         }
 
         #region Service
-        private readonly IFriendService _friendService; 
+        private readonly IFriendService _friendService;
+        private readonly IMessagesService _messagesService;
+        private readonly IChatUserService _chatUserService;
+
         #endregion
 
         #region Property
@@ -69,19 +77,27 @@ namespace AgileIM.Client.ViewModels
         public void Receive(UserInfoDto message)
         {
             User = message;
-
             Task.Run(async () =>
             {
+
+                var chatUsers = await _chatUserService.GetChatUsersByUserId(message.Id);
                 var list = await _friendService.GetFriendListByUserId(message.Id);
                 if (list?.Data is not null)
-                    WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
+                {
+                    var friendIds = chatUsers.Select(a => a.FriendId);
+                    var userInfos = list.Data.Join(friendIds, u => u.Id, cu => cu, (c, cu) => c);
+                    var userInfos1 = list.Data.Except(userInfos).ToList();
+                    var msgUserInfos = await _messagesService.GetChatUsersMessages(message.Id, userInfos);
+                    userInfos1.AddRange(msgUserInfos);
+                    WeakReferenceMessenger.Default.Send(userInfos1, "MailListViewModel");
+                }
             });
         }
 
         public void Receive(string message)
         {
             SelectedMenuItem = MenuItems.First();
-        } 
+        }
         #endregion
 
         ~MainViewModel()

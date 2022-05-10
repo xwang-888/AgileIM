@@ -41,10 +41,7 @@ namespace AgileIM.Client
             ServiceProvider.RegisterServiceLocator(ConfigureServices());
             #region 判断有无数据库
             var dbContext = ServiceProvider.Get<AgileImClientDbContext>();
-            using (dbContext)
-            {
-                dbContext.Database.EnsureCreated();
-            }
+            dbContext.Database.EnsureCreated();
             #endregion
             base.OnStartup(e);
         }
@@ -63,9 +60,9 @@ namespace AgileIM.Client
             }).InstancePerLifetimeScope();
 
             builder.RegisterType<AgileImClientDbContext>().AsSelf().InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWork<AgileImClientDbContext>>().As<IUnitOfWork>();
-            builder.RegisterType<ChatUserRepository>().As<IRepositoryBase<ChatUser>>();
-            builder.RegisterType<MessagesRepository>().As<IRepositoryBase<Shared.Models.ClientModels.Message.Entity.Messages>>();
+            builder.RegisterType<UnitOfWork<AgileImClientDbContext>>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<RepositoryBase<ChatUser>>().As<IRepositoryBase<ChatUser>>().InstancePerLifetimeScope();
+            builder.RegisterType<MessagesRepository>().As<IRepositoryBase<Shared.Models.ClientModels.Message.Entity.Messages>>().InstancePerLifetimeScope();
 
             #endregion
 

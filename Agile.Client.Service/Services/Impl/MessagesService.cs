@@ -37,7 +37,7 @@ namespace Agile.Client.Service.Services.Impl
             if (userInfoList is null) return null;
 
             var rep = _unitOfWork.GetRepository<Messages>();
-
+            var newUserInfoList = new List<UserInfoDto>(userInfoList.Count());
             foreach (var friend in userInfoList)
             {
                 var messages = await rep.GetAll().Where(a => (a.FromId.Equals(userId) && a.TargetId.Equals(friend.Id)) || a.FromId.Equals(friend.Id) && a.TargetId.Equals(userId)).OrderBy(a => a.SendTime).ToListAsync();
@@ -53,9 +53,10 @@ namespace Agile.Client.Service.Services.Impl
                 friend.Messages = new ObservableCollection<MessageDto>(msgDtoList);
                 friend.LastMessage = msgDtoList.LastOrDefault();
                 friend.IsUnreadMessage = msgDtoList.Any(a => !a.IsRead);
+                newUserInfoList.Add(friend);
             }
 
-            return userInfoList;
+            return newUserInfoList;
         }
     }
 }

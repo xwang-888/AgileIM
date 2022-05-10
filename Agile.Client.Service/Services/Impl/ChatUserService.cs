@@ -23,10 +23,18 @@ namespace Agile.Client.Service.Services.Impl
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public async Task<IEnumerable<ChatUser>> GetChatUsersByUserId(string userId)
+        public async Task<IEnumerable<ChatUser>?> GetChatUsersByUserId(string userId)
         {
-            var rep = _unitOfWork.GetRepository<ChatUser>();
-            return await rep.GetAll().Where(a => a.UserId.Equals(userId)).ToListAsync();
+            try
+            {
+                var rep = _unitOfWork.GetRepository<ChatUser>();
+                return await rep.GetAll().Where(a => a.UserId.Equals(userId)).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
         public async Task<ChatUser?> InsertAsync(string userId, string friendId)
         {

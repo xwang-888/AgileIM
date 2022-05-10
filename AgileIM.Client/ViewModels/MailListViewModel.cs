@@ -22,7 +22,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class MailListViewModel : ObservableObject, IRecipient<IEnumerable<UserInfoDto>>
+    public class MailListViewModel : ObservableObject, IRecipient<List<UserInfoDto>>
     {
 
         public MailListViewModel(IUserService userService, IFriendService friendService)
@@ -155,7 +155,7 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Recipient
-        public void Receive(IEnumerable<UserInfoDto> message)
+        public void Receive(List<UserInfoDto> message)
         {
             UserInfoList = new ObservableCollection<UserInfoDto>(message);
         }

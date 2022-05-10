@@ -15,7 +15,7 @@ namespace Agile.Client.Service.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IEnumerable<ChatUser>> GetChatUsersByUserId(string userId);
+        Task<IEnumerable<ChatUser>?> GetChatUsersByUserId(string userId);
         /// <summary>
         /// 插入聊天列表
         /// </summary>

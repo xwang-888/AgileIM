@@ -22,7 +22,7 @@ namespace AgileIM.Client.ViewModels
     public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>
     {
 
-        public ChatViewModel(IFriendService friendService)
+        public ChatViewModel(IFriendService friendService, IChatUserService chatUserService)
         {
             var messages = new List<MessageDto>();
             var messages1 = new List<MessageDto>();
@@ -37,10 +37,13 @@ namespace AgileIM.Client.ViewModels
 
             WeakReferenceMessenger.Default.Register(this, "ChatViewModel");
             _friendService = friendService;
+            _chatUserService = chatUserService;
+
         }
 
         #region Service
-        private readonly IFriendService _friendService; 
+        private readonly IFriendService _friendService;
+        private readonly IChatUserService _chatUserService;
         #endregion
 
         #region Property
@@ -97,6 +100,7 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Methods
+
         /// <summary>
         /// 修改好友备注
         /// </summary>
@@ -157,14 +161,21 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Recipient
-        public void Receive(UserInfoDto message)
+        public async void Receive(UserInfoDto message)
         {
             var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(message.Id));
             if (user is null)
             {
-                ChatUserList.Add(message);
-                SelectedUserInfo = message;
+                var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, message.Id);
+                if (result is not null)
+                {
+                    ChatUserList.Add(message);
+                    SelectedUserInfo = message;
+                }
             }
+            else
+                SelectedUserInfo = user;
+
             SendTextIsFocus = true;
         }
         #endregion

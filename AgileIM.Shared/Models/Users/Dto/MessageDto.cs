@@ -16,7 +16,7 @@ namespace AgileIM.Shared.Models.Users.Dto
         /// <summary>
         /// 内容
         /// </summary>
-        public string Text { get; set; }
+        public string Content { get; set; }
         /// <summary>
         /// 是否阅读
         /// </summary>
