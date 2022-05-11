@@ -22,6 +22,8 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 
+using static AgileIM.Client.ViewModels.Extensions;
+
 namespace AgileIM.Client.ViewModels
 {
     public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<string>
@@ -79,17 +81,30 @@ namespace AgileIM.Client.ViewModels
             User = message;
             Task.Run(async () =>
             {
-
                 var chatUsers = await _chatUserService.GetChatUsersByUserId(message.Id);
                 var list = await _friendService.GetFriendListByUserId(message.Id);
                 if (list?.Data is not null)
                 {
-                    var friendIds = chatUsers.Select(a => a.FriendId);
-                    var userInfos = list.Data.Join(friendIds, u => u.Id, cu => cu, (c, cu) => c);
-                    var userInfos1 = list.Data.Except(userInfos).ToList();
-                    var msgUserInfos = await _messagesService.GetChatUsersMessages(message.Id, userInfos);
-                    userInfos1.AddRange(msgUserInfos);
-                    WeakReferenceMessenger.Default.Send(userInfos1, "MailListViewModel");
+                    var friendIds = chatUsers?.Select(a => a.FriendId);
+                    if (friendIds is not null)
+                    {
+                        var userInfos = list.Data.Join(friendIds, u => u.Id, cu => cu, (c, cu) => c);
+                        var userInfoDtos = userInfos as UserInfoDto[] ?? userInfos.ToArray();
+                        var mailList = list.Data.ExceptBy(userInfoDtos.Select(a => a.Id), a => a.Id).ToList();
+
+                        if (userInfoDtos.Any())
+                        {
+                            var msgUserInfos = await _messagesService.GetChatUsersMessages(message.Id, userInfoDtos);
+                            if (msgUserInfos is not null)
+                            {
+                                mailList.AddRange(msgUserInfos);
+                                WeakReferenceMessenger.Default.Send(msgUserInfos, "SetChatUserList");
+                                WeakReferenceMessenger.Default.Send(mailList, "MailListViewModel");
+                                return;
+                            }
+                        }
+                    }
+                    WeakReferenceMessenger.Default.Send(list.Data, "MailListViewModel");
                 }
             });
         }
@@ -104,5 +119,27 @@ namespace AgileIM.Client.ViewModels
         {
             WeakReferenceMessenger.Default.UnregisterAll(this);
         }
+    }
+
+    public static class Extensions
+    {
+
+        public sealed class DynamicEqualityComparer<T> : IEqualityComparer<T> where T : class
+        {
+            public DynamicEqualityComparer(Func<T?, T?, bool> func)
+            {
+                _func = func;
+            }
+            private readonly Func<T?, T?, bool> _func;
+
+            public bool Equals(T? x, T? y)
+            {
+                return _func(x, y);
+            }
+
+            public int GetHashCode(T obj) => 0;
+        }
+
+
     }
 }

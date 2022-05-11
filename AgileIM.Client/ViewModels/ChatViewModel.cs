@@ -16,37 +16,31 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using AgileIM.Client.Properties;
+using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>
+    public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<IEnumerable<UserInfoDto>>
     {
 
-        public ChatViewModel(IFriendService friendService, IChatUserService chatUserService)
+        public ChatViewModel(IFriendService friendService, IChatUserService chatUserService, IMessagesService messagesService)
         {
-            var messages = new List<MessageDto>();
-            var messages1 = new List<MessageDto>();
-            for (int i = 0; i < 100; i++)
-            {
-                messages.Add(new MessageDto() { IsSelf = i % 2 == 0, Text = $"消息发送{i}！！！" });
-                messages1.Add(new MessageDto() { IsSelf = i % 2 == 0, Text = $"飞翔的企鹅测试消息发送是否成功{i}！！！" });
-            }
-
-            ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "xwang1234", Nick = "自然醒12", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages), UserNote = "自然醒" });
-            ChatUserList.Add(new UserInfoDto { Id = Guid.NewGuid().ToString(), Account = "flay1234", Nick = "飞翔的企鹅", Gender = 1, Messages = new ObservableCollection<MessageDto>(messages1), UserNote = "腼腆的企鹅" });
-
-            WeakReferenceMessenger.Default.Register(this, "ChatViewModel");
+            WeakReferenceMessenger.Default.Register<UserInfoDto, string>(this, "ChatViewModel");
+            WeakReferenceMessenger.Default.Register<IEnumerable<UserInfoDto>, string>(this, "SetChatUserList");
             _friendService = friendService;
             _chatUserService = chatUserService;
-
+            _messagesService = messagesService;
         }
 
         #region Service
         private readonly IFriendService _friendService;
         private readonly IChatUserService _chatUserService;
+        private readonly IMessagesService _messagesService;
         #endregion
 
         #region Property
+
+        private string? _userId;
         private ObservableCollection<UserInfoDto> _chatUserList = new();
         private UserInfoDto? _selectedUserInfo;
         private bool _sendTextIsFocus;
@@ -142,13 +136,28 @@ namespace AgileIM.Client.ViewModels
             if (SelectedUserInfo is null) return;
 
             SelectedUserInfo.Messages ??= new ObservableCollection<MessageDto>();
-
+            _userId ??= Settings.Default.LoginUser.Id;
             foreach (var messageDto in SelectedUserInfo.Messages)
                 messageDto.IsRead = true;
             if (string.IsNullOrEmpty(SendText)) return;
-
-            SelectedUserInfo.Messages.Add(new MessageDto { Text = SendText, IsSelf = true });
+            var msgDto = new MessageDto { Content = SendText, IsSelf = true };
+            SelectedUserInfo.Messages.Add(msgDto);
             SendText = string.Empty;
+            var result = await _messagesService.SendMessage(new Shared.Models.ClientModels.Message.Entity.Messages()
+            {
+                FromId = Settings.Default.LoginUser.Id,
+                TargetId = SelectedUserInfo.Id,
+                Content = msgDto.Content,
+                SendTime = msgDto.SendTime,
+                IsRead = true,
+            });
+
+            if (result is null)
+            {
+                //TODO 发送消息失败
+            }
+
+
         }
 
         private Task CreateCha()
@@ -177,6 +186,10 @@ namespace AgileIM.Client.ViewModels
                 SelectedUserInfo = user;
 
             SendTextIsFocus = true;
+        }
+        public void Receive(IEnumerable<UserInfoDto> message)
+        {
+            ChatUserList = new ObservableCollection<UserInfoDto>(message);
         }
         #endregion
 

@@ -56,7 +56,23 @@ namespace Agile.Client.Service.Services.Impl
                 newUserInfoList.Add(friend);
             }
 
-            return newUserInfoList;
+            return newUserInfoList.OrderBy(a => a.LastMessage?.SendTime ?? a.LastLoginTime);
+        }
+
+        public async Task<MessageDto?> SendMessage(Messages message)
+        {
+            try
+            {
+                var rep = _unitOfWork.GetRepository<Messages>();
+                var model = await rep.InsertAsync(message);
+                var result = _mapper.Map<Messages, MessageDto>(model.Entity);
+                return await _unitOfWork.SaveChangesAsync() > 0 ? result : null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
     }
 }

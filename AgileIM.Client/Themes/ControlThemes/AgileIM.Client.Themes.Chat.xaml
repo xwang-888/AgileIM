@@ -140,15 +140,30 @@
                                 <ToggleButton
                                     Name="NameToggleBtn"
                                     HorizontalAlignment="Left"
-                                    Content="{Binding UserNote}"
                                     Cursor="Hand"
                                     DataContext="{TemplateBinding OtherUserInfo}"
                                     FocusVisualStyle="{x:Null}"
                                     FontSize="18"
                                     Foreground="{TemplateBinding Foreground}">
+
+                                    <ToggleButton.Content>
+                                        <controls:NickTextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            Nick="{Binding Nick}"
+                                            TextTrimming="CharacterEllipsis"
+                                            UserNote="{Binding UserNote}" />
+                                    </ToggleButton.Content>
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
-                                            <TextBlock VerticalAlignment="Center" Text="{TemplateBinding Content}" />
+                                            <ContentPresenter
+                                                Margin="{TemplateBinding Padding}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Content="{TemplateBinding Content}"
+                                                Focusable="False"
+                                                RecognizesAccessKey="True" />
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
                                                     <Setter Property="Opacity" Value=".8" />
@@ -302,7 +317,7 @@
                                     <ItemsControl FocusVisualStyle="{x:Null}" ItemsSource="{TemplateBinding ItemsSource}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <controls:ChatMessage IsSelf="{Binding IsSelf}" Text="{Binding Text}" />
+                                                <controls:ChatMessage IsSelf="{Binding IsSelf}" Text="{Binding Content}" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>

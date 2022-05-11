@@ -169,7 +169,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Command="{Binding CreateChatCommand}"
-                CommandParameter="{Binding ElementName=UserInfoListBox, Path=ItemsSource}"
+                CommandParameter="{Binding ElementName=UserItemsControl, Path=ItemsSource}"
                 Content="确定" />
         </Grid>
     </Grid>

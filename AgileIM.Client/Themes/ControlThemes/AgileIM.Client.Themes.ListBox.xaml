@@ -174,7 +174,7 @@
                 VerticalAlignment="Top"
                 FontSize="12"
                 Opacity=".5"
-                Text="{Binding LastMessage.Text}"
+                Text="{Binding LastMessage.Content}"
                 TextTrimming="CharacterEllipsis" />
             <TextBlock
                 Grid.Column="2"

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace AgileIM.Client.ViewModels
         #endregion
 
         #region Command
-        public ICommand CreateChatCommand => new AsyncRelayCommand<IEnumerable<UserInfoDto>>(CreateChat);
+        public ICommand CreateChatCommand => new AsyncRelayCommand<IList>(CreateChat);
         #endregion
 
         #region Methods
@@ -65,14 +66,16 @@ namespace AgileIM.Client.ViewModels
         /// </summary>
         /// <param name="userInfos"></param>
         /// <returns></returns>
-        public Task CreateChat(IEnumerable<UserInfoDto>? userInfos)
+        public Task CreateChat(IList userInfos)
         {
-            if (userInfos is null) return Task.CompletedTask;
-            foreach (var userInfoDto in userInfos)
+            foreach (var userInfo in userInfos)
             {
-                WeakReferenceMessenger.Default.Send(userInfoDto, "ChatViewModel");
+                if (userInfo is UserInfoDto userInfoDto)
+                    WeakReferenceMessenger.Default.Send(userInfoDto, "ChatViewModel");
             }
             WeakReferenceMessenger.Default.Send("", "OpenChatPage");
+
+
             return Task.CompletedTask;
         }
         /// <summary>

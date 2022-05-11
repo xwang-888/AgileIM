@@ -13,5 +13,6 @@ namespace Agile.Client.Service.Services
     {
         Task<IEnumerable<Messages>> GetMessagesByUserId(string userId);
         Task<IEnumerable<UserInfoDto>?> GetChatUsersMessages(string userId, IEnumerable<UserInfoDto>? userInfoList);
+        Task<MessageDto?> SendMessage(Messages message);
     }
 }
