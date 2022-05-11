@@ -51,14 +51,14 @@ namespace AgileIM.Shared.EFCore.Data.UnitOfWork
             return _dbContext as TContext;
         }
 
-        public int SaveChanges(bool ensureAutoHistory = false)
+        public int SaveChanges(bool acceptAllChangesOnSuccess = true)
         {
-            return _dbContext.SaveChanges(ensureAutoHistory);
+            return _dbContext.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public async Task<int> SaveChangesAsync(bool ensureAutoHistory = false)
+        public async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess = true)
         {
-            return await _dbContext.SaveChangesAsync(ensureAutoHistory);
+            return await _dbContext.SaveChangesAsync(acceptAllChangesOnSuccess);
         }
 
         public int ExecuteSqlCommand(string sql, params object[] parameters)

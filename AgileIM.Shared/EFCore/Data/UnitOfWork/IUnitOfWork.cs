@@ -23,19 +23,21 @@ namespace AgileIM.Shared.EFCore.Data.UnitOfWork
         /// <summary>
         /// 将在此上下文中所做的所有更改保存到基础数据库中
         /// </summary>
-        /// <param name="ensureAutoHistory">用于支持自动记录数据更改历史记录
-        /// 将记录所有数据更改历史在一个命名，此表将记录数据，历史记录。
+        /// <param name="acceptAllChangesOnSuccess">
+        ///     Indicates whether <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AcceptAllChanges" /> is called after the changes have
+        ///     been sent successfully to the database.
         /// </param>
         /// <returns></returns>
-        int SaveChanges(bool ensureAutoHistory = false);
+        int SaveChanges(bool acceptAllChangesOnSuccess = true);
         /// <summary>
         /// 将在此上下文中所做的所有更改保存到基础数据库中（异步）
         /// </summary>
-        /// <param name="ensureAutoHistory">用于支持自动记录数据更改历史记录
-        /// 将记录所有数据更改历史在一个命名，此表将记录数据，历史记录。
+        /// <param name="acceptAllChangesOnSuccess">
+        ///     Indicates whether <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AcceptAllChanges" /> is called after the changes have
+        ///     been sent successfully to the database.
         /// </param>
         /// <returns></returns>
-        Task<int> SaveChangesAsync(bool ensureAutoHistory = false);
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess = true);
         /// <summary>
         /// 执行原生SQL命令
         /// </summary>
