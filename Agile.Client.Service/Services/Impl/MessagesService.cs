@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using AgileIM.Shared.EFCore.Data.UnitOfWork;
 using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
+using AgileIM.Shared.Models.ClientModels.Message.Dto;
 using AgileIM.Shared.Models.ClientModels.Message.Entity;
 using AgileIM.Shared.Models.Users.Dto;
 
@@ -56,9 +57,8 @@ namespace Agile.Client.Service.Services.Impl
                 newUserInfoList.Add(friend);
             }
 
-            return newUserInfoList.OrderBy(a => a.LastMessage?.SendTime ?? a.LastLoginTime);
+            return newUserInfoList.OrderByDescending(a => a.LastMessage?.SendTime ?? a.LastLoginTime);
         }
-
         public async Task<MessageDto?> SendMessage(Messages message)
         {
             try

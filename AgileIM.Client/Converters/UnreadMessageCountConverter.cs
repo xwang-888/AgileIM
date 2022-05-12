@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 
 using AgileIM.Client.Models;
+using AgileIM.Shared.Models.ClientModels.Message.Dto;
 using AgileIM.Shared.Models.Users.Dto;
 
 namespace AgileIM.Client.Converters

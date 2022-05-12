@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AgileIM.Shared.Models.ClientModels.Message.Dto;
 using AgileIM.Shared.Models.ClientModels.Message.Entity;
 using AgileIM.Shared.Models.Users.Dto;
 

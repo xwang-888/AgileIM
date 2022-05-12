@@ -1,13 +1,16 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist">
+    xmlns:assist="clr-namespace:AgileIM.Client.Themes.Assist"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls">
+
     <Style x:Key="BaseButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="assist:ControlAssist.Icon" Value="{x:Null}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -17,14 +20,35 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding assist:ControlAssist.CornerRadius}">
-                        <ContentPresenter
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            Focusable="False"
-                            RecognizesAccessKey="True" />
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <controls:PackIcon
+                                x:Name="PackIcon"
+                                Grid.Column="0"
+                                Margin="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"
+                                Kind="{TemplateBinding assist:ControlAssist.Icon}"
+                                Opacity=".9"
+                                Size="{TemplateBinding assist:ControlAssist.IconSize}" />
+                            <ContentPresenter
+                                Grid.Column="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                Focusable="False"
+                                RecognizesAccessKey="True" />
+                        </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="assist:ControlAssist.Icon" Value="{x:Null}">
+                            <Setter TargetName="PackIcon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

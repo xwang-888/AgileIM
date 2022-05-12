@@ -1,4 +1,5 @@
-﻿using AgileIM.Shared.Models.ClientModels.Message.Entity;
+﻿using AgileIM.Shared.Models.ClientModels.Message.Dto;
+using AgileIM.Shared.Models.ClientModels.Message.Entity;
 using AgileIM.Shared.Models.Users.Dto;
 using AgileIM.Shared.Models.Users.Entity;
 

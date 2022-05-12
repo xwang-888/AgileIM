@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-
+using AgileIM.Shared.Models.ClientModels.Message.Dto;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace AgileIM.Shared.Models.Users.Dto

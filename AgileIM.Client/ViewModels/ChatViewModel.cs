@@ -17,6 +17,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using AgileIM.Client.Properties;
 using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
+using AgileIM.Shared.Models.ClientModels.Message.Dto;
 
 namespace AgileIM.Client.ViewModels
 {
@@ -87,7 +88,8 @@ namespace AgileIM.Client.ViewModels
 
         #region Command
         public ICommand SendMessageCommand => new AsyncRelayCommand(SendMessage);
-        public ICommand CreateChatCommand => new AsyncRelayCommand(CreateCha);
+        public ICommand ResendMessageCommand => new AsyncRelayCommand<MessageDto>(ResendMessage);
+        public ICommand CreateChatCommand => new AsyncRelayCommand(CreateChat);
         public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
 
 
@@ -136,37 +138,72 @@ namespace AgileIM.Client.ViewModels
             if (SelectedUserInfo is null) return;
 
             SelectedUserInfo.Messages ??= new ObservableCollection<MessageDto>();
-            _userId ??= Settings.Default.LoginUser.Id;
             foreach (var messageDto in SelectedUserInfo.Messages)
                 messageDto.IsRead = true;
             if (string.IsNullOrEmpty(SendText)) return;
-            var msgDto = new MessageDto { Content = SendText, IsSelf = true };
+            var msgDto = new MessageDto { Content = SendText, IsSelf = true, IsSending = true, IsRead = true };
             SelectedUserInfo.Messages.Add(msgDto);
             SendText = string.Empty;
-            var result = await _messagesService.SendMessage(new Shared.Models.ClientModels.Message.Entity.Messages()
+
+            MessageDto result = null;
+            await Task.Delay(3000);
+            msgDto.IsSending = false;
+            if (result is null)
             {
-                FromId = Settings.Default.LoginUser.Id,
-                TargetId = SelectedUserInfo.Id,
-                Content = msgDto.Content,
-                SendTime = msgDto.SendTime,
-                IsRead = true,
-            });
+                //TODO 发送消息失败
+                msgDto.IsError = true;
+            }
+
+        }
+        /// <summary>
+        /// 重新发送消息
+        /// </summary>
+        private async Task ResendMessage(MessageDto msgDto)
+        {
+            var result = await Send(msgDto);
 
             if (result is null)
             {
                 //TODO 发送消息失败
+                msgDto.IsError = true;
             }
-
-
         }
-
-        private Task CreateCha()
+        /// <summary>
+        /// 创建聊天
+        /// </summary>
+        /// <returns></returns>
+        private Task CreateChat()
         {
             DialogHostHelper.ShowDialog(new CreateChatView());
 
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="msgDto"></param>
+        /// <returns></returns>
+        private async Task<MessageDto?> Send(MessageDto? msgDto)
+        {
+            if (SelectedUserInfo is null) return null;
+            if (msgDto is null) return null;
+
+            msgDto.IsSending = true;
+            msgDto.IsError = false;
+            _userId ??= Settings.Default.LoginUser.Id;
+
+            var result = await _messagesService.SendMessage(new Shared.Models.ClientModels.Message.Entity.Messages()
+            {
+                FromId = _userId,
+                TargetId = SelectedUserInfo.Id,
+                Content = msgDto.Content,
+                SendTime = msgDto.SendTime,
+                IsRead = msgDto.IsRead,
+            });
+            msgDto.IsSending = false;
+            return result;
+        }
         #endregion
 
         #region Recipient

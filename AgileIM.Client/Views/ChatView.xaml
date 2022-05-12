@@ -78,6 +78,7 @@
                 <controls:ChatPanel
                     ItemsSource="{Binding SelectedUserInfo.Messages}"
                     OtherUserInfo="{Binding SelectedUserInfo}"
+                    ResendCommand="{Binding ResendMessageCommand}"
                     UpdateUserNoteCommand="{Binding UpdateUserNoteCommand}" />
             </Grid>
             <GridSplitter
