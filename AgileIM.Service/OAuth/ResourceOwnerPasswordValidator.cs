@@ -50,7 +50,8 @@ namespace AgileIM.Service.OAuth
         {
             return new Claim[]
             {
-                new ("tokenExpireTime",DateTime.Now.AddSeconds(Convert.ToInt32(OAuthConfig.ExpireIn)).ToString("yyyy-HH-MM-dd HH:mm:ss"))
+                new ("tokenExpireTime",DateTime.Now.AddSeconds(Convert.ToInt32(OAuthConfig.ExpireIn)).ToString("yyyy-HH-MM-dd HH:mm:ss")),
+                new ("userId",user.Id),
             };
         }
     }

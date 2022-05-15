@@ -6,6 +6,8 @@ using AgileIM.Service.Services.FriendService;
 using AgileIM.Service.Services.FriendService.Impl;
 using AgileIM.Service.Services.Ide4Service;
 using AgileIM.Service.Services.Ide4Service.Impl;
+using AgileIM.Service.Services.ImService;
+using AgileIM.Service.Services.ImService.Impl;
 using AgileIM.Service.Services.UserService;
 using AgileIM.Service.Services.UserService.Impl;
 using AgileIM.Shared.EFCore;
@@ -30,6 +32,8 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IVerifyService, VerifyService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFriendService, FriendService>();
+builder.Services.AddScoped<IImService, ImService>();
+
 builder.Services.RegisterUnitOfWork<AgileImDbContext>();
 builder.Services.RegisterRepository<Friend, FriendRepository>();
 builder.Services.RegisterRepository<User, UserRepository>();

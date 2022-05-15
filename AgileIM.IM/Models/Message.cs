@@ -9,7 +9,7 @@
         /// <summary>
         /// 发送者唯一ID 多端消息处理
         /// </summary>
-        public string FromGuid { get; set; }
+        public string? FromGuid { get; set; }
         /// <summary>
         /// 发送时间
         /// </summary>
@@ -35,16 +35,12 @@
     public enum MsgType
     {
         /// <summary>
-        /// 心跳
-        /// </summary>
-        Heartbeat = 0,
-        /// <summary>
         /// 单聊
         /// </summary>
-        One = 1,
+        One = 0,
         /// <summary>
         /// 群组
         /// </summary>
-        Group = 2
+        Group = 1
     }
 }

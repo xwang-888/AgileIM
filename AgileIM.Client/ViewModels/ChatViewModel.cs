@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using AgileIM.Client.Models;
 
 using System.Windows.Input;
+using Agile.Client.Service.Api.Common;
 using Agile.Client.Service.Services;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Views;
@@ -18,6 +20,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using AgileIM.Client.Properties;
 using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
 using AgileIM.Shared.Models.ClientModels.Message.Dto;
+using WebSocketSharp;
 
 namespace AgileIM.Client.ViewModels
 {
@@ -31,6 +34,7 @@ namespace AgileIM.Client.ViewModels
             _friendService = friendService;
             _chatUserService = chatUserService;
             _messagesService = messagesService;
+            ConnectionServer();
         }
 
         #region Service
@@ -41,6 +45,7 @@ namespace AgileIM.Client.ViewModels
 
         #region Property
 
+        private WebSocketSharp.WebSocket mainWs;
         private string? _userId;
         private ObservableCollection<UserInfoDto> _chatUserList = new();
         private UserInfoDto? _selectedUserInfo;
@@ -97,6 +102,52 @@ namespace AgileIM.Client.ViewModels
 
         #region Methods
 
+
+
+        private void ConnectionServer()
+        {
+            try
+            {
+                mainWs = new WebSocket($"ws://localhost:9659/ws/?Authorization={ApiConfiguration.TokenValue}");
+                mainWs.Connect();
+                mainWs.OnClose += (sen, args) =>
+                {
+                    Task.Run(() =>
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                Debug.WriteLine("断线重连");
+                                Task.Delay(5000);
+                                mainWs.Connect();
+                            }
+                            catch (Exception e)
+                            {
+                                return;
+                            }
+                        }
+                    });
+                };
+                mainWs.OnMessage += (sen, args) =>
+                {
+                    if (args.IsText)
+                    {
+                        MessageBox.Show(args.Data);
+                    }
+
+                };
+                mainWs.OnError += (sen, args) =>
+                {
+
+                };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         /// <summary>
         /// 修改好友备注
         /// </summary>
