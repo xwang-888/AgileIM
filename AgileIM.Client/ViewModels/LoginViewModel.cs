@@ -8,8 +8,7 @@ using System.Windows.Input;
 
 using Agile.Client.Service.Api.Common;
 using Agile.Client.Service.Services;
-
-using AgileIM.Client.Messages;
+using AgileIM.Client.ChangedMessage;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
 using AgileIM.Shared.Models.Users.Dto;

@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+
 using AgileIM.Shared.Models.ClientModels.Message.Dto;
+using AgileIM.Shared.Models.ClientModels.Message.Entity;
+
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace AgileIM.Shared.Models.Users.Dto
@@ -61,6 +64,8 @@ namespace AgileIM.Shared.Models.Users.Dto
         private MessageDto? _lastMessage;
         private ObservableCollection<MessageDto> _messages;
         private bool _isUnreadMessage = true;
+        private int _unreadMsgCount;
+
 
         /// <summary>
         /// 是否有未读消息
@@ -91,10 +96,19 @@ namespace AgileIM.Shared.Models.Users.Dto
                 LastMessage = value.LastOrDefault();
             }
         }
+        /// <summary>
+        /// 未读消息数量
+        /// </summary>
+        public int UnreadMsgCount
+        {
+            get => _unreadMsgCount;
+            set => SetProperty(ref _unreadMsgCount, value);
+        }
 
         private void Messages_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            LastMessage = Messages?.LastOrDefault();
+            LastMessage = Messages.LastOrDefault();
+            UnreadMsgCount = Messages.Count(a => !a.IsRead);
         }
     }
 }

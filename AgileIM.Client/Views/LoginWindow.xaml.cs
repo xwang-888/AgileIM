@@ -11,10 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using AgileIM.Client.ChangedMessage;
 using AgileIM.Client.Common;
 using AgileIM.Client.Controls;
-using AgileIM.Client.Messages;
 using AgileIM.Client.ViewModels;
 
 using Microsoft.Toolkit.Mvvm.Messaging;

@@ -11,6 +11,7 @@ using AgileIM.Client.Models;
 using System.Windows.Input;
 using Agile.Client.Service.Api.Common;
 using Agile.Client.Service.Services;
+using AgileIM.Client.Common;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Views;
 using AgileIM.Shared.Models.Users.Dto;
@@ -18,8 +19,11 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using AgileIM.Client.Properties;
+using AgileIM.IM.Models;
 using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
 using AgileIM.Shared.Models.ClientModels.Message.Dto;
+using AgileIM.Shared.Models.ClientModels.Message.Entity;
+using Newtonsoft.Json;
 using WebSocketSharp;
 
 namespace AgileIM.Client.ViewModels
@@ -27,13 +31,14 @@ namespace AgileIM.Client.ViewModels
     public class ChatViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<IEnumerable<UserInfoDto>>
     {
 
-        public ChatViewModel(IFriendService friendService, IChatUserService chatUserService, IMessagesService messagesService)
+        public ChatViewModel(IFriendService friendService, IChatUserService chatUserService, IMessagesService messagesService, IImService imService)
         {
             WeakReferenceMessenger.Default.Register<UserInfoDto, string>(this, "ChatViewModel");
             WeakReferenceMessenger.Default.Register<IEnumerable<UserInfoDto>, string>(this, "SetChatUserList");
             _friendService = friendService;
             _chatUserService = chatUserService;
             _messagesService = messagesService;
+            _imService = imService;
             ConnectionServer();
         }
 
@@ -41,6 +46,7 @@ namespace AgileIM.Client.ViewModels
         private readonly IFriendService _friendService;
         private readonly IChatUserService _chatUserService;
         private readonly IMessagesService _messagesService;
+        private readonly IImService _imService;
         #endregion
 
         #region Property
@@ -102,8 +108,6 @@ namespace AgileIM.Client.ViewModels
 
         #region Methods
 
-
-
         private void ConnectionServer()
         {
             try
@@ -129,14 +133,68 @@ namespace AgileIM.Client.ViewModels
                         }
                     });
                 };
-                mainWs.OnMessage += (sen, args) =>
-                {
-                    if (args.IsText)
-                    {
-                        MessageBox.Show(args.Data);
-                    }
+                mainWs.OnMessage += async (sen, args) =>
+                 {
+                     if (args.IsText)
+                     {
+                         if (string.IsNullOrEmpty(args.Data)) return;
+                         var msg = JsonConvert.DeserializeObject<Message>(args.Data);
 
-                };
+                         if (msg is null) return;
+                         var msgData = JsonConvert.DeserializeObject<Messages>(msg.Content);
+                         if (msgData is null) return;
+                         var msgDto = new MessageDto()
+                         {
+                             IsRead = false,
+                             SendTime = msgData.SendTime,
+                             Content = msgData.Content
+                         };
+                         var msgResult = await _messagesService.SendMessage(msgData);
+                         if (msgResult is null) return;
+
+                         var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+                         if (user is null)
+                         {
+                             var listVm = ServiceProvider.Get<MailListViewModel>();
+                             user = listVm.UserInfoList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+                             if (user is not null)
+                             {
+                                 var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, user.Id);
+                                 if (result is not null)
+                                 {
+                                     Application.Current.Dispatcher.Invoke(() =>
+                                     {
+                                         ChatUserList.Insert(0, user);
+                                     });
+                                 }
+                             }
+                         }
+                         else
+                         {
+                             Application.Current.Dispatcher.Invoke(() =>
+                             {
+                                 var index = ChatUserList.IndexOf(user);
+
+                                 if (!index.Equals(0))
+                                 {
+                                     ChatUserList.RemoveAt(index);
+                                     ChatUserList.Insert(0, user);
+                                 }
+
+
+                             });
+
+                         }
+
+                         Application.Current.Dispatcher.Invoke(() =>
+                         {
+                             if (user is null) return;
+
+                             user.Messages.Add(msgDto);
+                             user.IsUnreadMessage = true;
+                         });
+                     }
+                 };
                 mainWs.OnError += (sen, args) =>
                 {
 
@@ -196,9 +254,7 @@ namespace AgileIM.Client.ViewModels
             SelectedUserInfo.Messages.Add(msgDto);
             SendText = string.Empty;
 
-            MessageDto result = null;
-            await Task.Delay(3000);
-            msgDto.IsSending = false;
+            var result = await Send(msgDto);
             if (result is null)
             {
                 //TODO 发送消息失败
@@ -229,7 +285,6 @@ namespace AgileIM.Client.ViewModels
 
             return Task.CompletedTask;
         }
-
         /// <summary>
         /// 发送消息
         /// </summary>
@@ -243,18 +298,25 @@ namespace AgileIM.Client.ViewModels
             msgDto.IsSending = true;
             msgDto.IsError = false;
             _userId ??= Settings.Default.LoginUser.Id;
-
-            var result = await _messagesService.SendMessage(new Shared.Models.ClientModels.Message.Entity.Messages()
+            var msg = new Messages()
             {
                 FromId = _userId,
                 TargetId = SelectedUserInfo.Id,
                 Content = msgDto.Content,
                 SendTime = msgDto.SendTime,
                 IsRead = msgDto.IsRead,
-            });
+            };
+            MessageDto? result = null;
+            // ws 发送消息
+            var response = await _imService.SendMessage(msg);
+            if (response.Code.Equals(200))
+                // ws发送成功消息写入本地数据库
+                result = await _messagesService.SendMessage(msg);
+
             msgDto.IsSending = false;
             return result;
         }
+
         #endregion
 
         #region Recipient

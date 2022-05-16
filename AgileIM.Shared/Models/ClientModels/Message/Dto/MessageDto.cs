@@ -18,7 +18,7 @@ namespace AgileIM.Shared.Models.ClientModels.Message.Dto
         /// <summary>
         /// 内容
         /// </summary>
-        public string Content { get; set; }
+        public string? Content { get; set; }
         /// <summary>
         /// 是否阅读
         /// </summary>

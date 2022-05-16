@@ -11,7 +11,6 @@ using Agile.Client.Service.Services;
 using Agile.Client.Service.Services.Impl;
 
 using AgileIM.Client.Controls;
-using AgileIM.Client.Messages;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
 using AgileIM.Client.Views;

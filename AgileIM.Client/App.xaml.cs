@@ -71,6 +71,7 @@ namespace AgileIM.Client
             builder.RegisterType<FriendService>().As<IFriendService>();
             builder.RegisterType<ChatUserService>().As<IChatUserService>();
             builder.RegisterType<MessagesService>().As<IMessagesService>();
+            builder.RegisterType<ImService>().As<IImService>();
 
             #endregion
 

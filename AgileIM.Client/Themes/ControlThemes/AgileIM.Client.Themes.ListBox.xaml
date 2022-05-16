@@ -201,7 +201,7 @@
                         VerticalAlignment="Center"
                         FontSize="11"
                         Foreground="White"
-                        Text="{Binding Messages, Converter={StaticResource UnreadMessageCountConverter}}" />
+                        Text="{Binding UnreadMsgCount}" />
                 </Border>
             </Grid>
         </Grid>
