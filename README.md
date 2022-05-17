@@ -41,7 +41,7 @@ AgileIM.Web，IM Web项目
 ------
 
 AgileIM.Client (WPF) 运行界面示例
-
+![7ceab1c05d0f988d1384cd68c759202](https://user-images.githubusercontent.com/56998197/168716499-5575cb95-c57a-4e71-af63-223728033a6d.png)
 ![image-20220420091836346](https://user-images.githubusercontent.com/56998197/164133004-dc707b16-7721-45b9-8f50-8bf00f45d3a0.png)
 ![image-20220420091922888](https://user-images.githubusercontent.com/56998197/164133013-f8d0433a-f06a-4528-a629-747b1d8c6cee.png)
 ![image-20220420092021553](https://user-images.githubusercontent.com/56998197/164133033-11d0222b-4f7d-4e03-9db7-065fb67e5124.png)
