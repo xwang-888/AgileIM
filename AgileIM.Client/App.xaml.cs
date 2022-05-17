@@ -40,10 +40,6 @@ namespace AgileIM.Client
         protected override void OnStartup(StartupEventArgs e)
         {
             ServiceProvider.RegisterServiceLocator(ConfigureServices());
-            #region 判断有无数据库
-            var dbContext = ServiceProvider.Get<AgileImClientDbContext>();
-            dbContext.Database.EnsureCreated();
-            #endregion
 
             ApiRequest.AddressPort = "localhost:9659";
             base.OnStartup(e);

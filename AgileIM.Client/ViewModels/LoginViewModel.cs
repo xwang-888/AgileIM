@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,17 @@ using System.Windows.Input;
 
 using Agile.Client.Service.Api.Common;
 using Agile.Client.Service.Services;
+
 using AgileIM.Client.ChangedMessage;
+using AgileIM.Client.Common;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
+using AgileIM.Shared.EFCore.DbContexts;
 using AgileIM.Shared.Models.Users.Dto;
 
 using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -78,10 +83,24 @@ namespace AgileIM.Client.ViewModels
             var user = await _userService.Login(SelectedUserInfo.Account, SelectedUserInfo.Password);
             if (user is not null && user.Code.Equals((int)StatusCode.Success) && user.Data is not null)
             {
-                var mainWindow = new MainWindow();
-                mainWindow.Show();
+
                 var userInfo = _mapper.Map<LoginUserDto, UserInfoDto>(user.Data);
                 Settings.Default.LoginUser = userInfo;
+                var dbContext = ServiceProvider.Get<AgileImClientDbContext>();
+
+                #region 判断对应用户文件夹是否存在
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Document", "Files",
+                         userInfo.Account);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                #endregion
+                #region 判断有无数据库
+                dbContext.Database.SetConnectionString($"Data Source={Path.Combine(path, "ChatMsg.db")}");
+                await dbContext.Database.EnsureCreatedAsync();
+                #endregion
+
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
                 WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
             }
