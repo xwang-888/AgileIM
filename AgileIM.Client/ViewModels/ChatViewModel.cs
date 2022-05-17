@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,7 +86,11 @@ namespace AgileIM.Client.ViewModels
         public bool SendTextIsFocus
         {
             get => _sendTextIsFocus;
-            set => SetProperty(ref _sendTextIsFocus, value);
+            set
+            {
+                SetProperty(ref _sendTextIsFocus, value);
+                SendTextGotFocus();
+            }
         }
         /// <summary>
         /// 消息文本框
@@ -102,107 +107,130 @@ namespace AgileIM.Client.ViewModels
         public ICommand ResendMessageCommand => new AsyncRelayCommand<MessageDto>(ResendMessage);
         public ICommand CreateChatCommand => new AsyncRelayCommand(CreateChat);
         public ICommand UpdateUserNoteCommand => new AsyncRelayCommand<string?>(UpdateUserNote);
+        public ICommand SendTextGotFocusCommand => new AsyncRelayCommand(SendTextGotFocus);
 
 
         #endregion
 
+        #region Event
+
+        private async void OnMessage(object? sender, MessageEventArgs args)
+        {
+            if (!args.IsText) return;
+
+            if (string.IsNullOrEmpty(args.Data)) return;
+            var msg = JsonConvert.DeserializeObject<Message>(args.Data);
+
+            if (msg is null) return;
+            var msgData = JsonConvert.DeserializeObject<Messages>(msg.Content);
+            if (msgData is null) return;
+            var msgDto = new MessageDto()
+            {
+                Id = Guid.NewGuid().ToString(),
+                IsRead = false,
+                SendTime = msgData.SendTime,
+                Content = msgData.Content
+            };
+
+
+
+            var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+            if (user is null)
+            {
+                var listVm = ServiceProvider.Get<MailListViewModel>();
+                user = listVm.UserInfoList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+                if (user is not null)
+                {
+                    var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, user.Id);
+                    if (result is not null)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            ChatUserList.Insert(0, user);
+                        });
+                    }
+                }
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var index = ChatUserList.IndexOf(user);
+
+                    if (!index.Equals(0))
+                    {
+                        ChatUserList.RemoveAt(index);
+                        ChatUserList.Insert(0, user);
+                    }
+                });
+            }
+            await Application.Current.Dispatcher.Invoke(async () =>
+           {
+               if (user is null) return;
+               if (user.Id.Equals(SelectedUserInfo?.Id) && SendTextIsFocus)
+                   msgDto.IsRead = true;
+
+               // 保存导本地数据库
+               msgData.IsRead = msgDto.IsRead;
+               var msgResult = await _messagesService.SendMessage(msgData);
+               if (msgResult is null) return;
+               user.Messages.Add(msgDto);
+           });
+        }
+
+        private void OnClose(object? sender, CloseEventArgs args)
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Debug.WriteLine("断线重连");
+                        Task.Delay(3000);
+                        mainWs.Connect();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return;
+                    }
+                }
+            });
+        }
+        #endregion
+
         #region Methods
 
+        private async Task SendTextGotFocus()
+        {
+            if (SelectedUserInfo?.Messages != null && SelectedUserInfo.Messages.Any(a => !a.IsRead))
+            {
+                var isOk = await _messagesService.UpdateMsgIsReadState(SelectedUserInfo.Id, Settings.Default.LoginUser.Id);
+                if (isOk)
+                {
+                    foreach (var messageDto in SelectedUserInfo.Messages.Where(a => !a.IsRead))
+                        messageDto.IsRead = true;
+                    SelectedUserInfo.UnreadMsgCount = 0;
+                }
+
+            }
+        }
         private void ConnectionServer()
         {
             try
             {
-                mainWs = new WebSocket($"ws://localhost:9659/ws/?Authorization={ApiConfiguration.TokenValue}");
+                mainWs = new WebSocket($"{ApiRequest.WsPrefix}?Authorization={ApiConfiguration.TokenValue}");
                 mainWs.Connect();
-                mainWs.OnClose += (sen, args) =>
-                {
-                    Task.Run(() =>
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                Debug.WriteLine("断线重连");
-                                Task.Delay(5000);
-                                mainWs.Connect();
-                            }
-                            catch (Exception e)
-                            {
-                                return;
-                            }
-                        }
-                    });
-                };
-                mainWs.OnMessage += async (sen, args) =>
-                 {
-                     if (args.IsText)
-                     {
-                         if (string.IsNullOrEmpty(args.Data)) return;
-                         var msg = JsonConvert.DeserializeObject<Message>(args.Data);
-
-                         if (msg is null) return;
-                         var msgData = JsonConvert.DeserializeObject<Messages>(msg.Content);
-                         if (msgData is null) return;
-                         var msgDto = new MessageDto()
-                         {
-                             IsRead = false,
-                             SendTime = msgData.SendTime,
-                             Content = msgData.Content
-                         };
-                         var msgResult = await _messagesService.SendMessage(msgData);
-                         if (msgResult is null) return;
-
-                         var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
-                         if (user is null)
-                         {
-                             var listVm = ServiceProvider.Get<MailListViewModel>();
-                             user = listVm.UserInfoList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
-                             if (user is not null)
-                             {
-                                 var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, user.Id);
-                                 if (result is not null)
-                                 {
-                                     Application.Current.Dispatcher.Invoke(() =>
-                                     {
-                                         ChatUserList.Insert(0, user);
-                                     });
-                                 }
-                             }
-                         }
-                         else
-                         {
-                             Application.Current.Dispatcher.Invoke(() =>
-                             {
-                                 var index = ChatUserList.IndexOf(user);
-
-                                 if (!index.Equals(0))
-                                 {
-                                     ChatUserList.RemoveAt(index);
-                                     ChatUserList.Insert(0, user);
-                                 }
-
-
-                             });
-
-                         }
-
-                         Application.Current.Dispatcher.Invoke(() =>
-                         {
-                             if (user is null) return;
-
-                             user.Messages.Add(msgDto);
-                             user.IsUnreadMessage = true;
-                         });
-                     }
-                 };
+                mainWs.OnClose += OnClose;
+                mainWs.OnMessage += OnMessage;
                 mainWs.OnError += (sen, args) =>
                 {
-
+                    Console.WriteLine(args.Message);
                 };
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -236,7 +264,6 @@ namespace AgileIM.Client.ViewModels
         private void OnSelectedUserInfo()
         {
             SendTextIsFocus = true;
-            SelectedUserInfo.IsUnreadMessage = false;
         }
         /// <summary>
         /// 发送消息
@@ -247,7 +274,7 @@ namespace AgileIM.Client.ViewModels
             if (SelectedUserInfo is null) return;
 
             SelectedUserInfo.Messages ??= new ObservableCollection<MessageDto>();
-            foreach (var messageDto in SelectedUserInfo.Messages)
+            foreach (var messageDto in SelectedUserInfo.Messages.Where(a => !a.IsRead))
                 messageDto.IsRead = true;
             if (string.IsNullOrEmpty(SendText)) return;
             var msgDto = new MessageDto { Content = SendText, IsSelf = true, IsSending = true, IsRead = true };
@@ -294,13 +321,19 @@ namespace AgileIM.Client.ViewModels
         {
             if (SelectedUserInfo is null) return null;
             if (msgDto is null) return null;
-
+            var index = ChatUserList.IndexOf(SelectedUserInfo);
+            var model = ChatUserList.First(a => a.Id.Equals(SelectedUserInfo.Id));
+            if (!index.Equals(0))
+            {
+                ChatUserList.RemoveAt(index);
+                ChatUserList.Insert(0, model);
+                SelectedUserInfo = model;
+            }
             msgDto.IsSending = true;
             msgDto.IsError = false;
-            _userId ??= Settings.Default.LoginUser.Id;
             var msg = new Messages()
             {
-                FromId = _userId,
+                FromId = Settings.Default.LoginUser.Id,
                 TargetId = SelectedUserInfo.Id,
                 Content = msgDto.Content,
                 SendTime = msgDto.SendTime,

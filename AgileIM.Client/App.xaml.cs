@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Agile.Client.Service.Api.Common;
 using Agile.Client.Service.Services;
 using Agile.Client.Service.Services.Impl;
 
@@ -43,6 +44,8 @@ namespace AgileIM.Client
             var dbContext = ServiceProvider.Get<AgileImClientDbContext>();
             dbContext.Database.EnsureCreated();
             #endregion
+
+            ApiRequest.AddressPort = "localhost:9659";
             base.OnStartup(e);
         }
 

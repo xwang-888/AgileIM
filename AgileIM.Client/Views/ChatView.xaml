@@ -2,6 +2,7 @@
     x:Class="AgileIM.Client.Views.ChatView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:be="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:controls="clr-namespace:AgileIM.Client.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:AgileIM.Client.Views"
@@ -148,7 +149,13 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
                             Style="{x:Null}"
                             Text="{Binding SendText, UpdateSourceTrigger=PropertyChanged}"
-                            TextWrapping="Wrap" />
+                            TextWrapping="Wrap">
+                            <be:Interaction.Triggers>
+                                <be:EventTrigger EventName="GotFocus">
+                                    <be:InvokeCommandAction Command="{Binding SendTextGotFocusCommand}" />
+                                </be:EventTrigger>
+                            </be:Interaction.Triggers>
+                        </controls:TextBoxEx>
                         <Grid
                             Grid.Row="2"
                             Height="30"

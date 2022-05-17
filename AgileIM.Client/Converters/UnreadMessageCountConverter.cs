@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 using AgileIM.Client.Models;
@@ -17,14 +18,17 @@ namespace AgileIM.Client.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not ObservableCollection<MessageDto> messageDto) return "";
-            var count = messageDto.Count(a => !a.IsRead);
-            return count switch
+            if (value is int count)
             {
-                0 => "",
-                > 99 => "99+",
-                _ => count
-            };
+                return count switch
+                {
+                    0 => new { Visibility = Visibility.Collapsed, Count = "0" },
+                    > 99 => new { Visibility = Visibility.Visible, Count = "99+" },
+                    _ => new { Visibility = Visibility.Visible, Count = count }
+                };
+            }
+
+            return new { Visibility = Visibility.Collapsed, Count = "0" };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

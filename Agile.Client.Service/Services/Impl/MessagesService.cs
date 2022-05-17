@@ -53,7 +53,7 @@ namespace Agile.Client.Service.Services.Impl
                  }).ToList();
                 friend.Messages = new ObservableCollection<MessageDto>(msgDtoList);
                 friend.LastMessage = msgDtoList.LastOrDefault();
-                friend.IsUnreadMessage = msgDtoList.Any(a => !a.IsRead);
+                friend.UnreadMsgCount = msgDtoList.Count(a => !a.IsRead);
                 newUserInfoList.Add(friend);
             }
 
@@ -73,6 +73,14 @@ namespace Agile.Client.Service.Services.Impl
                 Console.WriteLine(e);
                 return null;
             }
+        }
+        public async Task<bool> UpdateMsgIsReadState(string fromId, string targetId)
+        {
+            var rep = _unitOfWork.GetRepository<Messages>();
+            var result = await _unitOfWork.ExecuteSqlCommandAsync(
+                 $"Update Messages SET IsRead=1 WHERE FromId='{fromId}' AND TargetId='{targetId}'");
+
+            return result >= 0;
         }
     }
 }

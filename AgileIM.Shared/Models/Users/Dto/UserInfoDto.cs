@@ -66,15 +66,6 @@ namespace AgileIM.Shared.Models.Users.Dto
         private bool _isUnreadMessage = true;
         private int _unreadMsgCount;
 
-
-        /// <summary>
-        /// 是否有未读消息
-        /// </summary>
-        public bool IsUnreadMessage
-        {
-            get => _isUnreadMessage;
-            set => SetProperty(ref _isUnreadMessage, value);
-        }
         /// <summary>
         /// 最后一条消息
         /// </summary>
