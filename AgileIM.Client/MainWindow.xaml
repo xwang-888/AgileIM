@@ -20,7 +20,9 @@
     UserInfo="{Binding User}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Window.Resources />
+    <Window.Resources>
+        <converters:UnreadMessageCountConverter x:Key="UnreadMessageCountConverter" />
+    </Window.Resources>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -50,6 +52,24 @@
                                     Height="25"
                                     Foreground="Gray"
                                     Kind="{Binding Icon}" />
+                                <Border
+                                    Width="15"
+                                    Height="15"
+                                    Margin="-6"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="#FA5151"
+                                    CornerRadius="15"
+                                    DataContext="{Binding UnreadCount, Converter={StaticResource UnreadMessageCountConverter}}"
+                                    Visibility="{Binding Visibility}">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ClipToBounds="True"
+                                        Foreground="White"
+                                        Text="{Binding Count}"
+                                        TextAlignment="Center" />
+                                </Border>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

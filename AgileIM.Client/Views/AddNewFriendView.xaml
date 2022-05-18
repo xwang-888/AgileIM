@@ -109,6 +109,8 @@
                                     Grid.Row="3"
                                     Width="40"
                                     HorizontalAlignment="Left"
+                                    Command="{Binding DataContext.ShowAddFriendCommand, RelativeSource={RelativeSource AncestorType=local:AddNewFriendView}}"
+                                    CommandParameter="{Binding}"
                                     Content="添加"
                                     FontSize="11" />
                             </Grid>

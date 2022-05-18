@@ -41,7 +41,7 @@ namespace Agile.Client.Service.Services.Impl
             var newUserInfoList = new List<UserInfoDto>(userInfoList.Count());
             foreach (var friend in userInfoList)
             {
-                var messages = await rep.GetAll().Where(a => (a.FromId.Equals(userId) && a.TargetId.Equals(friend.Id)) || a.FromId.Equals(friend.Id) && a.TargetId.Equals(userId)).OrderBy(a => a.SendTime).ToListAsync();
+                var messages = await rep.GetAll().Where(a => (a.FromId.Equals(userId) && a.TargetId.Equals(friend.Id)) || a.FromId.Equals(friend.Id) && a.TargetId.Equals(userId)).OrderBy(a => a.SendTime).Take(100).ToListAsync();
                 var msgDtoList = messages.Select(msg =>
                  {
                      var msgDto = _mapper.Map<Messages, MessageDto>(msg);
@@ -57,7 +57,7 @@ namespace Agile.Client.Service.Services.Impl
                 newUserInfoList.Add(friend);
             }
 
-            return newUserInfoList.OrderByDescending(a => a.LastMessage?.SendTime ?? a.LastLoginTime);
+            return newUserInfoList.OrderByDescending(a => a.LastMessage?.SendTime);
         }
         public async Task<MessageDto?> SendMessage(Messages message)
         {

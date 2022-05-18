@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using AgileIM.Client.Models;
@@ -24,8 +25,10 @@ using AgileIM.IM.Models;
 using AgileIM.Shared.Models.ClientModels.ChatUser.Entity;
 using AgileIM.Shared.Models.ClientModels.Message.Dto;
 using AgileIM.Shared.Models.ClientModels.Message.Entity;
+using AgileIM.Shared.Models.Enum;
 using Newtonsoft.Json;
 using WebSocketSharp;
+using System.Windows.Interop;
 
 namespace AgileIM.Client.ViewModels
 {
@@ -122,8 +125,51 @@ namespace AgileIM.Client.ViewModels
             var msg = JsonConvert.DeserializeObject<Message>(args.Data);
 
             if (msg is null) return;
-            var msgData = JsonConvert.DeserializeObject<Messages>(msg.Content);
+            var msgData = JsonConvert.DeserializeObject<SendMessageModel>(msg.Content);
             if (msgData is null) return;
+
+            switch (msgData.Category)
+            {
+                case MsgCategory.SendMessage:
+                    await ReceivedMessage(msgData.Messages);
+                    break;
+                case MsgCategory.FriendVerification:
+                    ReceivedFriendVerification(msgData.Messages);
+                    break;
+            }
+
+        }
+
+        private void OnClose(object? sender, CloseEventArgs args)
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Debug.WriteLine("断线重连");
+                        Task.Delay(3000);
+                        mainWs.Connect();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return;
+                    }
+                }
+            });
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// 收到消息
+        /// </summary>
+        /// <param name="msgData"></param>
+        /// <returns></returns>
+        private async Task ReceivedMessage(Messages msgData)
+        {
             var msgDto = new MessageDto()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -131,14 +177,11 @@ namespace AgileIM.Client.ViewModels
                 SendTime = msgData.SendTime,
                 Content = msgData.Content
             };
-
-
-
-            var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+            var user = ChatUserList.FirstOrDefault(a => a.Id.Equals(msgData.FromId));
             if (user is null)
             {
                 var listVm = ServiceProvider.Get<MailListViewModel>();
-                user = listVm.UserInfoList.FirstOrDefault(a => a.Id.Equals(msg.FromId));
+                user = listVm.UserInfoList.FirstOrDefault(a => a.Id.Equals(msgData.FromId));
                 if (user is not null)
                 {
                     var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, user.Id);
@@ -165,56 +208,31 @@ namespace AgileIM.Client.ViewModels
                 });
             }
             await Application.Current.Dispatcher.Invoke(async () =>
-           {
-               if (user is null) return;
-               if (user.Id.Equals(SelectedUserInfo?.Id) && SendTextIsFocus)
-                   msgDto.IsRead = true;
-
-               // 保存导本地数据库
-               msgData.IsRead = msgDto.IsRead;
-               var msgResult = await _messagesService.SendMessage(msgData);
-               if (msgResult is null) return;
-               user.Messages.Add(msgDto);
-           });
-        }
-
-        private void OnClose(object? sender, CloseEventArgs args)
-        {
-            Task.Run(() =>
             {
-                while (true)
-                {
-                    try
-                    {
-                        Debug.WriteLine("断线重连");
-                        Task.Delay(3000);
-                        mainWs.Connect();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return;
-                    }
-                }
+                if (user is null) return;
+                if (user.Id.Equals(SelectedUserInfo?.Id) && SendTextIsFocus)
+                    msgDto.IsRead = true;
+                else
+                    WeakReferenceMessenger.Default.Send(new MainTipModel(MainTipType.AddChatMsg, 1), "UpdateTipCount");
+
+                // 保存导本地数据库
+                msgData.IsRead = msgDto.IsRead;
+                var msgResult = await _messagesService.SendMessage(msgData);
+                if (msgResult is null) return;
+                user.Messages.Add(msgDto);
             });
         }
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// 收到好友申请
+        /// </summary>
+        /// <param name="msgData"></param>
+        /// <returns></returns>
+        private void ReceivedFriendVerification(Messages msgData)
+            => WeakReferenceMessenger.Default.Send(msgData, "FriendVerification");
 
         private async Task SendTextGotFocus()
         {
-            if (SelectedUserInfo?.Messages != null && SelectedUserInfo.Messages.Any(a => !a.IsRead))
-            {
-                var isOk = await _messagesService.UpdateMsgIsReadState(SelectedUserInfo.Id, Settings.Default.LoginUser.Id);
-                if (isOk)
-                {
-                    foreach (var messageDto in SelectedUserInfo.Messages.Where(a => !a.IsRead))
-                        messageDto.IsRead = true;
-                    SelectedUserInfo.UnreadMsgCount = 0;
-                }
-
-            }
+            await UpdateMsgState();
         }
         private void ConnectionServer()
         {
@@ -261,9 +279,10 @@ namespace AgileIM.Client.ViewModels
         /// <summary>
         /// 选中用户
         /// </summary>
-        private void OnSelectedUserInfo()
+        private async void OnSelectedUserInfo()
         {
             SendTextIsFocus = true;
+            await UpdateMsgState();
         }
         /// <summary>
         /// 发送消息
@@ -274,8 +293,6 @@ namespace AgileIM.Client.ViewModels
             if (SelectedUserInfo is null) return;
 
             SelectedUserInfo.Messages ??= new ObservableCollection<MessageDto>();
-            foreach (var messageDto in SelectedUserInfo.Messages.Where(a => !a.IsRead))
-                messageDto.IsRead = true;
             if (string.IsNullOrEmpty(SendText)) return;
             var msgDto = new MessageDto { Content = SendText, IsSelf = true, IsSending = true, IsRead = true };
             SelectedUserInfo.Messages.Add(msgDto);
@@ -341,7 +358,7 @@ namespace AgileIM.Client.ViewModels
             };
             MessageDto? result = null;
             // ws 发送消息
-            var response = await _imService.SendMessage(msg);
+            var response = await _imService.SendMessage(new SendMessageModel(MsgCategory.SendMessage, msg));
             if (response.Code.Equals(200))
                 // ws发送成功消息写入本地数据库
                 result = await _messagesService.SendMessage(msg);
@@ -349,7 +366,27 @@ namespace AgileIM.Client.ViewModels
             msgDto.IsSending = false;
             return result;
         }
+        /// <summary>
+        /// 修改当前选中的好友消息状态
+        /// </summary>
+        /// <returns></returns>
+        private async Task UpdateMsgState()
+        {
+            if (SelectedUserInfo?.Messages != null && SelectedUserInfo.Messages.Any(a => !a.IsRead))
+            {
+                var isOk = await _messagesService.UpdateMsgIsReadState(SelectedUserInfo.Id, Settings.Default.LoginUser.Id);
+                if (isOk)
+                {
+                    var count = SelectedUserInfo.Messages.Count(a => !a.IsRead);
+                    foreach (var messageDto in SelectedUserInfo.Messages.Where(a => !a.IsRead))
+                        messageDto.IsRead = true;
+                    SelectedUserInfo.UnreadMsgCount = 0;
+                    WeakReferenceMessenger.Default.Send(new MainTipModel(MainTipType.RemoveChatMsg, count), "UpdateTipCount");
 
+                }
+
+            }
+        }
         #endregion
 
         #region Recipient
@@ -361,18 +398,30 @@ namespace AgileIM.Client.ViewModels
                 var result = await _chatUserService.InsertAsync(Settings.Default.LoginUser.Id, message.Id);
                 if (result is not null)
                 {
-                    ChatUserList.Add(message);
+                    ChatUserList.Insert(0, message);
                     SelectedUserInfo = message;
                 }
             }
             else
+            {
+                var index = ChatUserList.IndexOf(user);
+                if (index is not 0)
+                {
+                    ChatUserList.RemoveAt(index);
+                    ChatUserList.Insert(0, user);
+                }
                 SelectedUserInfo = user;
+            }
 
             SendTextIsFocus = true;
         }
         public void Receive(IEnumerable<UserInfoDto> message)
         {
             ChatUserList = new ObservableCollection<UserInfoDto>(message);
+            var count = ChatUserList.Select(a => a?.Messages.Count(messageDto => !messageDto.IsRead)).Sum();
+            if (count is > 0)
+                WeakReferenceMessenger.Default.Send(new MainTipModel(MainTipType.AddChatMsg, count.Value), "UpdateTipCount");
+
         }
         #endregion
 

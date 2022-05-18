@@ -10,29 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-using AgileIM.Client.Common;
 using AgileIM.Client.Controls;
-using AgileIM.Client.ViewModels;
 
 namespace AgileIM.Client.Views
 {
     /// <summary>
-    /// CreateChatView.xaml 的交互逻辑
+    /// FriendVerificationWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CreateChatView : UserControl
+    public partial class FriendVerificationWindow : CustomWindow
     {
-        public CreateChatView()
+        public FriendVerificationWindow()
         {
             InitializeComponent();
-            DataContext = ServiceProvider.Get<CreateChatViewModel>();
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogHostHelper.CloseDialog(this);
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Agile.Client.Service.Services;
 using Agile.Client.Service.Services.Impl;
 
+using AgileIM.Client.Common;
 using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
@@ -21,11 +22,10 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 
-using static AgileIM.Client.ViewModels.Extensions;
 
 namespace AgileIM.Client.ViewModels
 {
-    public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<string>
+    public class MainViewModel : ObservableObject, IRecipient<UserInfoDto>, IRecipient<string>, IRecipient<MainTipModel>
     {
         public MainViewModel(IFriendService friendService, IChatUserService chatUserService, IMessagesService messagesService)
         {
@@ -38,6 +38,7 @@ namespace AgileIM.Client.ViewModels
             SelectedMenuItem = MenuItems.First();
             WeakReferenceMessenger.Default.Register<UserInfoDto, string>(this, "MainViewModel");
             WeakReferenceMessenger.Default.Register<string, string>(this, "OpenChatPage");
+            WeakReferenceMessenger.Default.Register<MainTipModel,string>(this, "UpdateTipCount");
             _chatUserService = chatUserService;
             _messagesService = messagesService;
 
@@ -52,6 +53,7 @@ namespace AgileIM.Client.ViewModels
 
         #region Property
         private MenuItemModel _selectedMenuItem;
+        private UserInfoDto _user;
         private ObservableCollection<MenuItemModel> _menuItems;
 
         public MenuItemModel SelectedMenuItem
@@ -64,8 +66,6 @@ namespace AgileIM.Client.ViewModels
             get => _menuItems;
             set => SetProperty(ref _menuItems, value);
         }
-        private UserInfoDto _user;
-
         public UserInfoDto User
         {
             get => _user;
@@ -112,7 +112,27 @@ namespace AgileIM.Client.ViewModels
         {
             SelectedMenuItem = MenuItems.First();
         }
+
+        public void Receive(MainTipModel message)
+        {
+            switch (message.Type)
+            {
+                case MainTipType.AddChatMsg:
+                    MenuItems[0].UnreadCount += message.Count;
+                    break;
+                case MainTipType.RemoveChatMsg:
+                    MenuItems[0].UnreadCount -= message.Count;
+                    break;
+                case MainTipType.AddContactsMsgCountMsg:
+                    MenuItems[1].UnreadCount += message.Count;
+                    break;
+                case MainTipType.RemoveContactsMsgMsg:
+                    MenuItems[1].UnreadCount -= message.Count;
+                    break;
+            }
+        }
         #endregion
+
 
         ~MainViewModel()
         {

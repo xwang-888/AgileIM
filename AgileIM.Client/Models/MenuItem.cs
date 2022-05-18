@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using AgileIM.Client.Controls;
+
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace AgileIM.Client.Models
 {
     public class MenuItemModel : ObservableObject
     {
+        private int _unreadCount;
         public MenuItemModel() { }
 
         public MenuItemModel(string name, PackIconKind icon, object content)
@@ -20,7 +23,6 @@ namespace AgileIM.Client.Models
         }
 
 
-        private bool _isChecked;
 
         /// <summary>
         /// 名称
@@ -34,5 +36,14 @@ namespace AgileIM.Client.Models
         /// 内容
         /// </summary>
         public object Content { get; set; }
+
+        /// <summary>
+        /// 未读消息数量
+        /// </summary>
+        public int UnreadCount
+        {
+            get => _unreadCount;
+            set => SetProperty(ref _unreadCount, value);
+        }
     }
 }

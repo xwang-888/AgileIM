@@ -168,6 +168,7 @@
                 Margin="10,5"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Click="ButtonBase_OnClick"
                 Command="{Binding CreateChatCommand}"
                 CommandParameter="{Binding ElementName=UserItemsControl, Path=ItemsSource}"
                 Content="确定" />
