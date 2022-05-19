@@ -12,6 +12,7 @@ using Agile.Client.Service.Services;
 
 using AgileIM.Client.ChangedMessage;
 using AgileIM.Client.Common;
+using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
 using AgileIM.Shared.EFCore.DbContexts;
@@ -103,6 +104,10 @@ namespace AgileIM.Client.ViewModels
                 mainWindow.Show();
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
                 WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
+            }
+            else
+            {
+                MessageTip.Error(user?.Message ?? "连接服务器失败！");
             }
 
             _isLoginExec = true;

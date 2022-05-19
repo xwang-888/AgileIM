@@ -18,6 +18,7 @@
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.DialogHost.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.NickTextBlock.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Shadows.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/ControlThemes/AgileIM.Client.Themes.Message.xaml" />
         <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Icons/AgileIM.Client.Themes.Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

@@ -3,14 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:AgileIM.Client"
-    xmlns:properties="clr-namespace:AgileIM.Client.Properties" 
+    xmlns:properties="clr-namespace:AgileIM.Client.Properties"
     StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <properties:Settings x:Key="Settings"/>
+            <properties:Settings x:Key="Settings" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/AgileIM.Client.Themes.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/State/Theme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/State/Theme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/AgileIM.Client;component/Themes/Colors/Colors.DaybreakBlue.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:AgileIM.Client.Controls">
 
 
-  
+
 
     <Style x:Key="ScrollBarBaseRepeatButton" TargetType="RepeatButton">
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -307,7 +310,11 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{StaticResource ScrollViewerBaseTemplate}" />
     </Style>
-
+    <Style TargetType="{x:Type control:ScrollViewer}">
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{StaticResource ScrollViewerBaseTemplate}" />
+    </Style>
     <Style BasedOn="{StaticResource ScrollViewerBaseStyle}" TargetType="ScrollViewer" />
     <Style BasedOn="{StaticResource ScrollBarBaseStyle}" TargetType="ScrollBar" />
 

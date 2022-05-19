@@ -1,0 +1,149 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AgileIM.Client.Controls"
+    xmlns:models="clr-namespace:AgileIM.IM.Models;assembly=AgileIM.IM">
+    <GeometryGroup x:Key="InfoGeometry">
+        <Geometry>
+            M512 512m-448 0a448 448 0 1 0 896 0 448 448 0 1 0-896 0Z
+        </Geometry>
+        <Geometry>
+            M469.333333 469.333333h85.333334v234.666667h-85.333334z
+        </Geometry>
+        <Geometry>
+            M512 352m-53.333333 0a53.333333 53.333333 0 1 0 106.666666 0 53.333333 53.333333 0 1 0-106.666666 0Z
+        </Geometry>
+    </GeometryGroup>
+    <Geometry x:Key="ErrorGeometry">
+        M512 0C229.376 0 0 229.376 0 512s229.376 512 512 512 512-229.376 512-512S794.624 0 512 0z m218.624 672.256c15.872 15.872 15.872 41.984 0 57.856-8.192 8.192-18.432 11.776-29.184 11.776s-20.992-4.096-29.184-11.776L512 569.856l-160.256 160.256c-8.192 8.192-18.432 11.776-29.184 11.776s-20.992-4.096-29.184-11.776c-15.872-15.872-15.872-41.984 0-57.856L454.144 512 293.376 351.744c-15.872-15.872-15.872-41.984 0-57.856 15.872-15.872 41.984-15.872 57.856 0L512 454.144l160.256-160.256c15.872-15.872 41.984-15.872 57.856 0 15.872 15.872 15.872 41.984 0 57.856L569.856 512l160.768 160.256z
+    </Geometry>
+    <Geometry x:Key="SuccessGeometry">
+        M510.545 28.22c-267.043 0-483.521 216.477-483.521 483.52s216.479 483.521 483.521 483.521 483.52-216.479 483.52-483.521S777.588 28.22 510.545 28.22zM776.855 407.855l-315.37 315.37c-9.763 9.763-22.559 14.645-35.355 14.645-12.796 0-25.592-4.882-35.355-14.645l-176.13-176.13c-19.526-19.525-19.526-51.184 0-70.71 19.526-19.526 51.184-19.527 70.711 0L426.13 617.159l280.015-280.015c19.527-19.526 51.184-19.526 70.711 0C796.382 356.671 796.382 388.329 776.855 407.855z
+    </Geometry>
+    <SolidColorBrush x:Key="InfoColor" Color="#1890FF" />
+    <SolidColorBrush x:Key="WarningColor" Color="#FAAD14" />
+    <SolidColorBrush x:Key="ErrorColor" Color="#FF0000" />
+    <SolidColorBrush x:Key="SuccessColor" Color="#52C41A" />
+    <Storyboard x:Key="MsgOnLoaded">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0.5" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="MsgClose">
+        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+            <SplineDoubleKeyFrame
+                KeySpline="0.59,0.38,0.2,0"
+                KeyTime="00:00:00.3"
+                Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+
+    </Storyboard>
+    <Style TargetType="controls:MessageTip">
+        <Setter Property="MinHeight" Value="35" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource InfoColor}" />
+        <Setter Property="Padding" Value="15,10" />
+        <Setter Property="Margin" Value="5,3" />
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="0.5" />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:MessageTip}">
+                    <Grid>
+                        <Border
+                            Name="Back"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Margin="{TemplateBinding Margin}"
+                            Background="{DynamicResource PrimaryCardBrush}"
+                            BorderThickness=".3"
+                            CornerRadius="3"
+                            Effect="{DynamicResource EffectShadow3}" />
+                        <Border
+                            x:Name="MessageCtl"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Margin="{TemplateBinding Margin}"
+                            CornerRadius="3">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Path
+                                    x:Name="IconGeometry"
+                                    Width="15"
+                                    Height="15"
+                                    Margin="0,0,5,0"
+                                    Data="{StaticResource InfoGeometry}"
+                                    Fill="#1890FF"
+                                    Stretch="Fill" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Text}" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="MessageType" Value="Success">
+                            <Setter TargetName="IconGeometry" Property="Data" Value="{StaticResource SuccessGeometry}" />
+                            <Setter TargetName="IconGeometry" Property="Fill" Value="{StaticResource SuccessColor}" />
+                            <Setter TargetName="Back" Property="Background" Value="#F0F9EB" />
+                            <Setter TargetName="Back" Property="BorderBrush" Value="{StaticResource SuccessColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource SuccessColor}" />
+                        </Trigger>
+                        <Trigger Property="MessageType" Value="Error">
+                            <Setter TargetName="IconGeometry" Property="Data" Value="{StaticResource ErrorGeometry}" />
+                            <Setter TargetName="IconGeometry" Property="Fill" Value="{StaticResource ErrorColor}" />
+                            <Setter TargetName="Back" Property="Background" Value="#FEF0F0" />
+                            <Setter TargetName="Back" Property="BorderBrush" Value="{StaticResource ErrorColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource ErrorColor}" />
+                        </Trigger>
+                        <Trigger Property="MessageType" Value="Warning">
+                            <Setter TargetName="IconGeometry" Property="Fill" Value="{StaticResource WarningColor}" />
+                            <Setter TargetName="Back" Property="Background" Value="#FDF6EC" />
+                            <Setter TargetName="Back" Property="BorderBrush" Value="{StaticResource WarningColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource WarningColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource MsgOnLoaded}" />
+            </EventTrigger>
+
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
