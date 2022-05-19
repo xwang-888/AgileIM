@@ -30,8 +30,9 @@
             <StackPanel>
                 <TextBlock
                     Margin="5"
-                    FontSize="10"
+                    FontSize="11"
                     Opacity=".6"
+                    FontWeight="SemiBold"
                     Text="发送添加好友申请" />
                 <TextBox
                     Height="30"
@@ -39,7 +40,8 @@
                     Text="{Binding VerificationMsg}" />
                 <TextBlock
                     Margin="5"
-                    FontSize="10"
+                    FontSize="11"
+                    FontWeight="SemiBold"
                     Opacity=".6"
                     Text="备注名" />
                 <TextBox

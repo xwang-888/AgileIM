@@ -99,11 +99,11 @@ namespace AgileIM.Client.ViewModels
                 dbContext.Database.SetConnectionString($"Data Source={Path.Combine(path, "ChatMsg.db")}");
                 await dbContext.Database.EnsureCreatedAsync();
                 #endregion
-
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 WeakReferenceMessenger.Default.Send(new LoginMessage(true));
                 WeakReferenceMessenger.Default.Send(userInfo, "MainViewModel");
+                MessageTip.Success("登录成功！");
             }
             else
             {

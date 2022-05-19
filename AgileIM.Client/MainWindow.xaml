@@ -53,19 +53,22 @@
                                     Foreground="Gray"
                                     Kind="{Binding Icon}" />
                                 <Border
-                                    Width="15"
-                                    Height="15"
-                                    Margin="-6"
+                                    MinWidth="18"
+                                    MinHeight="18"
+                                    Margin="-10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     Background="#FA5151"
-                                    CornerRadius="15"
+                                    CornerRadius="10"
                                     DataContext="{Binding UnreadCount, Converter={StaticResource UnreadMessageCountConverter}}"
                                     Visibility="{Binding Visibility}">
                                     <TextBlock
+                                        Margin="3,0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ClipToBounds="True"
+                                        FontWeight="SemiBold"
+                                        FontSize="12"
                                         Foreground="White"
                                         Text="{Binding Count}"
                                         TextAlignment="Center" />

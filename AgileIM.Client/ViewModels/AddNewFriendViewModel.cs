@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using Agile.Client.Service.Services;
-
+using AgileIM.Client.Controls;
 using AgileIM.Client.Models;
 using AgileIM.Client.Properties;
 using AgileIM.Client.Views;
@@ -84,6 +84,7 @@ namespace AgileIM.Client.ViewModels
         {
             if (string.IsNullOrEmpty(SearchParamText?.Trim()))
             {
+                MessageTip.Warning("请输入搜索条件！");
                 return;
             }
 
@@ -96,13 +97,13 @@ namespace AgileIM.Client.ViewModels
         /// <summary>
         /// 打开输入验证消息窗口
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userInfoDto"></param>
         public void ShowAddFriend(UserInfoDto userInfoDto)
         {
             // TODO 判断用户是否已经是好友
             if (userInfoDto.Id.Equals(Settings.Default.LoginUser.Id))
             {
-                // TODO 不能添加自己
+                MessageTip.Warning("不能添加自己！");
                 return;
             }
             SelectedUserInfoDto = userInfoDto;
@@ -114,7 +115,6 @@ namespace AgileIM.Client.ViewModels
         /// <summary>
         /// 添加好友
         /// </summary>
-        /// <param name="keyValue"></param>
         private async Task AddFriendAsync()
         {
             var msg = new Messages()

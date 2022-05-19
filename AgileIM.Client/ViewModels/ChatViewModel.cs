@@ -229,11 +229,17 @@ namespace AgileIM.Client.ViewModels
         /// <returns></returns>
         private void ReceivedFriendVerification(Messages msgData)
             => WeakReferenceMessenger.Default.Send(msgData, "FriendVerification");
-
+        /// <summary>
+        /// 消息输入框获得焦点
+        /// </summary>
+        /// <returns></returns>
         private async Task SendTextGotFocus()
         {
             await UpdateMsgState();
         }
+        /// <summary>
+        /// 连接ws
+        /// </summary>
         private void ConnectionServer()
         {
             try
@@ -259,22 +265,16 @@ namespace AgileIM.Client.ViewModels
         /// <returns></returns>
         private async Task UpdateUserNote(string? userNote)
         {
-            if (string.IsNullOrEmpty(userNote?.Trim()))
-            {
-                return;
-            }
-
-            var note = SelectedUserInfo?.UserNote?.Trim();
-            var newNote = userNote.Trim();
-
-            if (note?.Equals(newNote) is true)
-            {
-                return;
-            }
-
+            userNote ??= "";
             var userId = Settings.Default.LoginUser?.Id;
-            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
-            SelectedUserInfo.UserNote = resp.Code.Equals(200) ? resp.Data : null;
+            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote.Trim());
+            if (resp.Code.Equals(200))
+            {
+                SelectedUserInfo.UserNote = resp.Data;
+                MessageTip.Success("修改成功");
+            }
+            else
+                MessageTip.Error("修改备注出现错误");
         }
         /// <summary>
         /// 选中用户

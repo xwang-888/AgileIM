@@ -107,21 +107,16 @@ namespace AgileIM.Client.ViewModels
         /// <returns></returns>
         private async Task UpdateUserNote(string? userNote)
         {
-            if (string.IsNullOrEmpty(userNote?.Trim()))
-            {
-                return;
-            }
-            var note = SelectedUserInfo?.UserNote?.Trim();
-            var newNote = userNote.Trim();
-
-            if (note?.Equals(newNote) is true)
-            {
-                return;
-            }
-
+            userNote ??= "";
             var userId = Settings.Default.LoginUser?.Id;
-            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote);
-            SelectedUserInfo.UserNote = resp.Code.Equals(200) ? resp.Data : null;
+            var resp = await _friendService.UpdateUserNote(userId, SelectedUserInfo.Id, userNote.Trim());
+            if (resp.Code.Equals(200))
+            {
+                SelectedUserInfo.UserNote = resp.Data;
+                MessageTip.Success("修改成功");
+            }
+            else
+                MessageTip.Error("修改备注出现错误");
         }
         /// <summary>
         /// 点击新的好友按钮
