@@ -49,7 +49,9 @@ namespace AgileIM.Client.ViewModels
         #region Property
 
         private bool _isLoginExec = true;
+        private bool _isLoading;
         private ObservableCollection<UserInfoDto> _loginUserInfos = new();
+        private UserInfoDto _selectedUserInfo;
 
         public ObservableCollection<UserInfoDto> LoginUserInfos
         {
@@ -57,13 +59,18 @@ namespace AgileIM.Client.ViewModels
             set => SetProperty(ref _loginUserInfos, value);
         }
 
-        private UserInfoDto _selectedUserInfo;
-
         public UserInfoDto SelectedUserInfo
         {
             get => _selectedUserInfo;
             set => SetProperty(ref _selectedUserInfo, value);
         }
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetProperty(ref _isLoading, value);
+        }
+
         #endregion
 
         #region Command
@@ -81,6 +88,7 @@ namespace AgileIM.Client.ViewModels
         private async Task Login()
         {
             _isLoginExec = false;
+            IsLoading = true;
             var user = await _userService.Login(SelectedUserInfo.Account, SelectedUserInfo.Password);
             if (user is not null && user.Code.Equals((int)StatusCode.Success) && user.Data is not null)
             {
@@ -109,7 +117,7 @@ namespace AgileIM.Client.ViewModels
             {
                 MessageTip.Error(user?.Message ?? "连接服务器失败！");
             }
-
+            IsLoading = false;
             _isLoginExec = true;
         }
         /// <summary>

@@ -347,10 +347,11 @@
                                 </Button>
                             </Grid>
                             <Grid Grid.Row="1" Margin="15,-20,15,0">
-                                <ScrollViewer
-                                    Name="PART_ScrollViewer"
+                                <controls:ScrollViewer
+                                    x:Name="PART_ScrollViewer"
                                     FocusVisualStyle="{x:Null}"
                                     HorizontalScrollBarVisibility="Disabled"
+                                    IsInertiaEnabled="True"
                                     VerticalScrollBarVisibility="Auto">
                                     <ItemsControl FocusVisualStyle="{x:Null}" ItemsSource="{TemplateBinding ItemsSource}">
                                         <ItemsControl.ItemTemplate>
@@ -365,7 +366,7 @@
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </ScrollViewer>
+                                </controls:ScrollViewer>
                             </Grid>
                         </Grid>
                     </Grid>

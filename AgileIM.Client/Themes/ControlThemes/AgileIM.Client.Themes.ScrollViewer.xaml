@@ -177,7 +177,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
                     <Grid x:Name="Bg" SnapsToDevicePixels="true">
-                        <Border Background="{TemplateBinding Background}" />
+                        <Border Background="{TemplateBinding Background}" Visibility="Collapsed" />
                         <Track
                             x:Name="PART_Track"
                             IsDirectionReversed="true"

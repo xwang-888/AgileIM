@@ -112,5 +112,23 @@ namespace AgileIM.Client.Controls
             get => (UserInfoDto)GetValue(UserInfoProperty);
             set => SetValue(UserInfoProperty, value);
         }
+
+        public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register(
+            "IsLoading", typeof(bool), typeof(CustomWindow), new PropertyMetadata(default(bool)));
+
+        public bool IsLoading
+        {
+            get => (bool)GetValue(IsLoadingProperty);
+            set => SetValue(IsLoadingProperty, value);
+        }
+
+        public static readonly DependencyProperty LoadingTextProperty = DependencyProperty.Register(
+            "LoadingText", typeof(string), typeof(CustomWindow), new PropertyMetadata("Loading..."));
+
+        public string LoadingText
+        {
+            get => (string)GetValue(LoadingTextProperty);
+            set => SetValue(LoadingTextProperty, value);
+        }
     }
 }

@@ -55,7 +55,7 @@
                             Background="Gray"
                             Opacity=".2" />
                     </Grid>
-                    <ScrollViewer Grid.Row="1">
+                    <controls:ScrollViewer Grid.Row="1" IsInertiaEnabled="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -144,7 +144,6 @@
                                 SelectedItem="{Binding SelectedUserInfo}"
                                 Style="{StaticResource ContactsListBoxStyle}"
                                 Template="{StaticResource NoScrollViewerListBoxControlTemplate}">
-
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Height="60">
@@ -181,7 +180,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </Grid>
-                    </ScrollViewer>
+                    </controls:ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

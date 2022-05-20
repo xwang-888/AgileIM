@@ -224,13 +224,13 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer>
+                        <controls:ScrollViewer IsInertiaEnabled="True">
                             <ItemsPresenter
                                 Margin="{TemplateBinding Padding}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Focusable="False" />
-                        </ScrollViewer>
+                        </controls:ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -290,9 +290,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer>
+                        <controls:ScrollViewer IsInertiaEnabled="True">
                             <ItemsPresenter />
-                        </ScrollViewer>
+                        </controls:ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

@@ -6,6 +6,7 @@
     xmlns:converters="clr-namespace:AgileIM.Client.Converters">
 
     <converters:GenderToIconConverter x:Key="GenderToIconConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <!--#region ICON-->
     <Geometry x:Key="MinIcon">M19,13H5V11H19V13Z</Geometry>
     <Geometry x:Key="MaxIcon">M4,4H20V20H4V4M6,8V18H18V8H6Z</Geometry>
@@ -496,96 +497,130 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:CustomWindow}">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <Grid Margin="{TemplateBinding Padding}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <AdornerDecorator x:Name="content" Grid.Row="1">
-                                <ContentPresenter />
-                            </AdornerDecorator>
-                            <ResizeGrip
-                                x:Name="ResizeGrip"
-                                Grid.Row="1"
-                                Margin="0,0,3,3"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                IsTabStop="False"
-                                Visibility="Collapsed"
-                                WindowChrome.ResizeGripDirection="BottomRight" />
-                            <Grid
-                                Name="ToolBar"
-                                Grid.ColumnSpan="2"
-                                Height="{TemplateBinding CaptionHeight}"
-                                ZIndex="1">
-                                <StackPanel
-                                    Margin="0,1,1,0"
+                    <Grid>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <AdornerDecorator x:Name="content" Grid.Row="1">
+                                    <ContentPresenter />
+                                </AdornerDecorator>
+                                <ResizeGrip
+                                    x:Name="ResizeGrip"
+                                    Grid.Row="1"
+                                    Margin="0,0,3,3"
                                     HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    WindowChrome.IsHitTestVisibleInChrome="True">
-                                    <StackPanel.Resources>
-                                        <Style BasedOn="{StaticResource CustomWindowBtnStyle}" TargetType="Button">
-                                            <Setter Property="Width" Value="{Binding ElementName=ToolBar, Path=Height}" />
-                                            <Setter Property="Height" Value="{Binding ElementName=ToolBar, Path=Height}" />
-                                        </Style>
-                                    </StackPanel.Resources>
-                                    <Button
-                                        x:Name="BtnMin"
-                                        Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
-                                        Foreground="{TemplateBinding Foreground}"
-                                        IsTabStop="False"
-                                        ToolTip="最小化">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource MinIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
-                                    </Button>
-                                    <Button
-                                        x:Name="BtnMaximize"
-                                        Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
-                                        Foreground="{TemplateBinding Foreground}"
-                                        IsTabStop="False"
-                                        ToolTip="最大化">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource MaxIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
-                                    </Button>
-                                    <Button
-                                        x:Name="BtnRestore"
-                                        Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
-                                        Foreground="{TemplateBinding Foreground}"
-                                        IsTabStop="False"
-                                        ToolTip="还原"
-                                        Visibility="Collapsed">
-                                        <Viewbox Width="15" Height="15">
-                                            <Canvas Width="20" Height="20">
-                                                <Path Data="{StaticResource RestoreIcon}" Fill="{TemplateBinding Foreground}" />
-                                            </Canvas>
-                                        </Viewbox>
-                                    </Button>
-                                    <Button
-                                        x:Name="BtnClose"
-                                        Width="{TemplateBinding CaptionHeight}"
-                                        Height="{TemplateBinding CaptionHeight}"
-                                        Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
-                                        Foreground="{TemplateBinding Foreground}"
-                                        IsTabStop="False"
-                                        Style="{StaticResource CustomWindowBtnCloseStyle}"
-                                        ToolTip="关闭" />
+                                    VerticalAlignment="Bottom"
+                                    IsTabStop="False"
+                                    Visibility="Collapsed"
+                                    WindowChrome.ResizeGripDirection="BottomRight" />
+                                <Grid
+                                    Name="ToolBar"
+                                    Grid.ColumnSpan="2"
+                                    Height="{TemplateBinding CaptionHeight}"
+                                    ZIndex="1">
+                                    <StackPanel
+                                        Margin="0,1,1,0"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal"
+                                        WindowChrome.IsHitTestVisibleInChrome="True">
+                                        <StackPanel.Resources>
+                                            <Style BasedOn="{StaticResource CustomWindowBtnStyle}" TargetType="Button">
+                                                <Setter Property="Width" Value="{Binding ElementName=ToolBar, Path=Height}" />
+                                                <Setter Property="Height" Value="{Binding ElementName=ToolBar, Path=Height}" />
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <Button
+                                            x:Name="BtnMin"
+                                            Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            IsTabStop="False"
+                                            ToolTip="最小化">
+                                            <Viewbox Width="15" Height="15">
+                                                <Canvas Width="20" Height="20">
+                                                    <Path Data="{StaticResource MinIcon}" Fill="{TemplateBinding Foreground}" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </Button>
+                                        <Button
+                                            x:Name="BtnMaximize"
+                                            Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            IsTabStop="False"
+                                            ToolTip="最大化">
+                                            <Viewbox Width="15" Height="15">
+                                                <Canvas Width="20" Height="20">
+                                                    <Path Data="{StaticResource MaxIcon}" Fill="{TemplateBinding Foreground}" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </Button>
+                                        <Button
+                                            x:Name="BtnRestore"
+                                            Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            IsTabStop="False"
+                                            ToolTip="还原"
+                                            Visibility="Collapsed">
+                                            <Viewbox Width="15" Height="15">
+                                                <Canvas Width="20" Height="20">
+                                                    <Path Data="{StaticResource RestoreIcon}" Fill="{TemplateBinding Foreground}" />
+                                                </Canvas>
+                                            </Viewbox>
+                                        </Button>
+                                        <Button
+                                            x:Name="BtnClose"
+                                            Width="{TemplateBinding CaptionHeight}"
+                                            Height="{TemplateBinding CaptionHeight}"
+                                            Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            IsTabStop="False"
+                                            Style="{StaticResource CustomWindowBtnCloseStyle}"
+                                            ToolTip="关闭" />
 
-                                </StackPanel>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
+                        </Border>
+                        <Grid Name="Loading" Visibility="{TemplateBinding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid Background="Black" Opacity=".6" />
+                            <Border
+                                MinWidth="100"
+                                MinHeight="60"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{DynamicResource PrimaryCardBrush}"
+                                CornerRadius="5"
+                                Effect="{DynamicResource EffectShadow3}">
+                                <Grid Margin="0,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ProgressBar
+                                        Height="3"
+                                        Margin="10,0"
+                                        BorderThickness="0"
+                                        Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                        IsIndeterminate="True" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="10,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"
+                                        Text="{TemplateBinding LoadingText}" />
 
+                                </Grid>
+                            </Border>
                         </Grid>
-                    </Border>
+                    </Grid>
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="WindowState" Value="Maximized">
