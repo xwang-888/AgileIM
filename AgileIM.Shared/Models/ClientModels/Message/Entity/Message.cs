@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using AgileIM.Shared.Models.Enum;
+
 namespace AgileIM.Shared.Models.ClientModels.Message.Entity
 {
     [Table("Messages")]
@@ -29,9 +31,13 @@ namespace AgileIM.Shared.Models.ClientModels.Message.Entity
         /// </summary>
         public DateTime SendTime { get; set; }
         /// <summary>
-        /// 消息类型
+        /// 消息类型，群聊or单聊
         /// </summary>
         public int Type { get; set; }
+        /// <summary>
+        /// 消息类别 文字，图片，文件等
+        /// </summary>
+        public ChatMsgType ChatMsgType { get; set; }
 
     }
 }

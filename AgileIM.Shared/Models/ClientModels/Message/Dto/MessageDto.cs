@@ -1,4 +1,6 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using AgileIM.Shared.Models.Enum;
+
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace AgileIM.Shared.Models.ClientModels.Message.Dto
 {
@@ -47,6 +49,11 @@ namespace AgileIM.Shared.Models.ClientModels.Message.Dto
         /// 发送时间
         /// </summary>
         public DateTime SendTime { get; set; } = DateTime.Now;
+        /// <summary>
+        /// 消息类型
+        /// </summary>
+        public ChatMsgType ChatMsgType { get; set; }
+
     }
 
 
